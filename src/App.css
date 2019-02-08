@@ -12,11 +12,11 @@ html {
 }
 
 body {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 100vh; */
   color: #30383f;
   font-family: var(--font-family-main);
 }
@@ -25,8 +25,9 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #e1e2e1;
-  height: 568px;
-  width: 320px;
+  height: 100vh;
+  /* height: 568px; */
+  /* width: 320px; */
   font-size: calc(10px + 2vmin);
   color: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
@@ -68,6 +69,18 @@ header h1 {
   font-size: 14px;
 }
 
+.card-item span:first-child {
+  margin-right: 10px;
+}
+
+.cross-task {
+  text-decoration: line-through;
+}
+
+.card-item span {
+  cursor: pointer;
+}
+
 .btn-add-container {
   text-align: right;
   position: relative;
@@ -78,8 +91,8 @@ button {
   justify-content: center;
   align-content: center;
   position: absolute;
-  top: -24px;
-  right: -2px;
+  top: -70px;
+  right: 18px;
   width: 50px;
   height: 50px;
   border: none;
@@ -88,11 +101,27 @@ button {
   outline: none;
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: none;
 }
 
 button span {
   font-size: 32px;
   color: var(--color-white);
+}
+
+form {
+  margin-bottom: 32px !important;
+}
+
+form input {
+  width: 96%;
+  outline: none;
+  border: none;
 }
 
 footer {

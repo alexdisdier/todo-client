@@ -6,7 +6,20 @@ This is a to do list Web Application built with React.
 
 See a live version running this template - https://alexdisdier.github.io/todo-client/
 
+## ✅ Functionalities
+
+- Add a task
+- Cross out a task
+- Delete a task
+
+## 🐛 Functionalities
+
+- If we delete the task crossed out, we crosses out the next task in the list
+
 ## 🚧 Functionalities
+
+- Move the task crossed to the end of the list
+- Make a server side and deploy
 
 ## Directory Structure
 
