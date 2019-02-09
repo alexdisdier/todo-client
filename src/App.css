@@ -25,7 +25,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #e1e2e1;
-  height: 100vh;
+  min-height: 100vh;
   /* height: 568px; */
   /* width: 320px; */
   font-size: calc(10px + 2vmin);

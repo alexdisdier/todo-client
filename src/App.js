@@ -9,7 +9,20 @@ class App extends Component {
   state = {
     appTitle: "To do list",
     input: "",
-    tasks: ["test 1", "test 2", "test 3"],
+    tasks: [
+      {
+        text: "test 1",
+        crossOut: false
+      },
+      {
+        text: "test 2",
+        crossOut: false
+      },
+      {
+        text: "test 3",
+        crossOut: false
+      }
+    ],
     tasksDone: [],
     delete: false
   };
@@ -24,29 +37,40 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const task = this.state.input;
+    const task = {
+      text: this.state.input,
+      crossOut: false
+    };
     const tasks = [...this.state.tasks];
     tasks.push(task);
     this.setState({
+      input: "",
       tasks: tasks
     });
   };
 
-  handleCrossOut = id => {
-    const element = document.getElementById(id);
-    element.classList.toggle("cross-task");
-    if (element.classList.contains("cross-task")) {
-      this.setState({
-        tasksDone: [...this.state.tasksDone, element.innerText]
-      });
+  handleCrossOut = text => {
+    const updateTasks = [...this.state.tasks];
+    for (let i = 0; i < updateTasks.length; i++) {
+      if (updateTasks[i].text === text) {
+        updateTasks[i].crossOut = !updateTasks[i].crossOut;
+      }
     }
+
+    this.setState({
+      tasks: updateTasks
+    });
   };
 
-  handleDelete = id => {
-    const tasks = [...this.state.tasks];
-    tasks.splice(id, 1);
+  handleDelete = text => {
+    const updateTasks = [];
+    for (let i = 0; i < this.state.tasks.length; i++) {
+      if (this.state.tasks[i].text !== text) {
+        updateTasks.push(this.state.tasks[i]);
+      }
+    }
     this.setState({
-      tasks: tasks
+      tasks: updateTasks
     });
   };
 
@@ -59,9 +83,13 @@ class App extends Component {
           <ul className="card">
             {this.state.tasks.map((item, index) => (
               <li key={index} className="card-item">
-                <span onClick={() => this.handleDelete(index)}>X</span>
-                <span id={index} onClick={() => this.handleCrossOut(index)}>
-                  {item}
+                <span onClick={() => this.handleDelete(item.text)}>X</span>
+                <span
+                  id={index}
+                  className={item.crossOut ? "cross-task" : ""}
+                  onClick={() => this.handleCrossOut(item.text)}
+                >
+                  {item.text}
                 </span>
               </li>
             ))}
