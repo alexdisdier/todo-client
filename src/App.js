@@ -1,31 +1,53 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./assets/css/reset.css";
 import "./App.css";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Item from "./components/Item/Item";
+import Input from "./components/Input/Input";
+import Button from "./components/Button/Button";
 
 class App extends Component {
   state = {
     appTitle: "To do list",
     input: "",
     tasks: [
-      {
-        text: "test 1",
-        crossOut: false
-      },
-      {
-        text: "test 2",
-        crossOut: false
-      },
-      {
-        text: "test 3",
-        crossOut: false
-      }
-    ],
-    tasksDone: [],
-    delete: false
+      // {
+      //   title: "test 1",
+      //   crossOut: false
+      // },
+      // {
+      //   title: "test 2",
+      //   crossOut: false
+      // },
+      // {
+      //   title: "test 3",
+      //   crossOut: false
+      // }
+    ]
   };
+
+  // Axios
+  buildTasks = () => {
+    axios
+      .get(`https://todo-server-alex.herokuapp.com/read`, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => {
+        const tasks = res.data;
+        this.setState({ tasks });
+      });
+  };
+
+  deleteTasks = () => {};
+
+  componentDidMount() {
+    this.buildTasks();
+  }
 
   handleChange = event => {
     const name = event.target.name;
@@ -38,40 +60,56 @@ class App extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const task = {
-      text: this.state.input,
-      crossOut: false
+      title: this.state.input
+      // crossOut: false
     };
-    const tasks = [...this.state.tasks];
-    tasks.push(task);
+    // const tasks = [...this.state.tasks, task];
+
     this.setState({
-      input: "",
-      tasks: tasks
+      input: ""
+      // tasks: tasks
     });
+
+    axios
+      .post(`https://todo-server-alex.herokuapp.com/create`, task, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => {
+        this.buildTasks();
+      });
   };
 
-  handleCrossOut = text => {
+  handleCrossOut = index => {
     const updateTasks = [...this.state.tasks];
-    for (let i = 0; i < updateTasks.length; i++) {
-      if (updateTasks[i].text === text) {
-        updateTasks[i].crossOut = !updateTasks[i].crossOut;
-      }
-    }
+    updateTasks[index].crossOut = !updateTasks[index].crossOut;
 
     this.setState({
       tasks: updateTasks
     });
   };
 
-  handleDelete = text => {
-    const updateTasks = [];
-    for (let i = 0; i < this.state.tasks.length; i++) {
-      if (this.state.tasks[i].text !== text) {
-        updateTasks.push(this.state.tasks[i]);
-      }
-    }
-    this.setState({
-      tasks: updateTasks
-    });
+  handleDelete = index => {
+    // const updateTasks = [];
+    // for (let i = 0; i < this.state.tasks.length; i++) {
+    //   if (i !== index) {
+    //     updateTasks.push(this.state.tasks[i]);
+    //   }
+    // }
+    // this.setState({
+    //   tasks: updateTasks
+    // });
+    const id = this.state.tasks[index]._id;
+    axios
+      .post(`https://todo-server-alex.herokuapp.com/delete?id=${id}`, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => {
+        this.buildTasks();
+      });
   };
 
   render() {
@@ -82,33 +120,26 @@ class App extends Component {
         <div className="card-container wrapper">
           <ul className="card">
             {this.state.tasks.map((item, index) => (
-              <li key={index} className="card-item">
-                <span onClick={() => this.handleDelete(item.text)}>X</span>
-                <span
-                  id={index}
-                  className={item.crossOut ? "cross-task" : ""}
-                  onClick={() => this.handleCrossOut(item.text)}
-                >
-                  {item.text}
-                </span>
-              </li>
+              <Item
+                key={index}
+                handleDelete={this.handleDelete}
+                handleCrossOut={this.handleCrossOut}
+                title={item.title}
+                index={index}
+                crossOut={item.crossOut}
+              />
             ))}
           </ul>
         </div>
 
         <form className="wrapper" onSubmit={this.handleSubmit}>
-          <input
-            className="card-item"
-            placeholder="type some text here"
-            type="text"
+          <Input
             name="input"
             value={this.state.input}
-            onChange={this.handleChange}
+            handleChange={this.handleChange}
           />
           <div className="btn-add-container">
-            <button className="btn-add" value="submit">
-              <span>+</span>
-            </button>
+            <Button />
           </div>
         </form>
 
@@ -119,19 +150,3 @@ class App extends Component {
 }
 
 export default App;
-
-// handleCrossOut = id => {
-//   const tasks = [...this.state.tasks];
-//   const element = document.getElementById(id);
-//   const innerEle = element.innerText;
-//   let endArr = "";
-//   element.classList.toggle("cross-task");
-//   if (element.classList.contains("cross-task")) {
-//     if (tasks.includes(innerEle)) {
-//       endArr = tasks.splice(tasks.indexOf(innerEle), 1).join("");
-//       this.setState({
-//         tasks: [...tasks, endArr]
-//       });
-//     }
-//   }
-// };

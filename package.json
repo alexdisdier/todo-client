@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://alexdisdier.github.io/todo-client/",
   "dependencies": {
+    "axios": "^0.18.0",
     "gh-pages": "^2.0.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",

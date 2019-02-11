@@ -1,0 +1,23 @@
+/* Card shadows source: https://codepen.io/sdthornton/pen/wBZdXq */
+.card-item {
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 16px;
+  background-color: var(--color-white);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+  color: var(--color-gray);
+  font-size: 14px;
+}
+
+.card-item span:first-child {
+  margin-right: 10px;
+}
+
+.cross-task {
+  text-decoration: line-through;
+}
+
+.card-item span {
+  cursor: pointer;
+}

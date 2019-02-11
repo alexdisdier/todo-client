@@ -1,0 +1,27 @@
+button {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  top: -70px;
+  right: 18px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-gray-dark);
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: none;
+}
+
+button span {
+  font-size: 32px;
+  color: var(--color-white);
+}

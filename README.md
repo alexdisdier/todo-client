@@ -11,12 +11,11 @@ See a live version running this template - https://alexdisdier.github.io/todo-cl
 - Add a task
 - Cross out a task
 - Delete a task
+- Saved to a database (mLab) via Heroku
 
 ## 🚧 Functionalities
 
 - Move the task crossed to the end of the list
-- Make an item component
-- Make a server side and deploy
 
 ## Directory Structure
 
@@ -28,6 +27,15 @@ todo-client
 │   ├── assets
 │   │   ├── css
 │   ├── components
+│   │   ├── Button
+│   │   │   ├── Button.css
+│   │   │   └── Button.js
+│   │   ├── Input
+│   │   │   ├── Input.css
+│   │   │   └── Input.js
+│   │   ├── Item
+│   │   │   ├── Item.css
+│   │   │   └── Item.js
 │   │   ├── Footer
 │   │   └── Header
 │   ├── App.css
