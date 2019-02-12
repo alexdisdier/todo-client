@@ -55,10 +55,6 @@ header h1 {
   justify-content: center;
 }
 
-form {
-  margin-bottom: 32px !important;
-}
-
 footer {
   height: var(--height-header);
   background-color: var(--color-yellow-light);

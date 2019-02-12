@@ -2,6 +2,8 @@
 
 This is a to do list Web Application built with React.
 
+![screenshot of the todo client Web App](/screenshot.jpg?raw=true "screenshot of the the todo client Web App")
+
 ## Usage example
 
 See a live version running this template - https://alexdisdier.github.io/todo-client/
