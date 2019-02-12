@@ -28,7 +28,7 @@ body {
 
 .wrapper {
   margin: 0 auto;
-  width: 80%;
+  width: 90%;
 }
 
 header {
@@ -51,8 +51,8 @@ header h1 {
 }
 
 .btn-add-container {
-  text-align: right;
-  position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 form {
@@ -62,4 +62,10 @@ form {
 footer {
   height: var(--height-header);
   background-color: var(--color-yellow-light);
+}
+
+@media only screen and (min-width: 769px) {
+  .wrapper {
+    width: 60%;
+  }
 }

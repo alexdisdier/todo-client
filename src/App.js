@@ -132,16 +132,18 @@ class App extends Component {
           </ul>
         </div>
 
-        <form className="wrapper" onSubmit={this.handleSubmit}>
-          <Input
-            name="input"
-            value={this.state.input}
-            handleChange={this.handleChange}
-          />
-          <div className="btn-add-container">
-            <Button />
-          </div>
-        </form>
+        <div className="wrapper">
+          <form className="card" onSubmit={this.handleSubmit}>
+            <Input
+              name="input"
+              value={this.state.input}
+              handleChange={this.handleChange}
+            />
+            <div className="btn-add-container">
+              <Button />
+            </div>
+          </form>
+        </div>
 
         <Footer />
       </div>

@@ -1,5 +1,6 @@
 /* Card shadows source: https://codepen.io/sdthornton/pen/wBZdXq */
 .card-item {
+  width: 90%;
   height: 40px;
   margin-bottom: 10px;
   padding: 16px;
