@@ -129,7 +129,6 @@ class App extends Component {
 
   onDragOver = event => {
     event.preventDefault();
-    // console.log("dragging over");
   };
 
   onDrop = async (event, index) => {
