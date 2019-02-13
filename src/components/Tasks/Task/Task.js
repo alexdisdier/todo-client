@@ -1,14 +1,14 @@
 import React from "react";
 
-import "./Item.css";
+import "./Task.css";
 
-const item = props => {
+const task = props => {
   return (
     <>
-      <li className="card-item">
+      <li className="card-task">
         <span onClick={() => props.handleDelete(props.index)}>X</span>
         <span
-          className={props.crossOut ? "cross-task" : ""}
+          className={props.isDone ? "cross-task" : ""}
           onClick={() => props.handleCrossOut(props.index)}
         >
           {props.title}
@@ -18,4 +18,4 @@ const item = props => {
   );
 };
 
-export default item;
+export default task;

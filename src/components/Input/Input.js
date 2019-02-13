@@ -3,7 +3,7 @@ import "./Input.css";
 
 const input = props => (
   <input
-    className="card-item"
+    className="card-task"
     placeholder="type some text here"
     type="text"
     name={props.name}

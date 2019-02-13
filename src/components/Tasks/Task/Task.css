@@ -1,5 +1,5 @@
 /* Card shadows source: https://codepen.io/sdthornton/pen/wBZdXq */
-.card-item {
+.card-task {
   width: 90%;
   height: 40px;
   margin-bottom: 10px;
@@ -11,7 +11,7 @@
   font-size: 14px;
 }
 
-.card-item span:first-child {
+.card-task span:first-child {
   margin-right: 10px;
 }
 
@@ -19,6 +19,6 @@
   text-decoration: line-through;
 }
 
-.card-item span {
+.card-task span {
   cursor: pointer;
 }

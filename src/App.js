@@ -4,49 +4,57 @@ import "./assets/css/reset.css";
 import "./App.css";
 
 import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Item from "./components/Item/Item";
+import Tasks from "./components/Tasks/Tasks";
 import Input from "./components/Input/Input";
 import Button from "./components/Button/Button";
+import Footer from "./components/Footer";
+
+import Loading from "./components/Loading/Loading";
+import Error from "./components/Error/Error";
 
 class App extends Component {
   state = {
     appTitle: "To do list",
     input: "",
-    tasks: [
-      // {
-      //   title: "test 1",
-      //   crossOut: false
-      // },
-      // {
-      //   title: "test 2",
-      //   crossOut: false
-      // },
-      // {
-      //   title: "test 3",
-      //   crossOut: false
-      // }
-    ]
+    tasks: [],
+    isLoading: true,
+    error: null
   };
+
+  renderError() {
+    if (this.state.error !== null) {
+      return <Error error={this.state.error} />;
+    } else {
+      return null;
+    }
+  }
 
   // Axios
-  buildTasks = () => {
-    axios
-      .get(`https://todo-server-alex.herokuapp.com/read`, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(res => {
-        const tasks = res.data;
-        this.setState({ tasks });
+  buildTasks = async () => {
+    try {
+      await axios
+        .get(`https://todo-server-alex.herokuapp.com/read`, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(res => {
+          const tasks = res.data;
+          this.setState({
+            tasks,
+            isLoading: false
+          });
+        });
+    } catch (error) {
+      this.setState({
+        error: "An error occurred"
       });
+    }
   };
 
-  deleteTasks = () => {};
-
-  componentDidMount() {
-    this.buildTasks();
+  async componentDidMount() {
+    const response = await this.buildTasks();
+    return response;
   }
 
   handleChange = event => {
@@ -61,13 +69,10 @@ class App extends Component {
     event.preventDefault();
     const task = {
       title: this.state.input
-      // crossOut: false
     };
-    // const tasks = [...this.state.tasks, task];
 
     this.setState({
       input: ""
-      // tasks: tasks
     });
 
     axios
@@ -82,24 +87,19 @@ class App extends Component {
   };
 
   handleCrossOut = index => {
-    const updateTasks = [...this.state.tasks];
-    updateTasks[index].crossOut = !updateTasks[index].crossOut;
-
-    this.setState({
-      tasks: updateTasks
-    });
+    const id = this.state.tasks[index]._id;
+    axios
+      .post(`https://todo-server-alex.herokuapp.com/update?id=${id}`, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => {
+        this.buildTasks();
+      });
   };
 
   handleDelete = index => {
-    // const updateTasks = [];
-    // for (let i = 0; i < this.state.tasks.length; i++) {
-    //   if (i !== index) {
-    //     updateTasks.push(this.state.tasks[i]);
-    //   }
-    // }
-    // this.setState({
-    //   tasks: updateTasks
-    // });
     const id = this.state.tasks[index]._id;
     axios
       .post(`https://todo-server-alex.herokuapp.com/delete?id=${id}`, {
@@ -112,25 +112,30 @@ class App extends Component {
       });
   };
 
+  renderTasks() {
+    if (!this.state.isLoading && this.state.error === null) {
+      return (
+        <Tasks
+          tasks={this.state.tasks}
+          handleCrossOut={this.handleCrossOut}
+          handleDelete={this.handleDelete}
+        />
+      );
+    } else if (this.state.isLoading && this.state.error === null) {
+      return <Loading />;
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <div className="App">
         <Header title={this.state.appTitle} />
 
-        <div className="card-container wrapper">
-          <ul className="card">
-            {this.state.tasks.map((item, index) => (
-              <Item
-                key={index}
-                handleDelete={this.handleDelete}
-                handleCrossOut={this.handleCrossOut}
-                title={item.title}
-                index={index}
-                crossOut={item.crossOut}
-              />
-            ))}
-          </ul>
-        </div>
+        {this.renderError()}
+
+        <div className="card-container wrapper">{this.renderTasks()}</div>
 
         <div className="wrapper">
           <form className="card" onSubmit={this.handleSubmit}>

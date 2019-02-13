@@ -1,0 +1,16 @@
+.center-page {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader img {
+  width: 200px;
+}
+
+.loader svg path,
+.loader svg rect {
+  fill: #fff;
+}
