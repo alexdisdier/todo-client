@@ -18,7 +18,9 @@ class App extends Component {
     input: "",
     tasks: [],
     isLoading: true,
-    error: null
+    error: null,
+    onDragIndex: 0,
+    onDropIndex: 0
   };
 
   renderError() {
@@ -32,19 +34,25 @@ class App extends Component {
   // Axios
   buildTasks = async () => {
     try {
-      await axios
-        .get(`https://todo-server-alex.herokuapp.com/read`, {
+      const response = await axios.get(
+        `https://todo-server-alex.herokuapp.com/read`,
+        {
           headers: {
             "Content-Type": "application/json"
           }
-        })
-        .then(res => {
-          const tasks = res.data;
-          this.setState({
-            tasks,
-            isLoading: false
-          });
-        });
+        }
+      );
+      const tasks = response.data;
+
+      // Sort array of objects by a boolean property source: https://code.i-harness.com/en/q/1094fab
+      tasks.sort(function(task, nextTask) {
+        return task.isDone - nextTask.isDone;
+      });
+
+      this.setState({
+        tasks,
+        isLoading: false
+      });
     } catch (error) {
       this.setState({
         error: "An error occurred"
@@ -112,16 +120,50 @@ class App extends Component {
       });
   };
 
+  onDrag = (event, index) => {
+    event.preventDefault();
+    this.setState({
+      onDragIndex: index
+    });
+  };
+
+  onDragOver = event => {
+    event.preventDefault();
+    // console.log("dragging over");
+  };
+
+  onDrop = async (event, index) => {
+    let newArr = [...this.state.tasks];
+    const itemDragged = newArr.splice(this.state.onDragIndex, 1);
+
+    this.setState(
+      {
+        onDropIndex: index
+      },
+      () => {
+        newArr.splice(this.state.onDropIndex, 0, itemDragged[0]);
+        this.setState({
+          tasks: newArr
+        });
+      }
+    );
+  };
+
   renderTasks() {
-    if (!this.state.isLoading && this.state.error === null) {
+    const { isLoading, error, tasks, draggedTask } = this.state;
+
+    if (!isLoading && error === null) {
       return (
         <Tasks
-          tasks={this.state.tasks}
+          tasks={tasks}
           handleCrossOut={this.handleCrossOut}
           handleDelete={this.handleDelete}
+          draggedTask={draggedTask}
+          onDrag={this.onDrag}
+          onDrop={this.onDrop}
         />
       );
-    } else if (this.state.isLoading && this.state.error === null) {
+    } else if (isLoading && error === null) {
       return <Loading />;
     } else {
       return null;
@@ -129,19 +171,28 @@ class App extends Component {
   }
 
   render() {
+    const { appTitle, input } = this.state;
+    const lastIndex = this.state.tasks.length;
+
     return (
       <div className="App">
-        <Header title={this.state.appTitle} />
+        <Header title={appTitle} />
 
         {this.renderError()}
 
-        <div className="card-container wrapper">{this.renderTasks()}</div>
+        <div
+          className="card-container wrapper done"
+          onDragOver={event => this.onDragOver(event)}
+          onDrop={event => this.onDrop(event, lastIndex)}
+        >
+          {this.renderTasks()}
+        </div>
 
         <div className="wrapper">
           <form className="card" onSubmit={this.handleSubmit}>
             <Input
               name="input"
-              value={this.state.input}
+              value={input}
               handleChange={this.handleChange}
             />
             <div className="btn-add-container">

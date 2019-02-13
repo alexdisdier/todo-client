@@ -2,17 +2,25 @@ import React from "react";
 
 import Task from "./Task/Task";
 
+import "./Tasks.css";
+
 const tasks = props => {
+  const { handleDelete, handleCrossOut, draggedTask, onDrag, onDrop } = props;
+
   return (
     <ul className="card">
       {props.tasks.map((task, index) => (
         <Task
           key={index}
-          handleDelete={props.handleDelete}
-          handleCrossOut={props.handleCrossOut}
+          handleDelete={handleDelete}
+          handleCrossOut={handleCrossOut}
+          onDrag={onDrag}
+          onDrop={onDrop}
           title={task.title}
           index={index}
           isDone={task.isDone}
+          draggedTask={draggedTask}
+          task={task}
         />
       ))}
     </ul>

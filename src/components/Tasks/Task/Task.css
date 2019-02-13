@@ -11,6 +11,10 @@
   font-size: 14px;
 }
 
+.card-task:hover {
+  cursor: pointer;
+}
+
 .card-task span:first-child {
   margin-right: 10px;
 }

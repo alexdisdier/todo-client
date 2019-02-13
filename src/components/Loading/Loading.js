@@ -6,7 +6,7 @@ import "./Loading.css";
 
 const loading = () => {
   return (
-    <div class="loader center-page loader--style1" title="0">
+    <div className="loader center-page loader--style1" title="0">
       <img src={image} alt="loading gif" />
     </div>
   );
