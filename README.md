@@ -29,9 +29,19 @@ todo-client
 │   │   ├── Button
 │   │   │   ├── Button.css
 │   │   │   └── Button.js
+│   │   ├── Error
+│   │   │   ├── Error.css
+│   │   │   └── Error.js
 │   │   ├── Input
 │   │   │   ├── Input.css
 │   │   │   └── Input.js
+│   │   ├── Loading
+│   │   │   ├── Loading.css
+│   │   │   └── Loading.js
+│   │   ├── Tasks
+│   │   │   ├── Task
+│   │   │   │   ├── Task
+│   │   │   └── Tasks.js
 │   │   ├── Item
 │   │   │   ├── Item.css
 │   │   │   └── Item.js

@@ -25,7 +25,8 @@ const tasks = props => {
         />
       ))}
       <li
-        className="last-index card-task"
+        id="last-index"
+        className="card-task"
         onDrop={event => onDrop(event, lastIndex)}
       >
         <span> </span>

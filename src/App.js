@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+
 import "./assets/css/reset.css";
 import "./App.css";
 
@@ -48,6 +49,7 @@ class App extends Component {
       tasks.sort(function(task, nextTask) {
         return task.isDone - nextTask.isDone;
       });
+      // tasks.sort((task, nextTask) => task.isDone - nextTask.isDone);
 
       this.setState({
         tasks,
