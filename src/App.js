@@ -135,17 +135,14 @@ class App extends Component {
     let newArr = [...this.state.tasks];
     const itemDragged = newArr.splice(this.state.onDragIndex, 1);
 
-    this.setState(
-      {
-        onDropIndex: index
-      },
-      () => {
-        newArr.splice(this.state.onDropIndex, 0, itemDragged[0]);
-        this.setState({
-          tasks: newArr
-        });
-      }
-    );
+    await this.setState({
+      onDropIndex: index
+    });
+
+    newArr.splice(this.state.onDropIndex, 0, itemDragged[0]);
+    this.setState({
+      tasks: newArr
+    });
   };
 
   renderTasks() {
@@ -171,7 +168,6 @@ class App extends Component {
 
   render() {
     const { appTitle, input } = this.state;
-    const lastIndex = this.state.tasks.length;
 
     return (
       <div className="App">
@@ -182,7 +178,6 @@ class App extends Component {
         <div
           className="card-container wrapper done"
           onDragOver={event => this.onDragOver(event)}
-          onDrop={event => this.onDrop(event, lastIndex)}
         >
           {this.renderTasks()}
         </div>

@@ -6,6 +6,7 @@ import "./Tasks.css";
 
 const tasks = props => {
   const { handleDelete, handleCrossOut, draggedTask, onDrag, onDrop } = props;
+  const lastIndex = props.tasks.length;
 
   return (
     <ul className="card">
@@ -23,6 +24,12 @@ const tasks = props => {
           task={task}
         />
       ))}
+      <li
+        className="last-index card-task"
+        onDrop={event => onDrop(event, lastIndex)}
+      >
+        <span> </span>
+      </li>
     </ul>
   );
 };
