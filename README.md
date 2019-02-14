@@ -11,10 +11,15 @@ See a live version running this template - https://alexdisdier.github.io/todo-cl
 ## ✅ Functionalities
 
 - Add a task
-- Cross out a task
-- Move the task crossed to the end of the list
+- Cross out a task which goes automatically at the end of the list
+- Drag and drop client side.
 - Delete a task
 - Saved to a database (mLab) via Heroku
+
+## 🚧 Functionalities
+
+- Not being able to drag and drop crossed out tasks.
+- Drag and drop server side.
 
 ## Directory Structure
 

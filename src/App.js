@@ -13,6 +13,10 @@ import Footer from "./components/Footer";
 import Loading from "./components/Loading/Loading";
 import Error from "./components/Error/Error";
 
+// local: "http://localhost:3001"
+// server: "https://todo-server-alex.herokuapp.com"
+const domain = "http://localhost:3001";
+
 class App extends Component {
   state = {
     appTitle: "To do list",
@@ -20,36 +24,22 @@ class App extends Component {
     tasks: [],
     isLoading: true,
     error: null,
+    pos: null,
     onDragIndex: 0,
     onDropIndex: 0
   };
 
-  renderError() {
-    if (this.state.error !== null) {
-      return <Error error={this.state.error} />;
-    } else {
-      return null;
-    }
-  }
-
-  // Axios
   buildTasks = async () => {
     try {
-      const response = await axios.get(
-        `https://todo-server-alex.herokuapp.com/read`,
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
+      const response = await axios.get(`${domain}/read`, {
+        headers: {
+          "Content-Type": "application/json"
         }
-      );
+      });
       const tasks = response.data;
 
       // Sort array of objects by a boolean property source: https://code.i-harness.com/en/q/1094fab
-      tasks.sort(function(task, nextTask) {
-        return task.isDone - nextTask.isDone;
-      });
-      // tasks.sort((task, nextTask) => task.isDone - nextTask.isDone);
+      tasks.sort((task, nextTask) => task.isDone - nextTask.isDone);
 
       this.setState({
         tasks,
@@ -77,8 +67,10 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const lastIndex = this.state.tasks.length;
     const task = {
-      title: this.state.input
+      title: this.state.input,
+      pos: lastIndex + 1
     };
 
     this.setState({
@@ -86,7 +78,7 @@ class App extends Component {
     });
 
     axios
-      .post(`https://todo-server-alex.herokuapp.com/create`, task, {
+      .post(`${domain}/create`, task, {
         headers: {
           "Content-Type": "application/json"
         }
@@ -99,7 +91,7 @@ class App extends Component {
   handleCrossOut = index => {
     const id = this.state.tasks[index]._id;
     axios
-      .post(`https://todo-server-alex.herokuapp.com/update?id=${id}`, {
+      .post(`${domain}/update?id=${id}`, {
         headers: {
           "Content-Type": "application/json"
         }
@@ -112,7 +104,7 @@ class App extends Component {
   handleDelete = index => {
     const id = this.state.tasks[index]._id;
     axios
-      .post(`https://todo-server-alex.herokuapp.com/delete?id=${id}`, {
+      .post(`${domain}/delete?id=${id}`, {
         headers: {
           "Content-Type": "application/json"
         }
@@ -135,6 +127,12 @@ class App extends Component {
 
   onDrop = async (event, index) => {
     let newArr = [...this.state.tasks];
+
+    // Working on not being able to dragAndDrop the isDone tasks
+    // if (!newArr[index].isDone && index !== newArr.length) {
+    //   return null;
+    // }
+
     const itemDragged = newArr.splice(this.state.onDragIndex, 1);
 
     await this.setState({
@@ -146,6 +144,14 @@ class App extends Component {
       tasks: newArr
     });
   };
+
+  renderError() {
+    if (this.state.error !== null) {
+      return <Error error={this.state.error} />;
+    } else {
+      return null;
+    }
+  }
 
   renderTasks() {
     const { isLoading, error, tasks, draggedTask } = this.state;
