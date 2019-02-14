@@ -12,12 +12,9 @@ See a live version running this template - https://alexdisdier.github.io/todo-cl
 
 - Add a task
 - Cross out a task
+- Move the task crossed to the end of the list
 - Delete a task
 - Saved to a database (mLab) via Heroku
-
-## 🚧 Functionalities
-
-- Move the task crossed to the end of the list
 
 ## Directory Structure
 
