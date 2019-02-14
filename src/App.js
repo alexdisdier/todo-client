@@ -13,9 +13,9 @@ import Footer from "./components/Footer";
 import Loading from "./components/Loading/Loading";
 import Error from "./components/Error/Error";
 
-// local: "http://localhost:3001"
-// server: "https://todo-server-alex.herokuapp.com"
-const domain = "http://localhost:3001";
+const local = "http://localhost:3001";
+const server = "https://todo-server-alex.herokuapp.com";
+const domain = server;
 
 class App extends Component {
   state = {
