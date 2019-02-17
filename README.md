@@ -6,7 +6,7 @@ This is a to do list Web Application built with React.
 
 ## Usage example
 
-See a live version running this template - https://alexdisdier.github.io/todo-client/
+See demo - https://alexdisdier.github.io/todo-client/
 
 ## ✅ Functionalities
 
@@ -15,11 +15,13 @@ See a live version running this template - https://alexdisdier.github.io/todo-cl
 - Drag and drop client side.
 - Delete a task
 - Saved to a database (mLab) via Heroku
+- Loading and error component
 
 ## 🚧 Functionalities
 
-- Not being able to drag and drop crossed out tasks.
+- Being able to drag and drop crossed out tasks.
 - Drag and drop server side.
+- Add a user log in page.
 
 ## Directory Structure
 
@@ -32,24 +34,12 @@ todo-client
 │   │   ├── css
 │   ├── components
 │   │   ├── Button
-│   │   │   ├── Button.css
-│   │   │   └── Button.js
 │   │   ├── Error
-│   │   │   ├── Error.css
-│   │   │   └── Error.js
 │   │   ├── Input
-│   │   │   ├── Input.css
-│   │   │   └── Input.js
 │   │   ├── Loading
-│   │   │   ├── Loading.css
-│   │   │   └── Loading.js
 │   │   ├── Tasks
 │   │   │   ├── Task
-│   │   │   │   ├── Task
-│   │   │   └── Tasks.js
 │   │   ├── Item
-│   │   │   ├── Item.css
-│   │   │   └── Item.js
 │   │   ├── Footer
 │   │   └── Header
 │   ├── App.css
@@ -95,8 +85,12 @@ npm run build
 - [React.js](https://reactjs.org/docs/hello-world.html)
 - [Create React App](https://facebook.github.io/create-react-app/docs/getting-started)
 
+## Dependencies
+
+- [axios](https://www.npmjs.com/package/axios)
+
 ## Acknowledgments
 
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-- This was developped white attending a FullStack Developer Bootcamp [@Le Reacteur](https://www.lereacteur.io)
 - Deploy React to github pages [codeburst](https://codeburst.io/deploy-react-to-github-pages-to-create-an-amazing-website-42d8b09cd4d)
+- I used a headstart dragAndDrop tutorial by Temitope Emmanuel [Medium](https://medium.com/the-andela-way/react-drag-and-drop-7411d14894b9)
