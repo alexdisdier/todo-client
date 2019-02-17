@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/todo-client/static/css/main.946464a0.chunk.css"
   },
   {
-    "revision": "d39d5c01e7c5cff7e44c170374ffd116",
+    "revision": "b0fe50e8ef27b8ef7650501d0973cdba",
     "url": "/todo-client/index.html"
   }
 ];
