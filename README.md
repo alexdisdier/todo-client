@@ -1,6 +1,6 @@
 <p align="center" >
-   <a href="https://reactnative.gallery/FaridSafi/gifted-chat">
-    <img alt="react-native-gifted-chat" src="https://res.cloudinary.com/dvrkxmxkw/image/upload/v1552160814/github-screenshot-gif/todo-list.gif" width="342" height="527" />
+   <a href="https://alexdisdier.github.io/todo-client/">
+    <img alt="todo list alex disdier" src="https://res.cloudinary.com/dvrkxmxkw/image/upload/v1552160814/github-screenshot-gif/todo-list.gif" width="342" height="527" />
  </a>
 
 </p>
