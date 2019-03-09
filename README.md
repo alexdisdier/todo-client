@@ -1,8 +1,13 @@
+<p align="center" >
+   <a href="https://reactnative.gallery/FaridSafi/gifted-chat">
+    <img alt="react-native-gifted-chat" src="https://res.cloudinary.com/dvrkxmxkw/image/upload/v1552160814/github-screenshot-gif/todo-list.gif" width="342" height="527" />
+ </a>
+
+</p>
+
 # Synopsis
 
 This is a to do list Web Application built with React.
-
-![screenshot of the todo client Web App](/screenshot.jpg?raw=true "screenshot of the the todo client Web App")
 
 ## Usage example
 
@@ -87,4 +92,4 @@ npm run build
 
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 - Deploy React to github pages [codeburst](https://codeburst.io/deploy-react-to-github-pages-to-create-an-amazing-website-42d8b09cd4d)
-- I used a headstart dragAndDrop tutorial by Temitope Emmanuel [Medium](https://medium.com/the-andela-way/react-drag-and-drop-7411d14894b9)
+- I used a headstart dragAndDrop tutorial by _Temitope Emmanuel_ [Medium](https://medium.com/the-andela-way/react-drag-and-drop-7411d14894b9)
