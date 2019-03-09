@@ -17,12 +17,6 @@ See demo - https://alexdisdier.github.io/todo-client/
 - Saved to a database (mLab) via Heroku
 - Loading and error component
 
-## 🚧 Functionalities
-
-- Being able to drag and drop crossed out tasks.
-- Drag and drop server side.
-- Add a user log in page.
-
 ## Directory Structure
 
 ```bash
@@ -62,7 +56,7 @@ Clone this repository :
 ```bash
 git clone https://github.com/alexdisdier/todo-client.git
 
-cd to-do-list
+cd todo-client
 ```
 
 Start the server:

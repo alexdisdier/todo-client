@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import domain from "./assets/domain";
 
 import "./assets/css/reset.css";
 import "./App.css";
@@ -12,10 +13,6 @@ import Footer from "./components/Footer";
 
 import Loading from "./components/Loading/Loading";
 import Error from "./components/Error/Error";
-
-const local = "http://localhost:3001";
-const server = "https://todo-server-alex.herokuapp.com";
-const domain = server;
 
 class App extends Component {
   state = {
@@ -127,11 +124,6 @@ class App extends Component {
 
   onDrop = async (event, index) => {
     let newArr = [...this.state.tasks];
-
-    // Working on not being able to dragAndDrop the isDone tasks
-    // if (!newArr[index].isDone && index !== newArr.length) {
-    //   return null;
-    // }
 
     const itemDragged = newArr.splice(this.state.onDragIndex, 1);
 
