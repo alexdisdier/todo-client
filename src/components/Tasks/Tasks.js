@@ -1,6 +1,7 @@
 import React from "react";
 
 import Task from "./Task/Task";
+import LoaderHOC from "../../HOC/LoaderHOC";
 
 import "./Tasks.css";
 
@@ -35,4 +36,4 @@ const tasks = props => {
   );
 };
 
-export default tasks;
+export default LoaderHOC(tasks);

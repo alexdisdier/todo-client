@@ -11,7 +11,6 @@ import Input from "./components/Input/Input";
 import Button from "./components/Button/Button";
 import Footer from "./components/Footer";
 
-import Loading from "./components/Loading/Loading";
 import Error from "./components/Error/Error";
 
 class App extends Component {
@@ -19,7 +18,6 @@ class App extends Component {
     appTitle: "To do list",
     input: "",
     tasks: [],
-    isLoading: true,
     error: null,
     pos: null,
     onDragIndex: 0,
@@ -39,8 +37,7 @@ class App extends Component {
       tasks.sort((task, nextTask) => task.isDone - nextTask.isDone);
 
       this.setState({
-        tasks,
-        isLoading: false
+        tasks
       });
     } catch (error) {
       this.setState({
@@ -146,24 +143,18 @@ class App extends Component {
   }
 
   renderTasks() {
-    const { isLoading, error, tasks, draggedTask } = this.state;
+    const { tasks, draggedTask } = this.state;
 
-    if (!isLoading && error === null) {
-      return (
-        <Tasks
-          tasks={tasks}
-          handleCrossOut={this.handleCrossOut}
-          handleDelete={this.handleDelete}
-          draggedTask={draggedTask}
-          onDrag={this.onDrag}
-          onDrop={this.onDrop}
-        />
-      );
-    } else if (isLoading && error === null) {
-      return <Loading />;
-    } else {
-      return null;
-    }
+    return (
+      <Tasks
+        tasks={tasks}
+        handleCrossOut={this.handleCrossOut}
+        handleDelete={this.handleDelete}
+        draggedTask={draggedTask}
+        onDrag={this.onDrag}
+        onDrop={this.onDrop}
+      />
+    );
   }
 
   render() {
