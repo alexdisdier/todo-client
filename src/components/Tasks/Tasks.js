@@ -36,4 +36,5 @@ const tasks = props => {
   );
 };
 
-export default LoaderHOC(tasks);
+// Currying HOC function where we can pass the props name we need to manipulate.
+export default LoaderHOC("tasks")(tasks);

@@ -8,10 +8,16 @@ import React from "react";
 import image from "../assets/img/loading.svg";
 import "./LoaderHOC.css";
 
-const LoaderHOC = WrappedComponent => {
+const isEmpty = prop =>
+  prop === null ||
+  prop === undefined ||
+  (prop.hasOwnProperty("length") && prop.length === 0) ||
+  (prop.contructor === Object && Object.keys(prop).length === 0);
+
+const LoaderHOC = propName => WrappedComponent => {
   return class LoaderHOC extends React.Component {
     render() {
-      if (this.props.tasks.length === 0) {
+      if (isEmpty(this.props[propName])) {
         return (
           <div className="loader center-page loader--style1" title="0">
             <img src={image} alt="loading gif" />
