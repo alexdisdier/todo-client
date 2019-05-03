@@ -70,6 +70,12 @@ Start the server:
 npm start
 ```
 
+Run Jest testing:
+
+```bash
+npm test
+```
+
 Build the project
 
 ```bash
