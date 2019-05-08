@@ -7,8 +7,7 @@ import Input from "./components/Input/Input";
 
 /*  
   We're using Jest as our test runner. It will provide the describe, it and expect and toEqual functions.
-  We're using Enzyme for the shallow wrapper which gives the methods find
-
+  We're using Enzyme for the shallow wrapper which gives us the method find
 */
 
 configure({ adapter: new Adapter() });
@@ -26,15 +25,17 @@ describe("<App />", () => {
     expect(form.find("form").length).toEqual(1);
   });
 
+  // it("should change the state after we change the input value", () => {
+  //   const newValue = "testing component";
+  //   const wrapper = mount(<App />);
+  //   const input = wrapper.find("input");
+  //   input.simulate("change", { target: { value: newValue } });
+
+  //   expect(wrapper.state().basicValue).toEqual(newValue);
+  // });
+
   // it("renders an Input Component", () => {
   //   const wrapper = mount(<App />);
   //   expect(wrapper.find(<Input />).length).toEqual(1);
   // });
-});
-
-describe("<Input />", () => {
-  it("renders an input area", () => {
-    const input = shallow(<Input />);
-    expect(input.find("input").length).toEqual(1);
-  });
 });
