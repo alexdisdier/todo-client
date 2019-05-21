@@ -9,6 +9,11 @@
 
 This is a to do list Web Application built with React.
 
+You will find three branches:
+
+- **master** using Typescript (converted initial javascript project), propTypes and a "loading" Higher Order Component.
+- **javascript** first version of this project
+
 ## Usage example
 
 See demo - https://alexdisdier.github.io/todo-client/
