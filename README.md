@@ -46,7 +46,6 @@ todo-client
 │   ├── App.test.js
 │   ├── index.css
 │   ├── index.js
-│   └── serviceWorker.js
 ├── .gitignore
 ├── package-lock.json
 ├── package.json
