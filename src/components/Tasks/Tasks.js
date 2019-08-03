@@ -6,12 +6,19 @@ import LoaderHOC from "../../HOC/LoaderHOC";
 import "./Tasks.css";
 
 const tasks = props => {
-  const { handleDelete, handleCrossOut, draggedTask, onDrag, onDrop } = props;
-  const lastIndex = props.tasks.length;
+  const {
+    tasks,
+    handleDelete,
+    handleCrossOut,
+    draggedTask,
+    onDrag,
+    onDrop
+  } = props;
+  const lastIndex = tasks.length;
 
   return (
     <ul className="card">
-      {props.tasks.map((task, index) => (
+      {tasks.map((task, index) => (
         <Task
           key={index}
           handleDelete={handleDelete}
