@@ -1,3 +1,5 @@
+[![Build Status](https://semaphoreci.com/api/v1/alexdisdier/todo-client/branches/master/shields_badge.svg)](https://semaphoreci.com/alexdisdier/todo-client)
+
 <p align="center" >
    <a href="https://alexdisdier.github.io/todo-client/">
     <img alt="todo list alex disdier" src="https://res.cloudinary.com/dvrkxmxkw/image/upload/v1552160814/github-screenshot-gif/todo-list.gif" width="342" height="527" />
