@@ -6,7 +6,7 @@ import Tasks from "./Tasks";
 jest.mock("./Task/Task", () => "Task");
 
 describe("Tasks", () => {
-  let props;
+  let props: any;
 
   beforeEach(() => {
     props = {
@@ -31,7 +31,7 @@ describe("Tasks", () => {
   it("renders 2 tasks correctly", () => {
     const wrapper = shallow(<Tasks {...props} />);
     expect(wrapper).toMatchInlineSnapshot(`
-      <tasks
+      <Tasks
         draggedTask={[MockFunction]}
         handleCrossOut={[MockFunction]}
         handleDelete={[MockFunction]}

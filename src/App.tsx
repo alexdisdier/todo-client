@@ -150,7 +150,7 @@ class App extends React.Component<{}, IState> {
   };
 
   renderError() {
-    if (this.state.error !== null) {
+    if (this.state.error !== "") {
       return <Error error={this.state.error} />;
     } else {
       return null;

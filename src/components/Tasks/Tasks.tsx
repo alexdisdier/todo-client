@@ -1,7 +1,7 @@
 import React from "react";
 
 import Task from "./Task/Task";
-import withLoading from "../../HOC/withLoading";
+import withLoading from "../../HOC/withLoading.js";
 
 import "./Tasks.css";
 
@@ -52,5 +52,4 @@ const Tasks: React.FC<IProps> = (props: IProps) => {
 };
 
 // Currying HOC function where we can pass the props name we need to manipulate.
-// export default withLoading("tasks")(Tasks);
-export default Tasks;
+export default withLoading("tasks")(Tasks);
