@@ -22,7 +22,7 @@ describe("App", () => {
           className="card-container wrapper done"
           onDragOver={[Function]}
         >
-          <LoaderHOC
+          <withLoading
             handleCrossOut={[Function]}
             handleDelete={[Function]}
             onDrag={[Function]}

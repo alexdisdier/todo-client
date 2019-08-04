@@ -11,10 +11,10 @@
 
 This is a to do list Web Application built with React.
 
-You will find three branches:
+You will find two branches:
 
 - **master** using Typescript (converted initial javascript project), propTypes and a "loading" Higher Order Component.
-- **javascript** first version of this project
+- **initial-js** first version of this project
 
 ## Usage example
 
@@ -28,37 +28,6 @@ See demo - https://alexdisdier.github.io/todo-client/
 - Delete a task
 - Saved to a database (mLab) via Heroku
 - Loading and error component
-
-## Directory Structure
-
-```bash
-
-todo-client
-├── public
-├── src
-│   ├── assets
-│   │   ├── css
-│   ├── components
-│   │   ├── Button
-│   │   ├── Error
-│   │   ├── Input
-│   │   ├── Loading
-│   │   ├── Tasks
-│   │   │   ├── Task
-│   │   ├── Item
-│   │   ├── Footer
-│   │   └── Header
-│   ├── App.css
-│   ├── App.js
-│   ├── App.test.js
-│   ├── index.css
-│   ├── index.js
-├── .gitignore
-├── package-lock.json
-├── package.json
-└── README.md
-
-```
 
 ## Running the project
 
@@ -93,6 +62,7 @@ npm run build
 - html
 - css
 - [JavaScript](https://developer.mozilla.org/bm/docs/Web/JavaScript)
+- [TypeScript](https://developer.mozilla.org/bm/docs/Web/TypeScript)
 - [React.js](https://reactjs.org/docs/hello-world.html)
 - [Create React App](https://facebook.github.io/create-react-app/docs/getting-started)
 

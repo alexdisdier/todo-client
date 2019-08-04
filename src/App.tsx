@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import * as React from "react";
 import axios from "axios";
-import domain from "./assets/domain";
 
 import "./assets/css/reset.css";
 import "./App.css";
 
+import domain from "./assets/domain.js";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks/Tasks";
 import Input from "./components/Input/Input";
@@ -13,13 +13,25 @@ import Footer from "./components/Footer";
 
 import Error from "./components/Error/Error";
 
-class App extends Component {
-  state = {
+interface IState {
+  appTitle: string;
+  input: string;
+  tasks: [];
+  // draggedTask: [];
+  error: string;
+  pos: number;
+  onDragIndex: number;
+  onDropIndex: number;
+}
+
+class App extends React.Component<{}, IState> {
+  state: IState = {
     appTitle: "To do list",
     input: "",
     tasks: [],
-    error: null,
-    pos: null,
+    // draggedTask: [],
+    error: "",
+    pos: 0,
     onDragIndex: 0,
     onDropIndex: 0
   };
@@ -34,7 +46,7 @@ class App extends Component {
       const tasks = response.data;
 
       // Sort array of objects by a boolean property source: https://code.i-harness.com/en/q/1094fab
-      tasks.sort((task, nextTask) => task.isDone - nextTask.isDone);
+      tasks.sort((task: any, nextTask: any) => task.isDone - nextTask.isDone);
 
       this.setState({
         tasks
@@ -51,18 +63,17 @@ class App extends Component {
     return response;
   }
 
-  handleChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    const update = {};
-    update[name] = value;
-    this.setState(update);
+  handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { value }: any = event.target;
+    this.setState({
+      input: value
+    });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event: any) => {
     event.preventDefault();
-    const lastIndex = this.state.tasks.length;
-    const task = {
+    const lastIndex: number = this.state.tasks.length;
+    const task: Object = {
       title: this.state.input,
       pos: lastIndex + 1
     };
@@ -82,8 +93,10 @@ class App extends Component {
       });
   };
 
-  handleCrossOut = index => {
-    const id = this.state.tasks[index]._id;
+  handleCrossOut = (index: number) => {
+    const { tasks }: any = this.state;
+    const id = tasks[index]._id;
+
     axios
       .post(`${domain}/update?id=${id}`, {
         headers: {
@@ -95,8 +108,10 @@ class App extends Component {
       });
   };
 
-  handleDelete = index => {
-    const id = this.state.tasks[index]._id;
+  handleDelete = (index: number) => {
+    const { tasks }: any = this.state;
+    const id = tasks[index]._id;
+
     axios
       .post(`${domain}/delete?id=${id}`, {
         headers: {
@@ -108,18 +123,18 @@ class App extends Component {
       });
   };
 
-  onDrag = (event, index) => {
+  onDrag = (event: React.MouseEvent, index: number) => {
     event.preventDefault();
     this.setState({
       onDragIndex: index
     });
   };
 
-  onDragOver = event => {
+  onDragOver = (event: React.MouseEvent) => {
     event.preventDefault();
   };
 
-  onDrop = async (event, index) => {
+  onDrop = async (event: React.MouseEvent, index: number) => {
     let newArr = [...this.state.tasks];
 
     const itemDragged = newArr.splice(this.state.onDragIndex, 1);
@@ -129,13 +144,13 @@ class App extends Component {
     });
 
     newArr.splice(this.state.onDropIndex, 0, itemDragged[0]);
-    this.setState({
-      tasks: newArr
-    });
+    // this.setState({
+    //   tasks: newArr
+    // });
   };
 
   renderError() {
-    if (this.state.error !== null) {
+    if (this.state.error !== "") {
       return <Error error={this.state.error} />;
     } else {
       return null;
@@ -143,14 +158,14 @@ class App extends Component {
   }
 
   renderTasks() {
-    const { tasks, draggedTask } = this.state;
+    const { tasks } = this.state;
 
     return (
       <Tasks
         tasks={tasks}
         handleCrossOut={this.handleCrossOut}
         handleDelete={this.handleDelete}
-        draggedTask={draggedTask}
+        // draggedTask={draggedTask}
         onDrag={this.onDrag}
         onDrop={this.onDrop}
       />

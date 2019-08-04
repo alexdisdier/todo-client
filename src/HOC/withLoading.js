@@ -6,7 +6,7 @@
 
 import React from "react";
 import image from "../assets/img/loading.svg";
-import "./LoaderHOC.css";
+import "./withLoading.css";
 
 const isEmpty = prop =>
   prop === null ||
@@ -14,8 +14,8 @@ const isEmpty = prop =>
   (prop.hasOwnProperty("length") && prop.length === 0) ||
   (prop.contructor === Object && Object.keys(prop).length === 0);
 
-const LoaderHOC = propName => WrappedComponent => {
-  return class LoaderHOC extends React.Component {
+const withLoading = propName => WrappedComponent => {
+  return class withLoading extends React.Component {
     render() {
       if (isEmpty(this.props[propName])) {
         return (
@@ -30,4 +30,4 @@ const LoaderHOC = propName => WrappedComponent => {
   };
 };
 
-export default LoaderHOC;
+export default withLoading;
