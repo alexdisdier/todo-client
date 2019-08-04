@@ -11,10 +11,10 @@
 
 This is a to do list Web Application built with React.
 
-You will find three branches:
+You will find two branches:
 
 - **master** using Typescript (converted initial javascript project), propTypes and a "loading" Higher Order Component.
-- **javascript** first version of this project
+- **initial-js** first version of this project
 
 ## Usage example
 
