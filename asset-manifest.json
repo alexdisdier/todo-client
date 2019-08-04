@@ -1,15 +1,17 @@
 {
-  "main.css": "/todo-client/static/css/main.946464a0.chunk.css",
-  "main.js": "/todo-client/static/js/main.06b8332a.chunk.js",
-  "main.js.map": "/todo-client/static/js/main.06b8332a.chunk.js.map",
-  "static/js/1.443c36c2.chunk.js": "/todo-client/static/js/1.443c36c2.chunk.js",
-  "static/js/1.443c36c2.chunk.js.map": "/todo-client/static/js/1.443c36c2.chunk.js.map",
-  "runtime~main.js": "/todo-client/static/js/runtime~main.0e95e54c.js",
-  "runtime~main.js.map": "/todo-client/static/js/runtime~main.0e95e54c.js.map",
-  "static/css/main.946464a0.chunk.css.map": "/todo-client/static/css/main.946464a0.chunk.css.map",
-  "static/media/loading.svg": "/todo-client/static/media/loading.14ca3612.svg",
-  "static/media/Cloud_Warning.svg": "/todo-client/static/media/Cloud_Warning.f3801667.svg",
-  "index.html": "/todo-client/index.html",
-  "precache-manifest.6a1f16f19903204d934010d56cd4beac.js": "/todo-client/precache-manifest.6a1f16f19903204d934010d56cd4beac.js",
-  "service-worker.js": "/todo-client/service-worker.js"
+  "files": {
+    "main.css": "/todo-client/static/css/main.72edbfb0.chunk.css",
+    "main.js": "/todo-client/static/js/main.a288c4a7.chunk.js",
+    "main.js.map": "/todo-client/static/js/main.a288c4a7.chunk.js.map",
+    "runtime~main.js": "/todo-client/static/js/runtime~main.152da5ec.js",
+    "runtime~main.js.map": "/todo-client/static/js/runtime~main.152da5ec.js.map",
+    "static/js/2.25c26266.chunk.js": "/todo-client/static/js/2.25c26266.chunk.js",
+    "static/js/2.25c26266.chunk.js.map": "/todo-client/static/js/2.25c26266.chunk.js.map",
+    "index.html": "/todo-client/index.html",
+    "precache-manifest.dc46a208c34df7b449df3d32be053a10.js": "/todo-client/precache-manifest.dc46a208c34df7b449df3d32be053a10.js",
+    "service-worker.js": "/todo-client/service-worker.js",
+    "static/css/main.72edbfb0.chunk.css.map": "/todo-client/static/css/main.72edbfb0.chunk.css.map",
+    "static/media/Cloud_Warning.svg": "/todo-client/static/media/Cloud_Warning.f3801667.svg",
+    "static/media/loading.svg": "/todo-client/static/media/loading.14ca3612.svg"
+  }
 }
