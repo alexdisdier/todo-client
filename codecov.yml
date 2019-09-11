@@ -31,5 +31,10 @@ comment:
   layout: "header, diff"
   behavior: default
 
+fixes:
+  - "before/::after/"  # move path   e.g., "before/path" => "after/path"
+  - "::after/"         # move root   e.g., "path/" => "after/path/"
+  - "before/::"        # reduce root e.g., "before/path/" => "path/"
+
 codecov:
   token: 847c0959-e660-44f6-b390-0e4d8e3a9376
