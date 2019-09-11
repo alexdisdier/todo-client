@@ -1,0 +1,32 @@
+codecov:
+  notify:
+    require_ci_to_pass: yes
+
+coverage:
+  precision: 2
+  round: down
+  range: "65...90"
+
+  status:
+    project:
+      default:
+        target: 70%
+        threshold: 2
+        base: auto
+    patch: no
+    changes: no
+
+ignore:
+  - "src/assets/domain.js"
+
+parsers:
+  gcov:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: no
+      macro: no
+
+comment:
+  layout: "header, diff"
+  behavior: default
