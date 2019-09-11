@@ -1,4 +1,5 @@
 [![Build Status](https://semaphoreci.com/api/v1/alexdisdier/todo-client/branches/master/shields_badge.svg)](https://semaphoreci.com/alexdisdier/todo-client)
+[![codecov](https://codecov.io/gh/alexdisdier/todo-client/branch/master/graph/badge.svg)](https://codecov.io/gh/alexdisdier/todo-client)
 
 <p align="center" >
    <a href="https://alexdisdier.github.io/todo-client/">
@@ -55,6 +56,12 @@ Build the project
 
 ```bash
 npm run build
+```
+
+Check validity of codecov.yml file
+
+```bash
+cat codecov.yml | curl --data-binary @- https://codecov.io/validate
 ```
 
 ## Built With
