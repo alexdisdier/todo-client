@@ -58,6 +58,9 @@ Build the project
 npm run build
 ```
 
+Codecov set up:
+https://github.com/settings/installations/1865753
+
 Check validity of codecov.yml file
 
 ```bash
