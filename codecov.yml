@@ -21,6 +21,8 @@ ignore:
   - "src/assets/domain.js"
 
 parsers:
+  javascript:
+    enable_partials: yes
   gcov:
     branch_detection:
       conditional: yes
