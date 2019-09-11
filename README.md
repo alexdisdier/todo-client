@@ -64,6 +64,8 @@ Check validity of codecov.yml file
 cat codecov.yml | curl --data-binary @- https://codecov.io/validate
 ```
 
+Make sure in Semaphoreci, we're using the right node version to run a build. 
+
 ## Built With
 
 - html
