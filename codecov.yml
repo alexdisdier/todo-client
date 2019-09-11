@@ -13,6 +13,7 @@ coverage:
         target: 70%
         threshold: 2
         base: auto
+        if_not_found: success
     patch: no
     changes: no
 
