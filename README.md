@@ -58,6 +58,12 @@ Build the project
 npm run build
 ```
 
+Check validity of codecov.yml file
+
+```bash
+cat codecov.yml | curl --data-binary @- https://codecov.io/validate
+```
+
 ## Built With
 
 - html
