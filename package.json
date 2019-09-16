@@ -30,6 +30,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "lint": "eslint src",
     "cov": "npm t -- --coverage --watchAll=false",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
@@ -49,26 +50,5 @@
     "codecov": "^3.5.0",
     "enzyme-to-json": "^3.4.0",
     "ts-jest": "^24.0.2"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!<rootDir>/node_modules/",
-      "!<rootDir>/path/to/dir/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 90,
-        "lines": 90,
-        "statements": 90
-      }
-    },
-    "coverageReporters": [
-      "text"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
   }
 }
