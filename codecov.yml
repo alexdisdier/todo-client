@@ -28,8 +28,10 @@ comment:
   layout: "header, diff"
   behavior: default
 
-# ignore:
-#   - "src/constant" 
+ignore:
+  - "src/assets/domain.js" 
+  - "src/serviceWorker.js" 
+  - "src/setupTests.js" 
 
 codecov:
   token: 847c0959-e660-44f6-b390-0e4d8e3a9376
