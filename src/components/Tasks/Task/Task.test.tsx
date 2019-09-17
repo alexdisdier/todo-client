@@ -32,6 +32,19 @@ describe("Task", () => {
       expect(props.handleDelete).toHaveBeenCalledTimes(1);
       expect(props.handleDelete).toHaveBeenCalledWith("1");
     });
+
+    it("crosses out a task when clicked on the task itself", () => {
+      const wrapper = shallow(<Task {...props} />);
+
+      wrapper
+        .find("span")
+        .at(1)
+        .simulate("click")
+        .props();
+
+      expect(props.handleCrossOut).toHaveBeenCalledTimes(1);
+      expect(props.handleCrossOut).toHaveBeenCalledWith("1");
+    });
   });
 
   describe("render()", () => {
