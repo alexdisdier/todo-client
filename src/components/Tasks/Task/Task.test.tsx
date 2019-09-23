@@ -20,9 +20,24 @@ describe("Task", () => {
   });
 
   describe("Actions", () => {
-    // it("triggers onDrag", () => {
-    //   const wrapper = shallow(<Task {...props} />);
-    // });
+    it("drags and drops a task", () => {
+      const wrapper = shallow(<Task {...props} />);
+      wrapper
+        .find("li")
+        .at(0)
+        .simulate("drag");
+
+      expect(props.onDrag).toHaveBeenCalled();
+      expect(props.onDrag).toHaveBeenCalledWith(undefined, "1");
+
+      wrapper
+        .find("li")
+        .at(0)
+        .simulate("drop");
+
+      expect(props.onDrop).toHaveBeenCalled();
+      expect(props.onDrop).toHaveBeenCalledWith(undefined, "1");
+    });
 
     it("deletes a task when clicked on the cross", () => {
       const wrapper = shallow(<Task {...props} />);
@@ -52,7 +67,8 @@ describe("Task", () => {
   });
 
   describe("render()", () => {
-    it("renders a single Task correctly", () => {
+    it("renders a single task crossed out", () => {
+      props.isDone = true;
       const wrapper = shallow(<Task {...props} />);
       expect(wrapper).toMatchInlineSnapshot(`
         <Fragment>
@@ -68,7 +84,7 @@ describe("Task", () => {
               X
             </span>
             <span
-              className=""
+              className="cross-task"
               onClick={[Function]}
             >
               title
@@ -76,6 +92,32 @@ describe("Task", () => {
           </li>
         </Fragment>
       `);
+    });
+
+    it("renders a single Task correctly", () => {
+      const wrapper = shallow(<Task {...props} />);
+      expect(wrapper).toMatchInlineSnapshot(`
+                <Fragment>
+                  <li
+                    className="card-task"
+                    draggable={true}
+                    onDrag={[Function]}
+                    onDrop={[Function]}
+                  >
+                    <span
+                      onClick={[Function]}
+                    >
+                      X
+                    </span>
+                    <span
+                      className=""
+                      onClick={[Function]}
+                    >
+                      title
+                    </span>
+                  </li>
+                </Fragment>
+            `);
     });
   });
 });
