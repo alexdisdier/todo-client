@@ -20,6 +20,10 @@ describe("Task", () => {
   });
 
   describe("Actions", () => {
+    // it("triggers onDrag", () => {
+    //   const wrapper = shallow(<Task {...props} />);
+    // });
+
     it("deletes a task when clicked on the cross", () => {
       const wrapper = shallow(<Task {...props} />);
 
