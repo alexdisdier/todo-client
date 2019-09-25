@@ -23,6 +23,7 @@ const Tasks: React.FC<IProps> = (props: IProps) => {
     onDrag,
     onDrop
   } = props;
+
   const lastIndex = tasks.length;
 
   return (
