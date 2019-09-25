@@ -17,6 +17,8 @@ jest.mock("./components/Input/Input", () => "Input");
 jest.mock("./components/Button/Button", () => "Button");
 jest.mock("./components/Footer", () => "Footer");
 
+jest.mock("./components/Error/Error", () => "Error");
+
 describe("App", () => {
   describe("api calls", () => {
     it("fetches offers on #componentDidMount", done => {
@@ -65,50 +67,94 @@ describe("App", () => {
           done();
         });
     });
+
+    it("post a new task", () => {
+      const wrapper = shallow(<App />);
+      expect(wrapper.state()).toHaveProperty("tasks", []);
+
+      jest.spyOn(wrapper.instance(), "handleSubmit");
+
+      wrapper.instance().forceUpdate();
+      wrapper.instance().handleSubmit({ preventDefault() {} });
+
+      expect(axios.post).toHaveBeenCalled();
+      expect(axios.post).toHaveBeenCalledWith(
+        `https://todo-server-alex.herokuapp.com/create`,
+        { pos: 1, title: "" },
+        { headers: { "Content-Type": "application/json" } }
+      );
+    });
   });
 
-  it("renders the App correctly", () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper).toMatchInlineSnapshot(`
-      <div
-        className="App"
-      >
-        <Header
-          title="To do list"
+  describe("action", () => {
+    it("drags over a task", () => {
+      const wrapper = shallow(<App />);
+
+      const spyOnDragOver = jest.spyOn(wrapper.instance(), "onDragOver");
+
+      wrapper
+        .find(".card-container")
+        .at(0)
+        .simulate("dragover", { preventDefault() {} });
+
+      expect(spyOnDragOver).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("render()", () => {
+    it("renders an error", () => {
+      const wrapper = shallow(<App />);
+      wrapper.setState({ error: "error" });
+
+      expect(wrapper.find("Error")).toMatchInlineSnapshot(`
+        <Error
+          error="error"
         />
-        <div
-          className="card-container wrapper done"
-          onDragOver={[Function]}
-        >
-          <withLoading
-            handleCrossOut={[Function]}
-            handleDelete={[Function]}
-            onDrag={[Function]}
-            onDrop={[Function]}
-            tasks={Array []}
-          />
-        </div>
-        <div
-          className="wrapper"
-        >
-          <form
-            className="card"
-            onSubmit={[Function]}
-          >
-            <Input
-              handleChange={[Function]}
-              name="input"
-              value=""
-            />
-            <div
-              className="btn-add-container"
-            >
-              <Button />
-            </div>
-          </form>
-        </div>
-        <Footer />
-      </div>
-    `);
+      `);
+    });
+    it("renders the App correctly", () => {
+      const wrapper = shallow(<App />);
+      expect(wrapper).toMatchInlineSnapshot(`
+                        <div
+                          className="App"
+                        >
+                          <Header
+                            title="To do list"
+                          />
+                          <div
+                            className="card-container wrapper done"
+                            onDragOver={[Function]}
+                          >
+                            <withLoading
+                              handleCrossOut={[Function]}
+                              handleDelete={[Function]}
+                              onDrag={[Function]}
+                              onDrop={[Function]}
+                              tasks={Array []}
+                            />
+                          </div>
+                          <div
+                            className="wrapper"
+                          >
+                            <form
+                              className="card"
+                              onSubmit={[Function]}
+                            >
+                              <Input
+                                handleChange={[Function]}
+                                name="input"
+                                value=""
+                              />
+                              <div
+                                className="btn-add-container"
+                              >
+                                <Button />
+                              </div>
+                            </form>
+                          </div>
+                          <Footer />
+                        </div>
+                  `);
+    });
   });
 });
