@@ -1,7 +1,7 @@
 import React from "react";
 
 import Task from "./Task/Task";
-import withLoading from "../../HOC/withLoading.js";
+import withLoading from "../../HOC/withLoading";
 
 import "./Tasks.css";
 
