@@ -15,6 +15,10 @@ describe("withLoading", () => {
     const ConditionalComponent = withLoading(WrappedComponent);
     const wrapper = shallow(<ConditionalComponent propName />);
 
-    expect(wrapper).toMatchInlineSnapshot(`<Component />`);
+    expect(wrapper).toMatchInlineSnapshot(`
+      <[object Object]
+        propName={true}
+      />
+    `);
   });
 });
