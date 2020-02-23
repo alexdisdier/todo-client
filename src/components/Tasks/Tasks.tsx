@@ -21,7 +21,7 @@ const Tasks: React.FC<IProps> = (props: IProps) => {
     handleCrossOut,
     // draggedTask,
     onDrag,
-    onDrop
+    onDrop,
   } = props;
 
   const lastIndex = tasks.length;
@@ -53,4 +53,4 @@ const Tasks: React.FC<IProps> = (props: IProps) => {
 };
 
 // Currying HOC function where we can pass the props name we need to manipulate.
-export default withLoading("tasks")(Tasks);
+export default withLoading(Tasks);

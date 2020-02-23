@@ -42,53 +42,51 @@ describe("Tasks", () => {
       props.tasks = [];
       const wrapper = shallow(<Tasks {...props} />);
       expect(wrapper).toMatchInlineSnapshot(`
-                                                        <div
-                                                          className="loader center-page loader--style1"
-                                                          title="0"
-                                                        >
-                                                          <img
-                                                            alt="loading gif"
-                                                            src="loading.svg"
-                                                          />
-                                                        </div>
-                                          `);
+        <Tasks
+          handleCrossOut={[MockFunction]}
+          handleDelete={[MockFunction]}
+          onDrag={[MockFunction]}
+          onDrop={[MockFunction]}
+          tasks={Array []}
+        />
+      `);
     });
 
     it("renders 2 tasks correctly", () => {
       const wrapper = renderer.create(<Tasks {...props} />);
       expect(wrapper).toMatchInlineSnapshot(`
-        <ul
-          className="card"
-        >
-          <Task
-            handleCrossOut={[MockFunction]}
-            handleDelete={[MockFunction]}
-            index={0}
-            isDone={false}
-            onDrag={[MockFunction]}
-            onDrop={[MockFunction]}
-            title="GraphQL"
-          />
-          <Task
-            handleCrossOut={[MockFunction]}
-            handleDelete={[MockFunction]}
-            index={1}
-            isDone={false}
-            onDrag={[MockFunction]}
-            onDrop={[MockFunction]}
-            title="React"
-          />
-          <li
-            className="card-task"
-            id="last-index"
-            onDrop={[Function]}
-          >
-            <span>
-               
-            </span>
-          </li>
-        </ul>
-      `);
+                <ul
+                  className="card"
+                >
+                  <Task
+                    handleCrossOut={[MockFunction]}
+                    handleDelete={[MockFunction]}
+                    index={0}
+                    isDone={false}
+                    onDrag={[MockFunction]}
+                    onDrop={[MockFunction]}
+                    title="GraphQL"
+                  />
+                  <Task
+                    handleCrossOut={[MockFunction]}
+                    handleDelete={[MockFunction]}
+                    index={1}
+                    isDone={false}
+                    onDrag={[MockFunction]}
+                    onDrop={[MockFunction]}
+                    title="React"
+                  />
+                  <li
+                    className="card-task"
+                    id="last-index"
+                    onDrop={[Function]}
+                  >
+                    <span>
+                       
+                    </span>
+                  </li>
+                </ul>
+            `);
     });
   });
 });
