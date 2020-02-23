@@ -8,26 +8,8 @@ import React from "react";
 import image from "../assets/img/loading.svg";
 import "./withLoading.css";
 
-const isEmpty = prop =>
-  prop === null ||
-  prop === undefined ||
-  (prop.hasOwnProperty("length") && prop.length === 0) ||
-  (prop.contructor === Object && Object.keys(prop).length === 0);
-
-const withLoading = propName => WrappedComponent => {
-  return class withLoading extends React.Component {
-    render() {
-      if (isEmpty(this.props[propName])) {
-        return (
-          <div className="loader center-page loader--style1" title="0">
-            <img src={image} alt="loading gif" />
-          </div>
-        );
-      } else {
-        return <WrappedComponent {...this.props} />;
-      }
-    }
-  };
-};
+const withLoading = WrappedComponent => ({loading, ...rest}) => loading ? <div className="loader center-page loader--style1" title="0">
+<img src={image} alt="loading gif" />
+</div> : <WrappedComponent {...rest} />
 
 export default withLoading;

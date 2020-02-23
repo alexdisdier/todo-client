@@ -22,6 +22,7 @@ interface IState {
   pos: number;
   onDragIndex: number;
   onDropIndex: number;
+  loading: boolean;
 }
 
 class App extends React.Component<{}, IState> {
@@ -33,7 +34,8 @@ class App extends React.Component<{}, IState> {
     error: "",
     pos: 0,
     onDragIndex: 0,
-    onDropIndex: 0
+    onDropIndex: 0,
+    loading: true
   };
 
   buildTasks = async () => {
@@ -49,7 +51,8 @@ class App extends React.Component<{}, IState> {
       tasks.sort((task: any, nextTask: any) => task.isDone - nextTask.isDone);
 
       this.setState({
-        tasks
+        tasks,
+        loading: false
       });
     } catch (error) {
       this.setState({
@@ -158,7 +161,7 @@ class App extends React.Component<{}, IState> {
   }
 
   renderTasks() {
-    const { tasks } = this.state;
+    const { tasks, loading } = this.state;
 
     return (
       <Tasks
@@ -168,6 +171,7 @@ class App extends React.Component<{}, IState> {
         // draggedTask={draggedTask}
         onDrag={this.onDrag}
         onDrop={this.onDrop}
+        loading={loading}
       />
     );
   }
