@@ -1,10 +1,5 @@
 button {
   display: flex;
-  justify-content: center;
-  align-content: center;
-  /* position: absolute;
-  top: -70px;
-  right: 18px; */
   width: 50px;
   height: 50px;
   border: none;
@@ -25,6 +20,8 @@ button:hover {
 }
 
 button span {
+  flex: 1;
+  align-self: center;
   font-size: 32px;
   color: var(--color-white);
 }
