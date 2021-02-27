@@ -31,8 +31,7 @@
     "test": "react-scripts test",
     "lint": "eslint src",
     "cov": "npm t -- --coverage --watchAll=false",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "npm run build && gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
