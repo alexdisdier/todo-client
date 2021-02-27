@@ -31,13 +31,14 @@ const Task: React.FC<IProps> = (props: IProps) => {
         onDrag={event => onDrag(event, index)}
         onDrop={event => onDrop(event, index)}
       >
-        <span onClick={() => handleDelete(index)}>X</span>
         <span
+          data-testid="task"
           className={isDone ? "cross-task" : ""}
           onClick={() => handleCrossOut(index)}
         >
           {title}
         </span>
+        <span data-testid="delete-task" onClick={() => handleDelete(index)}>X</span>
       </li>
     </>
   );
