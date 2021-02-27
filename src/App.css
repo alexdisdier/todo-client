@@ -1,12 +1,12 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700");
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
 
 html {
   --color-yellow: #e5d13f;
-  --color-yellow-light: #ffff72;
+  --color-yellow-light: #e5d13f;
   --color-gray: #30383f;
   --color-gray-dark: #081219;
   --color-white: #ffffff;
-  --font-family-main: "Roboto", sans-serif;
+  --font-family-main: 'Work Sans', sans-serif;
   --height-header: 80px;
   --padding-header: 20px;
 }
@@ -42,6 +42,7 @@ header {
 }
 
 header h1 {
+  font-weight: 500;
   font-size: 24px;
 }
 

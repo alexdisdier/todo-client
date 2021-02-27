@@ -43,8 +43,7 @@ describe("Task", () => {
       const wrapper = shallow(<Task {...props} />);
 
       wrapper
-        .find("span")
-        .at(0)
+        .find('[data-testid="delete-task"]')
         .simulate("click")
         .props();
 
@@ -56,8 +55,7 @@ describe("Task", () => {
       const wrapper = shallow(<Task {...props} />);
 
       wrapper
-        .find("span")
-        .at(1)
+        .find('[data-testid="task"]')
         .simulate("click")
         .props();
 
@@ -79,15 +77,17 @@ describe("Task", () => {
             onDrop={[Function]}
           >
             <span
-              onClick={[Function]}
-            >
-              X
-            </span>
-            <span
               className="cross-task"
+              data-testid="task"
               onClick={[Function]}
             >
               title
+            </span>
+            <span
+              data-testid="delete-task"
+              onClick={[Function]}
+            >
+              X
             </span>
           </li>
         </Fragment>
@@ -97,27 +97,29 @@ describe("Task", () => {
     it("renders a single Task correctly", () => {
       const wrapper = shallow(<Task {...props} />);
       expect(wrapper).toMatchInlineSnapshot(`
-                <Fragment>
-                  <li
-                    className="card-task"
-                    draggable={true}
-                    onDrag={[Function]}
-                    onDrop={[Function]}
-                  >
-                    <span
-                      onClick={[Function]}
-                    >
-                      X
-                    </span>
-                    <span
-                      className=""
-                      onClick={[Function]}
-                    >
-                      title
-                    </span>
-                  </li>
-                </Fragment>
-            `);
+        <Fragment>
+          <li
+            className="card-task"
+            draggable={true}
+            onDrag={[Function]}
+            onDrop={[Function]}
+          >
+            <span
+              className=""
+              data-testid="task"
+              onClick={[Function]}
+            >
+              title
+            </span>
+            <span
+              data-testid="delete-task"
+              onClick={[Function]}
+            >
+              X
+            </span>
+          </li>
+        </Fragment>
+      `);
     });
   });
 });
