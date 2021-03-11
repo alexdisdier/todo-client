@@ -13,25 +13,22 @@ describe("Tasks", () => {
     props = {
       tasks: [
         {
+          key: "nanoid1",
           date: "2019-07-09T10:22:02.876Z",
           title: "GraphQL",
           isDone: false,
-          pos: 3,
-          _id: "5d246aee8e50ad0017f8c2ac",
-          __v: 0
+          pos: 3
         },
         {
+          key: "nanoid2",
           date: "2019-09-23T05:18:31.813Z",
           title: "React",
           isDone: false,
-          pos: 2,
-          _id: "5d8855c8eb9ed00017e0a46c",
-          __v: 0
+          pos: 2
         }
       ],
       handleDelete: jest.fn(),
       handleCrossOut: jest.fn(),
-      // draggedTask: jest.fn(),
       onDrag: jest.fn(),
       onDrop: jest.fn()
     };
@@ -55,38 +52,52 @@ describe("Tasks", () => {
     it("renders 2 tasks correctly", () => {
       const wrapper = renderer.create(<Tasks {...props} />);
       expect(wrapper).toMatchInlineSnapshot(`
-                <ul
-                  className="card"
-                >
-                  <Task
-                    handleCrossOut={[MockFunction]}
-                    handleDelete={[MockFunction]}
-                    index={0}
-                    isDone={false}
-                    onDrag={[MockFunction]}
-                    onDrop={[MockFunction]}
-                    title="GraphQL"
-                  />
-                  <Task
-                    handleCrossOut={[MockFunction]}
-                    handleDelete={[MockFunction]}
-                    index={1}
-                    isDone={false}
-                    onDrag={[MockFunction]}
-                    onDrop={[MockFunction]}
-                    title="React"
-                  />
-                  <li
-                    className="card-task"
-                    id="last-index"
-                    onDrop={[Function]}
-                  >
-                    <span>
-                       
-                    </span>
-                  </li>
-                </ul>
-            `);
+        <ul
+          className="card"
+          style={
+            Object {
+              "height": "calc(100vh - 300px)",
+              "overflowY": "scroll",
+            }
+          }
+        >
+          <Task
+            handleCrossOut={[MockFunction]}
+            handleDelete={[MockFunction]}
+            onDrag={[MockFunction]}
+            onDrop={[MockFunction]}
+            value={
+              Object {
+                "isDone": false,
+                "key": "nanoid1",
+                "title": "GraphQL",
+              }
+            }
+          />
+          <Task
+            handleCrossOut={[MockFunction]}
+            handleDelete={[MockFunction]}
+            onDrag={[MockFunction]}
+            onDrop={[MockFunction]}
+            value={
+              Object {
+                "isDone": false,
+                "key": "nanoid2",
+                "title": "React",
+              }
+            }
+          />
+          <li
+            className="card-task"
+            id="last-index"
+            onDrop={[Function]}
+          >
+            <span>
+               
+            </span>
+          </li>
+        </ul>
+      `);
     });
   });
 });

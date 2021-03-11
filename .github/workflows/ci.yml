@@ -1,0 +1,45 @@
+name: Continuous Integration
+'on':
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  Tasks:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - uses: actions/cache@v2
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }} 
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Unit tests
+      run: npm run test
+
+    - name: Run the tests and generate coverage report
+      run: npm run cov
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+       token: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Build
+      run: npm run build
+
+
+

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { shallow } from "enzyme";
+import App from "./App";
 
 /**
  * Unit tests should be run in isolation;
@@ -10,7 +11,14 @@ import { shallow } from "enzyme";
  */
 jest.mock("axios");
 
-import App from "./App";
+jest.mock("nanoid", () => ({
+  nanoid: jest.fn(() => "nanoid")
+}));
+
+
+jest
+  .spyOn(global.Date, "now")
+  .mockImplementationOnce(() => new Date("2019-05-14T11:01:58.135Z").valueOf());
 
 jest.mock("./components/Header", () => "Header");
 jest.mock("./components/Input/Input", () => "Input");
@@ -20,87 +28,6 @@ jest.mock("./components/Footer", () => "Footer");
 jest.mock("./components/Error/Error", () => "Error");
 
 describe("App", () => {
-  describe("api calls", () => {
-    it("fetches offers on #componentDidMount", done => {
-      const wrapper = shallow(<App />);
-      expect(wrapper.state()).toHaveProperty("tasks", []);
-      wrapper
-        .instance()
-        .componentDidMount()
-        .then(() => {
-          expect(axios.get).toHaveBeenCalled();
-          expect(axios.get).toHaveBeenCalledWith(
-            `https://todo-server-alex.herokuapp.com/read`,
-            {
-              headers: {
-                "Content-Type": "application/json"
-              }
-            }
-          );
-          expect(wrapper.state()).toHaveProperty("tasks", [
-            {
-              __v: 0,
-              _id: "5d246aee8e50ad0017f8c2ac",
-              date: "2019-07-09T10:22:02.876Z",
-              isDone: false,
-              pos: 3,
-              title: "GraphQL"
-            },
-            {
-              __v: 0,
-              _id: "5d8855c8eb9ed00017e0a46c",
-              date: "2019-09-23T05:18:31.813Z",
-              isDone: false,
-              pos: 2,
-              title: "React"
-            }
-          ]);
-
-          const spyOnBuildTasks = jest.spyOn(wrapper.instance(), "buildTasks");
-
-          wrapper.instance().forceUpdate();
-          wrapper.instance().buildTasks(1);
-
-          expect(spyOnBuildTasks).toHaveBeenCalledTimes(1);
-          expect(spyOnBuildTasks).toHaveBeenCalledWith(1);
-
-          done();
-        });
-    });
-
-    it("post a new task", () => {
-      const wrapper = shallow(<App />);
-      expect(wrapper.state()).toHaveProperty("tasks", []);
-
-      jest.spyOn(wrapper.instance(), "handleSubmit");
-
-      wrapper.instance().forceUpdate();
-      wrapper.instance().handleSubmit({ preventDefault() {} });
-
-      expect(axios.post).toHaveBeenCalled();
-      expect(axios.post).toHaveBeenCalledWith(
-        `https://todo-server-alex.herokuapp.com/create`,
-        { pos: 1, title: "" },
-        { headers: { "Content-Type": "application/json" } }
-      );
-    });
-  });
-
-  describe("action", () => {
-    it("drags over a task", () => {
-      const wrapper = shallow(<App />);
-
-      const spyOnDragOver = jest.spyOn(wrapper.instance(), "onDragOver");
-
-      wrapper
-        .find(".card-container")
-        .at(0)
-        .simulate("dragover", { preventDefault() {} });
-
-      expect(spyOnDragOver).toHaveBeenCalledTimes(1);
-    });
-  });
-
   describe("render()", () => {
     it("renders an error", () => {
       const wrapper = shallow(<App />);
@@ -112,6 +39,7 @@ describe("App", () => {
                 />
             `);
     });
+    
     it("renders the App correctly", () => {
       const wrapper = shallow(<App />);
       expect(wrapper).toMatchInlineSnapshot(`
@@ -124,15 +52,22 @@ describe("App", () => {
           <div
             className="card-container wrapper done"
             onDragOver={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+              }
+            }
           >
-            <Component
-              handleCrossOut={[Function]}
-              handleDelete={[Function]}
-              loading={true}
-              onDrag={[Function]}
-              onDrop={[Function]}
-              tasks={Array []}
-            />
+            <div
+              style={
+                Object {
+                  "color": "black",
+                }
+              }
+            >
+              Input your first task. It will only be saved in your browser
+            </div>
           </div>
           <div
             className="wrapper"

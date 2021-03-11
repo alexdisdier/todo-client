@@ -8,9 +8,11 @@ describe("Task", () => {
 
   beforeEach(() => {
     props = {
-      title: "title",
-      index: "1",
-      isDone: false,
+      value: {
+        key: "nanoid",
+        title: "title",
+        isDone: false
+      },
       handleDelete: jest.fn(),
       handleCrossOut: jest.fn(),
       draggedTask: jest.fn(),
@@ -28,7 +30,7 @@ describe("Task", () => {
         .simulate("drag");
 
       expect(props.onDrag).toHaveBeenCalled();
-      expect(props.onDrag).toHaveBeenCalledWith(undefined, "1");
+      expect(props.onDrag).toHaveBeenCalledWith(undefined, "nanoid");
 
       wrapper
         .find("li")
@@ -36,7 +38,7 @@ describe("Task", () => {
         .simulate("drop");
 
       expect(props.onDrop).toHaveBeenCalled();
-      expect(props.onDrop).toHaveBeenCalledWith(undefined, "1");
+      expect(props.onDrop).toHaveBeenCalledWith(undefined, "nanoid");
     });
 
     it("deletes a task when clicked on the cross", () => {
@@ -48,7 +50,7 @@ describe("Task", () => {
         .props();
 
       expect(props.handleDelete).toHaveBeenCalledTimes(1);
-      expect(props.handleDelete).toHaveBeenCalledWith("1");
+      expect(props.handleDelete).toHaveBeenCalledWith("nanoid");
     });
 
     it("crosses out a task when clicked on the task itself", () => {
@@ -60,7 +62,7 @@ describe("Task", () => {
         .props();
 
       expect(props.handleCrossOut).toHaveBeenCalledTimes(1);
-      expect(props.handleCrossOut).toHaveBeenCalledWith("1");
+      expect(props.handleCrossOut).toHaveBeenCalledWith("nanoid");
     });
   });
 
@@ -77,7 +79,7 @@ describe("Task", () => {
             onDrop={[Function]}
           >
             <span
-              className="cross-task"
+              className=""
               data-testid="task"
               onClick={[Function]}
             >
