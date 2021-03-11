@@ -1,4 +1,7 @@
-[![Build Status](https://semaphoreci.com/api/v1/alexdisdier/todo-client/branches/master/shields_badge.svg)](https://semaphoreci.com/alexdisdier/todo-client)
+![Continuous Integration](https://github.com/alexdisdier/todo-client/workflows/Continuous%20Integration/badge.svg?branch=master)
+
+[![Deploy-to-GitHub pages Actions Status](https://github.com/alexdisdier/todo-client/workflows/Deploy%20gh%20pages/badge.svg)](https://github.com/alexdisdier/todo-client/actions)
+
 [![codecov](https://codecov.io/gh/alexdisdier/todo-client/branch/master/graph/badge.svg)](https://codecov.io/gh/alexdisdier/todo-client)
 
 <p align="center" >
@@ -67,7 +70,7 @@ Check validity of codecov.yml file
 cat codecov.yml | curl --data-binary @- https://codecov.io/validate
 ```
 
-Make sure in Semaphoreci, we're using the right node version to run a build. 
+Make sure in Semaphoreci, we're using the right node version to run a build.
 
 ## Built With
 
