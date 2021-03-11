@@ -27,7 +27,8 @@ const Tasks: FC<IProps> = (props: IProps) => {
   const lastIndex = tasks.length;
 
   return (
-    <ul className="card">
+    <ul className="card" style={{  height: 'calc(100vh - 300px)',
+      overflowY: "scroll"}}>
       {tasks.map(({ key, title, isDone}) => (
         <Task
           key={key}

@@ -165,6 +165,8 @@ class App extends Component<{}, IState> {
   renderTasks() {
     const { tasks, loading } = this.state;
 
+    if(tasks.length === 0) return <div style={{color: 'black'}}>Input your first task. It will only be saved in your browser</div>
+
     return (
       <Tasks
         tasks={tasks}
@@ -178,7 +180,7 @@ class App extends Component<{}, IState> {
   }
 
   render() {
-    const { appTitle, input } = this.state;
+    const { appTitle, input, tasks } = this.state;
 
     return (
       <div className="App">
@@ -188,6 +190,7 @@ class App extends Component<{}, IState> {
 
         <div
           className="card-container wrapper done"
+          style={{alignItems: `${tasks.length === 0 ? 'center' : 'unset'}`, display: `${tasks.length === 0 ? 'flex' : 'unset'}`}}
           onDragOver={this.onDragOver}
         >
           {this.renderTasks()}
