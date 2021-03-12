@@ -1,7 +1,6 @@
-import React from "react";
-import axios from "axios";
-import { shallow } from "enzyme";
-import App from "./App";
+import { shallow } from 'enzyme';
+import React from 'react';
+import App from './App';
 
 /**
  * Unit tests should be run in isolation;
@@ -9,38 +8,37 @@ import App from "./App";
  * Mocking axios module
  * makes unit tests independent of the network
  */
-jest.mock("axios");
+jest.mock('axios');
 
-jest.mock("nanoid", () => ({
-  nanoid: jest.fn(() => "nanoid")
+jest.mock('nanoid', () => ({
+  nanoid: jest.fn(() => 'nanoid')
 }));
 
-
 jest
-  .spyOn(global.Date, "now")
-  .mockImplementationOnce(() => new Date("2019-05-14T11:01:58.135Z").valueOf());
+  .spyOn(global.Date, 'now')
+  .mockImplementationOnce(() => new Date('2019-05-14T11:01:58.135Z').valueOf());
 
-jest.mock("./components/Header", () => "Header");
-jest.mock("./components/Input/Input", () => "Input");
-jest.mock("./components/Button/Button", () => "Button");
-jest.mock("./components/Footer", () => "Footer");
+jest.mock('./components/Header', () => 'Header');
+jest.mock('./components/Input/Input', () => 'Input');
+jest.mock('./components/Button/Button', () => 'Button');
+jest.mock('./components/Footer', () => 'Footer');
 
-jest.mock("./components/Error/Error", () => "Error");
+jest.mock('./components/Error/Error', () => 'Error');
 
-describe("App", () => {
-  describe("render()", () => {
-    it("renders an error", () => {
+describe('App', () => {
+  describe('render()', () => {
+    it('renders an error', () => {
       const wrapper = shallow(<App />);
-      wrapper.setState({ error: "error" });
+      wrapper.setState({ error: 'error' });
 
-      expect(wrapper.find("Error")).toMatchInlineSnapshot(`
+      expect(wrapper.find('Error')).toMatchInlineSnapshot(`
                 <Error
                   error="error"
                 />
             `);
     });
-    
-    it("renders the App correctly", () => {
+
+    it('renders the App correctly', () => {
       const wrapper = shallow(<App />);
       expect(wrapper).toMatchInlineSnapshot(`
         <div

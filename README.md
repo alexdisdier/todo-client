@@ -1,6 +1,6 @@
 ![Continuous Integration](https://github.com/alexdisdier/todo-client/workflows/Continuous%20Integration/badge.svg?branch=master)
 
-[![Deploy-to-GitHub pages Actions Status](https://github.com/alexdisdier/todo-client/workflows/Deploy%20gh%20pages/badge.svg)](https://github.com/alexdisdier/todo-client/actions)
+![Deploy to GitHub pages workflow](https://github.com/alexdisdier/todo-client/actions/workflows/deploy-gh-pages.yml/badge.svg)
 
 [![codecov](https://codecov.io/gh/alexdisdier/todo-client/branch/master/graph/badge.svg)](https://codecov.io/gh/alexdisdier/todo-client)
 
@@ -90,3 +90,5 @@ Make sure in Semaphoreci, we're using the right node version to run a build.
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 - Deploy React to github pages [codeburst](https://codeburst.io/deploy-react-to-github-pages-to-create-an-amazing-website-42d8b09cd4d)
 - I used a headstart dragAndDrop tutorial by _Temitope Emmanuel_ [Medium](https://medium.com/the-andela-way/react-drag-and-drop-7411d14894b9)
+- eslint + prettier [tutorial](https://robertcooper.me/post/using-eslint-and-prettier-in-a-typescript-project)
+- sort package.json using `npx sort-package-json`

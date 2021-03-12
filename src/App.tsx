@@ -1,18 +1,18 @@
-import React, { Component, FormEvent, MouseEvent } from "react";
+import React, { Component, FormEvent, MouseEvent } from 'react';
 import { nanoid } from 'nanoid';
 
 import { TaskDefinition } from './types';
 
-import "./assets/css/reset.css";
-import "./App.css";
+import './assets/css/reset.css';
+import './App.css';
 
-import Header from "./components/Header";
-import Tasks from "./components/Tasks/Tasks";
-import Input from "./components/Input/Input";
-import Button from "./components/Button/Button";
-import Footer from "./components/Footer";
+import Header from './components/Header';
+import Tasks from './components/Tasks/Tasks';
+import Input from './components/Input/Input';
+import Button from './components/Button/Button';
+import Footer from './components/Footer';
 
-import Error from "./components/Error/Error";
+import Error from './components/Error/Error';
 
 const LOCALSTORAGE_KEY_TASKS = 'tasks';
 
@@ -29,19 +29,19 @@ interface IState {
 
 class App extends Component<{}, IState> {
   state: IState = {
-    appTitle: "To do list",
-    input: "",
+    appTitle: 'To do list',
+    input: '',
     tasks: [],
-    error: "",
+    error: '',
     pos: 0,
     onDragIndex: 0,
     onDropIndex: 0,
     loading: false
   };
-  
 
-  buildTasks = ():void => {
-    const localStorageTasks = localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || '';
+  buildTasks = (): void => {
+    const localStorageTasks =
+      localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || '';
 
     this.setState({
       tasks: JSON.parse(localStorageTasks) || [],
@@ -50,9 +50,10 @@ class App extends Component<{}, IState> {
   };
 
   componentDidMount() {
-    const localStorageTasks = localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || '';
+    const localStorageTasks =
+      localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || '';
 
-    if(localStorageTasks) {
+    if (localStorageTasks) {
       this.setState({
         tasks: JSON.parse(localStorageTasks) || [],
         loading: false
@@ -82,10 +83,10 @@ class App extends Component<{}, IState> {
 
     const newTasks = [...tasks, task];
 
-    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks))
+    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
 
     this.setState({
-      input: "",
+      input: '',
       tasks: newTasks
     });
   };
@@ -100,7 +101,7 @@ class App extends Component<{}, IState> {
 
     const taskToUpdate = newTasks.find(task => task.key === key);
 
-    if(!taskToUpdate) return;
+    if (!taskToUpdate) return;
 
     taskToUpdate.isDone = !taskToUpdate.isDone;
 
@@ -108,24 +109,23 @@ class App extends Component<{}, IState> {
       if (a.isDone === b.isDone) return 0;
       if (a.isDone) return -1;
       return 1;
-    })
+    });
 
-    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks))
+    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
 
-
-    this.setState({ tasks: newTasks })
+    this.setState({ tasks: newTasks });
   };
 
   handleDelete = (key: string) => {
     const { tasks }: any = this.state;
-    
+
     const newTasks: TaskDefinition[] = [...tasks];
 
     const filteredTasks = newTasks.filter(task => task.key !== key);
 
-    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(filteredTasks))
+    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(filteredTasks));
 
-    this.setState({ tasks: filteredTasks })
+    this.setState({ tasks: filteredTasks });
   };
 
   onDrag = (event: MouseEvent, index: number): void => {
@@ -141,13 +141,10 @@ class App extends Component<{}, IState> {
 
   onDrop = async (event: MouseEvent, index: string) => {
     // let newArr = [...this.state.tasks];
-
     // const itemDragged = newArr.splice(this.state.onDragIndex, 1);
-
     // await this.setState({
     //   onDropIndex: index
     // });
-
     // newArr.splice(this.state.onDropIndex, 0, itemDragged[0]);
     // this.setState({
     //   tasks: newArr
@@ -155,7 +152,7 @@ class App extends Component<{}, IState> {
   };
 
   renderError() {
-    if (this.state.error !== "") {
+    if (this.state.error !== '') {
       return <Error error={this.state.error} />;
     } else {
       return null;
@@ -165,7 +162,12 @@ class App extends Component<{}, IState> {
   renderTasks() {
     const { tasks, loading } = this.state;
 
-    if(tasks.length === 0) return <div style={{color: 'black'}}>Input your first task. It will only be saved in your browser</div>
+    if (tasks.length === 0)
+      return (
+        <div style={{ color: 'black' }}>
+          Input your first task. It will only be saved in your browser
+        </div>
+      );
 
     return (
       <Tasks
@@ -190,7 +192,10 @@ class App extends Component<{}, IState> {
 
         <div
           className="card-container wrapper done"
-          style={{alignItems: `${tasks.length === 0 ? 'center' : 'unset'}`, display: `${tasks.length === 0 ? 'flex' : 'unset'}`}}
+          style={{
+            alignItems: `${tasks.length === 0 ? 'center' : 'unset'}`,
+            display: `${tasks.length === 0 ? 'flex' : 'unset'}`
+          }}
           onDragOver={this.onDragOver}
         >
           {this.renderTasks()}

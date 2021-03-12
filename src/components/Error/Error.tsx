@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import image from "../../assets/img/Cloud_Warning.svg";
-import "./Error.css";
+import image from '../../assets/img/Cloud_Warning.svg';
+import './Error.css';
 
 interface IProps {
   error: string;

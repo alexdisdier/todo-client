@@ -1,18 +1,18 @@
-import React from "react";
-import { shallow } from "enzyme";
+import React from 'react';
+import { shallow } from 'enzyme';
 
-import Header from "./Header";
+import Header from './Header';
 
-describe("Header", () => {
+describe('Header', () => {
   let props: any;
 
   beforeEach(() => {
     props = {
-      title: "title"
+      title: 'title'
     };
   });
 
-  it("renders correctly", () => {
+  it('renders correctly', () => {
     const wrapper = shallow(<Header {...props} />);
     expect(wrapper).toMatchInlineSnapshot(`
       <header>

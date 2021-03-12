@@ -1,16 +1,16 @@
-import React from "react";
-import { shallow } from "enzyme";
+import React from 'react';
+import { shallow } from 'enzyme';
 
-import Task from "./Task";
+import Task from './Task';
 
-describe("Task", () => {
+describe('Task', () => {
   let props: any;
 
   beforeEach(() => {
     props = {
       value: {
-        key: "nanoid",
-        title: "title",
+        key: 'nanoid',
+        title: 'title',
         isDone: false
       },
       handleDelete: jest.fn(),
@@ -21,53 +21,53 @@ describe("Task", () => {
     };
   });
 
-  describe("Actions", () => {
-    it("drags and drops a task", () => {
+  describe('Actions', () => {
+    it('drags and drops a task', () => {
       const wrapper = shallow(<Task {...props} />);
       wrapper
-        .find("li")
+        .find('li')
         .at(0)
-        .simulate("drag");
+        .simulate('drag');
 
       expect(props.onDrag).toHaveBeenCalled();
-      expect(props.onDrag).toHaveBeenCalledWith(undefined, "nanoid");
+      expect(props.onDrag).toHaveBeenCalledWith(undefined, 'nanoid');
 
       wrapper
-        .find("li")
+        .find('li')
         .at(0)
-        .simulate("drop");
+        .simulate('drop');
 
       expect(props.onDrop).toHaveBeenCalled();
-      expect(props.onDrop).toHaveBeenCalledWith(undefined, "nanoid");
+      expect(props.onDrop).toHaveBeenCalledWith(undefined, 'nanoid');
     });
 
-    it("deletes a task when clicked on the cross", () => {
+    it('deletes a task when clicked on the cross', () => {
       const wrapper = shallow(<Task {...props} />);
 
       wrapper
         .find('[data-testid="delete-task"]')
-        .simulate("click")
+        .simulate('click')
         .props();
 
       expect(props.handleDelete).toHaveBeenCalledTimes(1);
-      expect(props.handleDelete).toHaveBeenCalledWith("nanoid");
+      expect(props.handleDelete).toHaveBeenCalledWith('nanoid');
     });
 
-    it("crosses out a task when clicked on the task itself", () => {
+    it('crosses out a task when clicked on the task itself', () => {
       const wrapper = shallow(<Task {...props} />);
 
       wrapper
         .find('[data-testid="task"]')
-        .simulate("click")
+        .simulate('click')
         .props();
 
       expect(props.handleCrossOut).toHaveBeenCalledTimes(1);
-      expect(props.handleCrossOut).toHaveBeenCalledWith("nanoid");
+      expect(props.handleCrossOut).toHaveBeenCalledWith('nanoid');
     });
   });
 
-  describe("render()", () => {
-    it("renders a single task crossed out", () => {
+  describe('render()', () => {
+    it('renders a single task crossed out', () => {
       props.isDone = true;
       const wrapper = shallow(<Task {...props} />);
       expect(wrapper).toMatchInlineSnapshot(`
@@ -96,7 +96,7 @@ describe("Task", () => {
       `);
     });
 
-    it("renders a single Task correctly", () => {
+    it('renders a single Task correctly', () => {
       const wrapper = shallow(<Task {...props} />);
       expect(wrapper).toMatchInlineSnapshot(`
         <Fragment>

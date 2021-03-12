@@ -1,11 +1,11 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
-import Task from "./Task/Task";
-import withLoading from "../../HOC/withLoading";
+import Task from './Task/Task';
+import withLoading from '../../HOC/withLoading';
 
 import { TasksDefinition } from '../../types';
 
-import "./Tasks.css";
+import './Tasks.css';
 
 interface IProps {
   tasks: TasksDefinition;
@@ -16,23 +16,19 @@ interface IProps {
 }
 
 const Tasks: FC<IProps> = (props: IProps) => {
-  const {
-    tasks,
-    handleDelete,
-    handleCrossOut,
-    onDrag,
-    onDrop,
-  } = props;
+  const { tasks, handleDelete, handleCrossOut, onDrag, onDrop } = props;
 
   const lastIndex = tasks.length;
 
   return (
-    <ul className="card" style={{  height: 'calc(100vh - 300px)',
-      overflowY: "scroll"}}>
-      {tasks.map(({ key, title, isDone}) => (
+    <ul
+      className="card"
+      style={{ height: 'calc(100vh - 300px)', overflowY: 'scroll' }}
+    >
+      {tasks.map(({ key, title, isDone }) => (
         <Task
           key={key}
-          value={{key, title, isDone}}
+          value={{ key, title, isDone }}
           handleDelete={handleDelete}
           handleCrossOut={handleCrossOut}
           onDrag={onDrag}

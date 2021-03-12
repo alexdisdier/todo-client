@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import "./Button.css";
+import './Button.css';
 
 const button = () => (
   <button className="btn-add" value="submit">

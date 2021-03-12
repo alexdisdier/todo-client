@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 // source animation loading: https://codepen.io/alexdisdier/pen/XOBVdR
-import image from "../../assets/img/loading.svg";
-import "./Loading.css";
+import image from '../../assets/img/loading.svg';
+import './Loading.css';
 
 const loading = () => {
   return (

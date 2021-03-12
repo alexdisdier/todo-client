@@ -6,4 +6,4 @@ export interface TaskDefinition {
   pos: number;
 }
 
-export type TasksDefinition = TaskDefinition[]
+export type TasksDefinition = TaskDefinition[];

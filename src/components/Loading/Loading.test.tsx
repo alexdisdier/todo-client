@@ -1,10 +1,10 @@
-import React from "react";
-import { shallow } from "enzyme";
+import React from 'react';
+import { shallow } from 'enzyme';
 
-import Loading from "./Loading";
+import Loading from './Loading';
 
-describe("Loading", () => {
-  it("renders correctly", () => {
+describe('Loading', () => {
+  it('renders correctly', () => {
     const wrapper = shallow(<Loading />);
     expect(wrapper).toMatchInlineSnapshot(`
       <div

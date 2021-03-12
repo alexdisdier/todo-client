@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
 import { TaskDefinition } from '../../../types';
 
-import "./Task.css";
+import './Task.css';
 
 interface IProps {
   onDrag(event: React.MouseEvent, key: string): void;
@@ -31,12 +31,14 @@ const Task: FC<IProps> = (props: IProps) => {
       >
         <span
           data-testid="task"
-          className={isDone ? "cross-task" : ""}
+          className={isDone ? 'cross-task' : ''}
           onClick={() => handleCrossOut(key)}
         >
           {title}
         </span>
-        <span data-testid="delete-task" onClick={() => handleDelete(key)}>X</span>
+        <span data-testid="delete-task" onClick={() => handleDelete(key)}>
+          X
+        </span>
       </li>
     </>
   );
