@@ -17,8 +17,8 @@ This is a to do list Web Application built with React.
 
 You will find two branches:
 
-- **master** using Typescript (converted initial javascript project), propTypes and a "loading" Higher Order Component.
-- **initial-js** first version of this project
+-   **master** using Typescript (converted initial javascript project), propTypes and a "loading" Higher Order Component.
+-   **initial-js** first version of this project
 
 ## Usage example
 
@@ -26,12 +26,12 @@ See demo - https://alexdisdier.github.io/todo-client/
 
 ## ✅ Functionalities
 
-- Add a task
-- Cross out a task which goes automatically at the end of the list
-- Drag and drop client side.
-- Delete a task
-- Saved to a database (mLab) via Heroku
-- Loading and error component
+-   Add a task
+-   Cross out a task which goes automatically at the end of the list
+-   Drag and drop client side.
+-   Delete a task
+-   Saved to a database (mLab) via Heroku
+-   Loading and error component
 
 ## Running the project
 
@@ -74,19 +74,21 @@ Make sure in Semaphoreci, we're using the right node version to run a build.
 
 ## Built With
 
-- html
-- css
-- [JavaScript](https://developer.mozilla.org/bm/docs/Web/JavaScript)
-- [TypeScript](https://developer.mozilla.org/bm/docs/Web/TypeScript)
-- [React.js](https://reactjs.org/docs/hello-world.html)
-- [Create React App](https://facebook.github.io/create-react-app/docs/getting-started)
+-   html
+-   css
+-   [JavaScript](https://developer.mozilla.org/bm/docs/Web/JavaScript)
+-   [TypeScript](https://developer.mozilla.org/bm/docs/Web/TypeScript)
+-   [React.js](https://reactjs.org/docs/hello-world.html)
+-   [Create React App](https://facebook.github.io/create-react-app/docs/getting-started)
 
 ## Dependencies
 
-- [axios](https://www.npmjs.com/package/axios)
+-   [axios](https://www.npmjs.com/package/axios)
 
 ## Acknowledgments
 
-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-- Deploy React to github pages [codeburst](https://codeburst.io/deploy-react-to-github-pages-to-create-an-amazing-website-42d8b09cd4d)
-- I used a headstart dragAndDrop tutorial by _Temitope Emmanuel_ [Medium](https://medium.com/the-andela-way/react-drag-and-drop-7411d14894b9)
+-   This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+-   Deploy React to github pages [codeburst](https://codeburst.io/deploy-react-to-github-pages-to-create-an-amazing-website-42d8b09cd4d)
+-   I used a headstart dragAndDrop tutorial by _Temitope Emmanuel_ [Medium](https://medium.com/the-andela-way/react-drag-and-drop-7411d14894b9)
+-   eslint + prettier [tutorial](https://robertcooper.me/post/using-eslint-and-prettier-in-a-typescript-project)
+-   sort package.json using `npx sort-package-json`
