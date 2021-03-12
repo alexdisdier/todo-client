@@ -4,17 +4,17 @@ import { shallow } from 'enzyme';
 import Error from './Error';
 
 describe('Error', () => {
-    let props: any;
+  let props: any;
 
-    beforeEach(() => {
-        props = {
-            Error: 'error',
-        };
-    });
+  beforeEach(() => {
+    props = {
+      Error: 'error'
+    };
+  });
 
-    it('renders correctly', () => {
-        const wrapper = shallow(<Error {...props} />);
-        expect(wrapper).toMatchInlineSnapshot(`
+  it('renders correctly', () => {
+    const wrapper = shallow(<Error {...props} />);
+    expect(wrapper).toMatchInlineSnapshot(`
       <div
         className="absolute"
         id="error-loading"
@@ -30,5 +30,5 @@ describe('Error', () => {
         </div>
       </div>
     `);
-    });
+  });
 });

@@ -4,19 +4,19 @@ import { shallow } from 'enzyme';
 import Input from './Input';
 
 describe('Input', () => {
-    let props: any;
+  let props: any;
 
-    beforeEach(() => {
-        props = {
-            name: 'name',
-            value: 'value',
-            handleChange: jest.fn(),
-        };
-    });
+  beforeEach(() => {
+    props = {
+      name: 'name',
+      value: 'value',
+      handleChange: jest.fn()
+    };
+  });
 
-    it('renders correctly', () => {
-        const wrapper = shallow(<Input {...props} />);
-        expect(wrapper).toMatchInlineSnapshot(`
+  it('renders correctly', () => {
+    const wrapper = shallow(<Input {...props} />);
+    expect(wrapper).toMatchInlineSnapshot(`
       <input
         className="card-task"
         name="name"
@@ -26,5 +26,5 @@ describe('Input', () => {
         value="value"
       />
     `);
-    });
+  });
 });

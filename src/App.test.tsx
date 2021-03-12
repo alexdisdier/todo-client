@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 import App from './App';
 
 /**
@@ -11,10 +11,12 @@ import App from './App';
 jest.mock('axios');
 
 jest.mock('nanoid', () => ({
-    nanoid: jest.fn(() => 'nanoid'),
+  nanoid: jest.fn(() => 'nanoid')
 }));
 
-jest.spyOn(global.Date, 'now').mockImplementationOnce(() => new Date('2019-05-14T11:01:58.135Z').valueOf());
+jest
+  .spyOn(global.Date, 'now')
+  .mockImplementationOnce(() => new Date('2019-05-14T11:01:58.135Z').valueOf());
 
 jest.mock('./components/Header', () => 'Header');
 jest.mock('./components/Input/Input', () => 'Input');
@@ -24,21 +26,21 @@ jest.mock('./components/Footer', () => 'Footer');
 jest.mock('./components/Error/Error', () => 'Error');
 
 describe('App', () => {
-    describe('render()', () => {
-        it('renders an error', () => {
-            const wrapper = shallow(<App />);
-            wrapper.setState({ error: 'error' });
+  describe('render()', () => {
+    it('renders an error', () => {
+      const wrapper = shallow(<App />);
+      wrapper.setState({ error: 'error' });
 
-            expect(wrapper.find('Error')).toMatchInlineSnapshot(`
+      expect(wrapper.find('Error')).toMatchInlineSnapshot(`
                 <Error
                   error="error"
                 />
             `);
-        });
+    });
 
-        it('renders the App correctly', () => {
-            const wrapper = shallow(<App />);
-            expect(wrapper).toMatchInlineSnapshot(`
+    it('renders the App correctly', () => {
+      const wrapper = shallow(<App />);
+      expect(wrapper).toMatchInlineSnapshot(`
         <div
           className="App"
         >
@@ -87,6 +89,6 @@ describe('App', () => {
           <Footer />
         </div>
       `);
-        });
     });
+  });
 });

@@ -4,9 +4,9 @@ import { shallow } from 'enzyme';
 import Button from './Button';
 
 describe('Button', () => {
-    it('renders the Button correctly', () => {
-        const wrapper = shallow(<Button />);
-        expect(wrapper).toMatchInlineSnapshot(`
+  it('renders the Button correctly', () => {
+    const wrapper = shallow(<Button />);
+    expect(wrapper).toMatchInlineSnapshot(`
       <button
         className="btn-add"
         value="submit"
@@ -16,5 +16,5 @@ describe('Button', () => {
         </span>
       </button>
     `);
-    });
+  });
 });
