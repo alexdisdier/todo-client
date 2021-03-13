@@ -1,4 +1,14 @@
-import React, { Component, FormEvent, MouseEvent } from 'react';
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  FormEvent,
+  ChangeEvent,
+  MouseEvent,
+  ReactNode
+} from 'react';
 import { nanoid } from 'nanoid';
 
 import { TaskDefinition } from './types';
@@ -12,66 +22,35 @@ import Input from './components/Input/Input';
 import Button from './components/Button/Button';
 import Footer from './components/Footer';
 
-import Error from './components/Error/Error';
-
 const LOCALSTORAGE_KEY_TASKS = 'tasks';
+const APP_TITLE = 'To do list';
 
-interface IState {
-  appTitle: string;
-  input: string;
-  tasks: TaskDefinition[];
-  error: string;
-  pos: number;
-  onDragIndex: number;
-  onDropIndex: number;
-  loading: boolean;
-}
+const App: FC = () => {
+  const [input, setInput] = useState<string>('');
+  const [tasks, setTasks] = useState<any[]>([]);
+  const [, setOnDragIndex] = useState<number | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-class App extends Component<{}, IState> {
-  state: IState = {
-    appTitle: 'To do list',
-    input: '',
-    tasks: [],
-    error: '',
-    pos: 0,
-    onDragIndex: 0,
-    onDropIndex: 0,
-    loading: false
-  };
+  useEffect(() => {
+    buildTasks();
+  }, []);
 
-  buildTasks = (): void => {
+  const buildTasks = (): void => {
     const localStorageTasks =
       localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || '';
 
-    this.setState({
-      tasks: JSON.parse(localStorageTasks) || [],
-      loading: false
-    });
+    setTasks(JSON.parse(localStorageTasks) || []);
+    setLoading(false);
   };
 
-  componentDidMount() {
-    const localStorageTasks =
-      localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || '';
-
-    if (localStorageTasks) {
-      this.setState({
-        tasks: JSON.parse(localStorageTasks) || [],
-        loading: false
-      });
-    }
-  }
-
-  handleChange = (event: FormEvent<HTMLInputElement>) => {
-    const { value }: any = event.target;
-    this.setState({
-      input: value
-    });
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setInput(value);
   };
 
-  handleSubmit = (event: any): void => {
-    const { tasks, input } = this.state;
-
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+
     const lastIndex: number = tasks.length;
     const task = {
       key: nanoid(5),
@@ -85,83 +64,66 @@ class App extends Component<{}, IState> {
 
     localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
 
-    this.setState({
-      input: '',
-      tasks: newTasks
-    });
+    setInput('');
+    setTasks(newTasks);
   };
 
   /**
    * - toggles crossing out a task
    * - sorts the list by done task
    */
-  handleCrossOut = (key: string): void => {
-    const { tasks }: any = this.state;
-    const newTasks: TaskDefinition[] = [...tasks];
+  const handleCrossOut = useCallback(
+    (key: string): void => {
+      const newTasks: TaskDefinition[] = [...tasks];
 
-    const taskToUpdate = newTasks.find(task => task.key === key);
+      const taskToUpdate = newTasks.find(task => task.key === key);
 
-    if (!taskToUpdate) return;
+      if (!taskToUpdate) return;
 
-    taskToUpdate.isDone = !taskToUpdate.isDone;
+      taskToUpdate.isDone = !taskToUpdate.isDone;
 
-    newTasks.sort((a, b) => {
-      if (a.isDone === b.isDone) return 0;
-      if (a.isDone) return -1;
-      return 1;
-    });
+      newTasks.sort((a, b) => {
+        if (a.isDone === b.isDone) return 0;
+        if (a.isDone) return -1;
+        return 1;
+      });
 
-    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
+      localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
 
-    this.setState({ tasks: newTasks });
-  };
+      setTasks(newTasks);
+    },
+    [tasks]
+  );
 
-  handleDelete = (key: string) => {
-    const { tasks }: any = this.state;
+  const handleDelete = useCallback(
+    (key: string): void => {
+      const newTasks: TaskDefinition[] = [...tasks];
 
-    const newTasks: TaskDefinition[] = [...tasks];
+      const filteredTasks = newTasks.filter(task => task.key !== key);
 
-    const filteredTasks = newTasks.filter(task => task.key !== key);
+      localStorage.setItem(
+        LOCALSTORAGE_KEY_TASKS,
+        JSON.stringify(filteredTasks)
+      );
 
-    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(filteredTasks));
+      setTasks(filteredTasks);
+    },
+    [tasks]
+  );
 
-    this.setState({ tasks: filteredTasks });
-  };
-
-  onDrag = (event: MouseEvent, index: number): void => {
+  const onDrag = (event: MouseEvent, index: number): void => {
     event.preventDefault();
-    this.setState({
-      onDragIndex: index
-    });
+
+    setOnDragIndex(index);
   };
 
-  onDragOver = (event: MouseEvent) => {
+  const onDragOver = (event: MouseEvent): void => {
     event.preventDefault();
   };
 
-  onDrop = async (event: MouseEvent, index: string) => {
-    // let newArr = [...this.state.tasks];
-    // const itemDragged = newArr.splice(this.state.onDragIndex, 1);
-    // await this.setState({
-    //   onDropIndex: index
-    // });
-    // newArr.splice(this.state.onDropIndex, 0, itemDragged[0]);
-    // this.setState({
-    //   tasks: newArr
-    // });
-  };
+  const onDrop = async (event: MouseEvent, index: string) => {};
 
-  renderError() {
-    if (this.state.error !== '') {
-      return <Error error={this.state.error} />;
-    } else {
-      return null;
-    }
-  }
-
-  renderTasks() {
-    const { tasks, loading } = this.state;
-
+  const renderTasks = useMemo((): ReactNode => {
     if (tasks.length === 0)
       return (
         <div style={{ color: 'black' }}>
@@ -172,52 +134,42 @@ class App extends Component<{}, IState> {
     return (
       <Tasks
         tasks={tasks}
-        handleCrossOut={this.handleCrossOut}
-        handleDelete={this.handleDelete}
-        onDrag={this.onDrag}
-        onDrop={this.onDrop}
+        handleCrossOut={handleCrossOut}
+        handleDelete={handleDelete}
+        onDrag={onDrag}
+        onDrop={onDrop}
         loading={loading}
       />
     );
-  }
+  }, [handleCrossOut, handleDelete, loading, tasks]);
 
-  render() {
-    const { appTitle, input, tasks } = this.state;
+  return (
+    <div className="App">
+      <Header title={APP_TITLE} />
 
-    return (
-      <div className="App">
-        <Header title={appTitle} />
-
-        {this.renderError()}
-
-        <div
-          className="card-container wrapper done"
-          style={{
-            alignItems: `${tasks.length === 0 ? 'center' : 'unset'}`,
-            display: `${tasks.length === 0 ? 'flex' : 'unset'}`
-          }}
-          onDragOver={this.onDragOver}
-        >
-          {this.renderTasks()}
-        </div>
-
-        <div className="wrapper">
-          <form className="card" onSubmit={this.handleSubmit}>
-            <Input
-              name="input"
-              value={input}
-              handleChange={this.handleChange}
-            />
-            <div className="btn-add-container">
-              <Button />
-            </div>
-          </form>
-        </div>
-
-        <Footer />
+      <div
+        className="card-container wrapper done"
+        style={{
+          alignItems: `${tasks.length === 0 ? 'center' : 'unset'}`,
+          display: `${tasks.length === 0 ? 'flex' : 'unset'}`
+        }}
+        onDragOver={onDragOver}
+      >
+        {renderTasks}
       </div>
-    );
-  }
-}
+
+      <div className="wrapper">
+        <form className="card" onSubmit={handleSubmit}>
+          <Input name="input" value={input} handleChange={handleChange} />
+          <div className="btn-add-container">
+            <Button />
+          </div>
+        </form>
+      </div>
+
+      <Footer />
+    </div>
+  );
+};
 
 export default App;
