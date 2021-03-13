@@ -1,26 +1,22 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import './Input.css';
 
-interface IProps {
+export interface IProps {
   name: string;
   value: string;
   handleChange(event: React.FormEvent<HTMLInputElement>): void;
 }
 
-const input: React.FC<IProps> = (props: IProps) => {
-  const { name, value, handleChange } = props;
+const Input: FC<IProps> = ({ name, value, handleChange }) => (
+  <input
+    className="card-task"
+    placeholder="type some text here"
+    type="text"
+    name={name}
+    value={value}
+    onChange={handleChange}
+  />
+);
 
-  return (
-    <input
-      className="card-task"
-      placeholder="type some text here"
-      type="text"
-      name={name}
-      value={value}
-      onChange={handleChange}
-    />
-  );
-};
-
-export default input;
+export default Input;
