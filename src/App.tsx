@@ -37,9 +37,10 @@ const App: FC = () => {
 
   const buildTasks = (): void => {
     const localStorageTasks =
-      localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || '';
+      localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || '[]';
 
     setTasks(JSON.parse(localStorageTasks) || []);
+
     setLoading(false);
   };
 
