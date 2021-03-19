@@ -27,11 +27,13 @@ describe('Item', () => {
     it('toggles edit mode and edits an item', () => {
       const wrapper = shallow(<Item {...props} />);
 
+      // click on an item
       wrapper
         .find('[data-testid="item"]')
         .simulate('click')
         .props();
 
+      // edit an item
       wrapper
         .find('[data-testid="edit-item"]')
         .simulate('change', { target: { value: 'new task' } });
@@ -46,6 +48,7 @@ describe('Item', () => {
     it('checks and crosses an item when clicked on the IconCircle button', () => {
       const wrapper = shallow(<Item {...props} />);
 
+      // click on the circle icon
       wrapper
         .find('IconButton')
         .at(0)
@@ -59,6 +62,7 @@ describe('Item', () => {
       props.value.isDone = true;
       const wrapper = shallow(<Item {...props} />);
 
+      // click on the checked circle icon
       wrapper
         .find('IconButton')
         .at(0)
@@ -74,6 +78,7 @@ describe('Item', () => {
       // hover the item to reveil the trash icon button
       wrapper.find('[data-testid="item-wrapper"]').simulate('mouseenter');
 
+      // click on the trash icon
       wrapper
         .find('IconButton')
         .at(1)
