@@ -1,4 +1,16 @@
-form input {
+.input-new-task {
+  margin-left: 16px;
+  line-height: 28px;
+  font-size: 24px;
   outline: none;
   border: none;
+  color: var(--color-black);
+  background-color: transparent;
 }
+
+.input-new-task::placeholder { 
+  line-height: 28px;
+  color: var(--primary-color);
+}
+
+

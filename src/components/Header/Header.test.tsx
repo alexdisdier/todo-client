@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Header from './Header';
+import Header from '.';
 
 describe('Header', () => {
   let props: any;
@@ -15,10 +15,10 @@ describe('Header', () => {
   it('renders correctly', () => {
     const wrapper = shallow(<Header {...props} />);
     expect(wrapper).toMatchInlineSnapshot(`
-      <header>
-        <h1
-          className="wrapper"
-        >
+      <header
+        className="header"
+      >
+        <h1>
           title
         </h1>
       </header>

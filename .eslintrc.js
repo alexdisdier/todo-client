@@ -53,13 +53,7 @@ module.exports = {
     ],
     'arrow-parens': ['error', 'as-needed'],
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        vars: 'all',
-        args: 'none'
-      }
-    ],
+    '@typescript-eslint/no-unused-vars': 'off',
     'import/no-named-as-default': 0,
     'import/no-named-as-default-member': 0,
     'import/no-named-default': 0,

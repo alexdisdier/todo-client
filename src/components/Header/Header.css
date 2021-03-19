@@ -1,0 +1,10 @@
+.header {
+  padding: 16px 23px;
+  color: var(--color-white);
+  background-color: var(--primary-color);
+}
+
+.header h1 {
+  font-weight: 500;
+  font-size: 24px;
+}

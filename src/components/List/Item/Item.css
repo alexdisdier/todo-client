@@ -1,0 +1,48 @@
+.item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 12px;
+  transition: 250ms;
+}
+
+.item:hover {
+  background-color: rgba(255, 168, 0, 0.2)
+}
+
+.cross-task {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.item span {
+  padding: 0;
+  margin: 0;
+  font-size: 24px;
+  line-height: 28px;
+  width: 80%;
+  cursor: text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.input-edit-task {
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  line-height: inherit;
+  font-size: 24px;
+  outline: none;
+  border: none;
+  color: var(--color-black);
+  background-color: transparent;
+}
+
+.input-edit-task::placeholder { 
+  line-height: 28px;
+  color: var(--primary-color);
+}
+
+

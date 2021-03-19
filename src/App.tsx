@@ -5,9 +5,7 @@ import React, {
   useMemo,
   useCallback,
   FormEvent,
-  ChangeEvent,
-  MouseEvent,
-  ReactNode
+  ChangeEvent
 } from 'react';
 import { nanoid } from 'nanoid';
 
@@ -16,20 +14,21 @@ import { TaskDefinition } from './types';
 import './assets/css/reset.css';
 import './App.css';
 
-import Header from './components/Header';
-import Tasks from './components/Tasks/Tasks';
-import Input from './components/Input/Input';
-import Button from './components/Button/Button';
-import Footer from './components/Footer';
+import {
+  Button,
+  Container,
+  DoneTasks,
+  Header,
+  Input,
+  PendingTasks
+} from './components';
 
-const LOCALSTORAGE_KEY_TASKS = 'tasks';
-const APP_TITLE = 'To do list';
+const LOCALSTORAGE_KEY_TASKS = 'alexdisdier-tasks';
+const APP_TITLE = 'To Do';
 
 const App: FC = () => {
   const [input, setInput] = useState<string>('');
-  const [tasks, setTasks] = useState<any[]>([]);
-  const [, setOnDragIndex] = useState<number | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [tasks, setTasks] = useState<TaskDefinition[]>([]);
 
   useEffect(() => {
     buildTasks();
@@ -40,16 +39,30 @@ const App: FC = () => {
       localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || '[]';
 
     setTasks(JSON.parse(localStorageTasks) || []);
-
-    setLoading(false);
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setInput(value);
-  };
+  const handleOnChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>, key?: string) => {
+      const { value } = event.target;
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+      if (!key) return setInput(value);
+
+      const newTasks: TaskDefinition[] = [...tasks];
+
+      const taskToUpdate = newTasks.find(task => task.key === key);
+
+      if (!taskToUpdate) return;
+
+      taskToUpdate.title = value;
+
+      localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
+
+      setTasks(newTasks);
+    },
+    [tasks]
+  );
+
+  const handleOnSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     const lastIndex: number = tasks.length;
@@ -73,7 +86,7 @@ const App: FC = () => {
    * - toggles crossing out a task
    * - sorts the list by done task
    */
-  const handleCrossOut = useCallback(
+  const handleOnDoneTask = useCallback(
     (key: string): void => {
       const newTasks: TaskDefinition[] = [...tasks];
 
@@ -96,7 +109,7 @@ const App: FC = () => {
     [tasks]
   );
 
-  const handleDelete = useCallback(
+  const handleOnDelete = useCallback(
     (key: string): void => {
       const newTasks: TaskDefinition[] = [...tasks];
 
@@ -112,64 +125,42 @@ const App: FC = () => {
     [tasks]
   );
 
-  const onDrag = (event: MouseEvent, index: number): void => {
-    event.preventDefault();
+  const pendingTasks = useMemo(
+    () => tasks.filter(({ isDone }) => isDone === false),
+    [tasks]
+  );
 
-    setOnDragIndex(index);
-  };
-
-  const onDragOver = (event: MouseEvent): void => {
-    event.preventDefault();
-  };
-
-  const onDrop = async (event: MouseEvent, index: string) => {};
-
-  const renderTasks = useMemo((): ReactNode => {
-    if (tasks.length === 0)
-      return (
-        <div style={{ color: 'black' }}>
-          Input your first task. It will only be saved in your browser
-        </div>
-      );
-
-    return (
-      <Tasks
-        tasks={tasks}
-        handleCrossOut={handleCrossOut}
-        handleDelete={handleDelete}
-        onDrag={onDrag}
-        onDrop={onDrop}
-        loading={loading}
-      />
-    );
-  }, [handleCrossOut, handleDelete, loading, tasks]);
+  const doneTasks = useMemo(
+    () => tasks.filter(({ isDone }) => isDone === true),
+    [tasks]
+  );
 
   return (
-    <div className="App">
+    <>
       <Header title={APP_TITLE} />
-
-      <div
-        className="card-container wrapper done"
-        style={{
-          alignItems: `${tasks.length === 0 ? 'center' : 'unset'}`,
-          display: `${tasks.length === 0 ? 'flex' : 'unset'}`
-        }}
-        onDragOver={onDragOver}
-      >
-        {renderTasks}
-      </div>
-
-      <div className="wrapper">
-        <form className="card" onSubmit={handleSubmit}>
-          <Input name="input" value={input} handleChange={handleChange} />
-          <div className="btn-add-container">
-            <Button />
-          </div>
+      <Container>
+        <form onSubmit={handleOnSubmit}>
+          <Button />
+          <Input name="input" value={input} onChange={handleOnChange} />
         </form>
-      </div>
-
-      <Footer />
-    </div>
+        {pendingTasks.length > 0 && (
+          <PendingTasks
+            tasks={pendingTasks}
+            onChange={handleOnChange}
+            onDone={handleOnDoneTask}
+            onDelete={handleOnDelete}
+          />
+        )}
+        {doneTasks.length > 0 && (
+          <DoneTasks
+            tasks={doneTasks}
+            onChange={handleOnChange}
+            onDone={handleOnDoneTask}
+            onDelete={handleOnDelete}
+          />
+        )}
+      </Container>
+    </>
   );
 };
 
