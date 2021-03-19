@@ -1,0 +1,7 @@
+.list-wrapper {
+  margin-top: 26px
+}
+
+.list-wrapper[data-is-done-tasks="true"] {
+  margin-top: 12px
+ }

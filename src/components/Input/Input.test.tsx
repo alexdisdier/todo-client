@@ -1,16 +1,16 @@
 import React from 'react';
 import renderer, { act } from 'react-test-renderer';
 
-import Input, { IProps } from './Input';
+import Input, { Props } from '.';
 
 describe('Input', () => {
-  let props: IProps;
+  let props: Props;
 
   beforeEach(() => {
     props = {
       name: 'name',
       value: 'value',
-      handleChange: jest.fn()
+      onChange: jest.fn()
     };
   });
 
@@ -23,8 +23,8 @@ describe('Input', () => {
         .props.onChange({ target: { value: 'new task' } });
     });
 
-    expect(props.handleChange).toHaveBeenCalledTimes(1);
-    expect(props.handleChange).toHaveBeenCalledWith({
+    expect(props.onChange).toHaveBeenCalledTimes(1);
+    expect(props.onChange).toHaveBeenCalledWith({
       target: { value: 'new task' }
     });
   });
@@ -33,14 +33,19 @@ describe('Input', () => {
     const wrapper = renderer.create(<Input {...props} />);
 
     expect(wrapper).toMatchInlineSnapshot(`
-      <input
-        className="card-task"
-        name="name"
-        onChange={[MockFunction]}
-        placeholder="type some text here"
-        type="text"
-        value="value"
-      />
+      <label
+        htmlFor="add-todo"
+      >
+        <input
+          className="input-new-task"
+          id="add-todo"
+          name="name"
+          onChange={[MockFunction]}
+          placeholder="Add ToDo"
+          type="text"
+          value="value"
+        />
+      </label>
     `);
   });
 });

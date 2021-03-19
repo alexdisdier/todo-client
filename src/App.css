@@ -1,68 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
 
-html {
-  --color-yellow: #e5d13f;
-  --color-yellow-light: #e5d13f;
-  --color-gray: #30383f;
-  --color-gray-dark: #081219;
-  --color-white: #ffffff;
-  --font-family-main: 'Work Sans', sans-serif;
-  --height-header: 80px;
-  --padding-header: 20px;
-}
 
 body {
-  color: #30383f;
-  font-family: var(--font-family-main);
+  font-family: 'Work Sans', sans-serif;
+  --primary-color: #FFA800;
+  --secondary-color: #ffffff;
+  --color-white: #F6F6F6;
+  --color-black: #000000;
+  background-color: #E5E5E5;
 }
 
-.App {
+form {
   display: flex;
-  flex-direction: column;
-  background-color: #e1e2e1;
-  min-height: 100vh;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  padding-left: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #3D3D3D;
 }
 
-.wrapper {
-  margin: 0 auto;
-  width: 90%;
+label, input {
+  width: 100%;
 }
 
-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: var(--height-header);
-  padding-top: var(--padding-header);
-  background-color: #e5d13f;
-  color: var(--color-gray-dark);
-}
 
-header h1 {
-  font-weight: 500;
-  font-size: 24px;
-}
 
-.card-container {
-  flex-grow: 1;
-  margin-top: -40px;
-}
 
-.btn-add-container {
-  display: flex;
-  justify-content: center;
-}
 
-footer {
-  height: var(--height-header);
-  background-color: var(--color-yellow-light);
-}
 
-@media only screen and (min-width: 769px) {
-  .wrapper {
-    width: 60%;
-  }
-}
+

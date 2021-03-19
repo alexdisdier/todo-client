@@ -1,13 +1,14 @@
-.submit-button {
+.icon-button {
   padding: 0;
   background: transparent;
   border: none;
+  margin-right: 16px;
 }
 
-.submit-button:hover {
+.icon-button:hover {
   cursor: pointer;
 }
 
-.submit-button:focus {
+.icon-button:focus {
   outline: none;
 }
