@@ -23,10 +23,11 @@ const List: FC<Props> = ({
 }) => {
   return (
     <ul className="list-wrapper" data-is-done-tasks={isDoneTasks}>
-      {items.map(({ key, title, isDone }) => (
+      {items.map(({ key, content, isDone }, index) => (
         <Item
           key={key}
-          value={{ key, title, isDone }}
+          index={index}
+          value={{ key, content, isDone }}
           onDelete={onDelete}
           onDone={onDone}
           onChange={onChange}

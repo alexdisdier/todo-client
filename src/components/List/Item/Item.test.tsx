@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer, { act } from 'react-test-renderer';
 
 import Item from '.';
 
@@ -12,9 +12,10 @@ describe('Item', () => {
 
   beforeEach(() => {
     props = {
+      index: 0,
       value: {
         key: 'nanoid',
-        title: 'title',
+        content: 'content',
         isDone: false
       },
       onChange: jest.fn(),
@@ -25,18 +26,19 @@ describe('Item', () => {
 
   describe('Actions', () => {
     it('toggles edit mode and edits an item', () => {
-      const wrapper = shallow(<Item {...props} />);
+      const wrapper = renderer.create(<Item {...props} />);
 
-      // click on an item
-      wrapper
-        .find('[data-testid="item"]')
-        .simulate('click')
-        .props();
+      act(() => {
+        // click on an item
+        wrapper.root.findByProps({ 'data-testid': 'item' }).props.onClick();
+      });
 
-      // edit an item
-      wrapper
-        .find('[data-testid="edit-item"]')
-        .simulate('change', { target: { value: 'new task' } });
+      act(() => {
+        // edit an item
+        wrapper.root
+          .findByProps({ 'data-testid': 'edit-item' })
+          .props.onChange({ target: { value: 'new task' } });
+      });
 
       expect(props.onChange).toHaveBeenCalledTimes(1);
       expect(props.onChange).toHaveBeenCalledWith(
@@ -46,13 +48,13 @@ describe('Item', () => {
     });
 
     it('checks and crosses an item when clicked on the IconCircle button', () => {
-      const wrapper = shallow(<Item {...props} />);
+      const wrapper = renderer.create(<Item {...props} />);
 
-      // click on the circle icon
-      wrapper
-        .find('IconButton')
-        .at(0)
-        .simulate('click');
+      act(() =>
+        // click on the circle icon
+        // @ts-ignore
+        wrapper.root.findAllByType('IconButton')[0].props.onClick()
+      );
 
       expect(props.onDone).toHaveBeenCalledTimes(1);
       expect(props.onDone).toHaveBeenCalledWith('nanoid');
@@ -60,158 +62,198 @@ describe('Item', () => {
 
     it('unchecks an item when clicked on the IconCircleCheck button', () => {
       props.value.isDone = true;
-      const wrapper = shallow(<Item {...props} />);
+      const wrapper = renderer.create(<Item {...props} />);
 
-      // click on the checked circle icon
-      wrapper
-        .find('IconButton')
-        .at(0)
-        .simulate('click');
+      act(() =>
+        // click on the checked circle icon
+        // @ts-ignore
+        wrapper.root.findAllByType('IconButton')[0].props.onClick()
+      );
 
       expect(props.onDone).toHaveBeenCalledTimes(1);
       expect(props.onDone).toHaveBeenCalledWith('nanoid');
     });
 
     it('deletes an Item when clicked on the trash icon', () => {
-      const wrapper = shallow(<Item {...props} />);
+      const wrapper = renderer.create(<Item {...props} />);
 
-      // hover the item to reveil the trash icon button
-      wrapper.find('[data-testid="item-wrapper"]').simulate('mouseenter');
+      act(() => {
+        // hover the item to reveil the trash icon button
 
-      // click on the trash icon
-      wrapper
-        .find('IconButton')
-        .at(1)
-        .simulate('click');
+        wrapper.root
+          .findByProps({ 'data-testid': 'item-wrapper' })
+          .props.onMouseEnter();
+      });
+
+      act(() =>
+        // click on the trash icon
+        // @ts-ignore
+        wrapper.root.findAllByType('IconButton')[1].props.onClick()
+      );
 
       expect(props.onDelete).toHaveBeenCalledTimes(1);
       expect(props.onDelete).toHaveBeenCalledWith('nanoid');
 
-      // cursor leaves the item
-      wrapper.find('[data-testid="item-wrapper"]').simulate('mouseleave');
+      act(() => {
+        // cursor leaves the item
+
+        wrapper.root
+          .findByProps({ 'data-testid': 'item-wrapper' })
+          .props.onMouseLeave();
+      });
     });
   });
 
   describe('render()', () => {
     it('an Item', () => {
-      const wrapper = shallow(<Item {...props} />);
+      const wrapper = renderer.create(<Item {...props} />);
 
       expect(wrapper).toMatchInlineSnapshot(`
-        <li
-          className="item"
-          data-is-hovered={false}
-          data-testid="item-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
+        <div
+          draggableId="nanoid"
+          id="Draggable"
+          index={0}
         >
-          <div
-            className="circle-btn-input-wrapper"
+          <li
+            className="item"
+            data-is-hovered={false}
+            data-testid="item-wrapper"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            otherProps="dragHandleProps"
           >
             <div
-              className="circle-btn-wrapper"
+              className="circle-btn-input-wrapper"
             >
-              <IconButton
-                iconName="circle"
+              <div
+                className="circle-btn-wrapper"
+              >
+                <IconButton
+                  iconName="circle"
+                  onClick={[Function]}
+                  testId="check-item"
+                  tooltip="Check task"
+                />
+              </div>
+              <span
+                className=""
+                data-testid="item"
                 onClick={[Function]}
-                testId="check-item"
-                tooltip="Check task"
-              />
+              >
+                content
+              </span>
             </div>
-            <span
-              className="input-edit-task"
-              data-testid="item"
-              onClick={[Function]}
-            >
-              title
-            </span>
-          </div>
-        </li>
+          </li>
+        </div>
       `);
     });
 
     it('a done item crossed out', () => {
       props.isDone = true;
-      const wrapper = shallow(<Item {...props} />);
+      const wrapper = renderer.create(<Item {...props} />);
 
       expect(wrapper).toMatchInlineSnapshot(`
-        <li
-          className="item"
-          data-is-hovered={false}
-          data-testid="item-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
+        <div
+          draggableId="nanoid"
+          id="Draggable"
+          index={0}
         >
-          <div
-            className="circle-btn-input-wrapper"
+          <li
+            className="item"
+            data-is-hovered={false}
+            data-testid="item-wrapper"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            otherProps="dragHandleProps"
           >
             <div
-              className="circle-btn-wrapper"
+              className="circle-btn-input-wrapper"
             >
-              <IconButton
-                iconName="circle"
+              <div
+                className="circle-btn-wrapper"
+              >
+                <IconButton
+                  iconName="circle"
+                  onClick={[Function]}
+                  testId="check-item"
+                  tooltip="Check task"
+                />
+              </div>
+              <span
+                className=""
+                data-testid="item"
                 onClick={[Function]}
-                testId="check-item"
-                tooltip="Check task"
-              />
+              >
+                content
+              </span>
             </div>
-            <span
-              className="input-edit-task"
-              data-testid="item"
-              onClick={[Function]}
-            >
-              title
-            </span>
-          </div>
-        </li>
+          </li>
+        </div>
       `);
     });
 
     it('an Item hovered', () => {
-      const wrapper = shallow(<Item {...props} />);
+      const wrapper = renderer.create(<Item {...props} />);
 
-      // hover the item to reveil the trash icon button
-      wrapper.find('[data-testid="item-wrapper"]').simulate('mouseenter');
+      act(() => {
+        // hover the item to reveil the trash icon button
+        wrapper.root
+          .findByProps({ 'data-testid': 'item-wrapper' })
+          .props.onMouseEnter();
+      });
 
       expect(wrapper).toMatchInlineSnapshot(`
-        <li
-          className="item"
-          data-is-hovered={true}
-          data-testid="item-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
+        <div
+          draggableId="nanoid"
+          id="Draggable"
+          index={0}
         >
-          <div
-            className="circle-btn-input-wrapper"
+          <li
+            className="item"
+            data-is-hovered={true}
+            data-testid="item-wrapper"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            otherProps="dragHandleProps"
           >
             <div
-              className="circle-btn-wrapper"
+              className="circle-btn-input-wrapper"
             >
-              <IconButton
-                iconName="circle"
+              <div
+                className="circle-btn-wrapper"
+              >
+                <IconButton
+                  iconName="circle"
+                  onClick={[Function]}
+                  testId="check-item"
+                  tooltip="Check task"
+                />
+              </div>
+              <span
+                className=""
+                data-testid="item"
                 onClick={[Function]}
-                testId="check-item"
-                tooltip="Check task"
-              />
+              >
+                content
+              </span>
             </div>
-            <span
-              className="input-edit-task"
-              data-testid="item"
+            <IconButton
+              iconName="trash"
               onClick={[Function]}
-            >
-              title
-            </span>
-          </div>
-          <IconButton
-            iconName="trash"
-            onClick={[Function]}
-            testId="delete-task"
-            tooltip="Delete task"
-          />
-        </li>
+              testId="delete-task"
+              tooltip="Delete task"
+            />
+          </li>
+        </div>
       `);
 
       // cursor leaves the item
-      wrapper.find('[data-testid="item-wrapper"]').simulate('mouseleave');
+      act(() => {
+        // hover the item to reveil the trash icon button
+        wrapper.root
+          .findByProps({ 'data-testid': 'item-wrapper' })
+          .props.onMouseLeave();
+      });
     });
   });
 });

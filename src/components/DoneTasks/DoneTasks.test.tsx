@@ -15,13 +15,13 @@ describe('DoneTasks', () => {
       tasks: [
         {
           key: 'nanoid1',
-          title: 'GraphQL',
+          content: 'GraphQL',
           date: '2019-07-09T10:22:02.876Z',
           isDone: false
         },
         {
           key: 'nanoid2',
-          title: 'React',
+          content: 'React',
           date: '2019-09-23T05:18:31.813Z',
           isDone: false
         }
@@ -68,37 +68,60 @@ describe('DoneTasks', () => {
     it('renders 2 tasks correctly', () => {
       const wrapper = renderer.create(<DoneTasks {...props} />);
       expect(wrapper).toMatchInlineSnapshot(`
-        <div
-          className="doneTasks-wrapper"
+        <DragDropContext
+          onDragEnd={[Function]}
+          onDragStart={[Function]}
+          onDragUpdate={[Function]}
         >
-          <h4
-            className="doneTasks-title"
+          <div
+            droppableId="nanoid"
+            id="Droppable"
           >
-            Done
-          </h4>
-          <List
-            isDoneTasks={true}
-            items={
-              Array [
+            <div
+              style={
                 Object {
-                  "date": "2019-07-09T10:22:02.876Z",
-                  "isDone": false,
-                  "key": "nanoid1",
-                  "title": "GraphQL",
-                },
-                Object {
-                  "date": "2019-09-23T05:18:31.813Z",
-                  "isDone": false,
-                  "key": "nanoid2",
-                  "title": "React",
-                },
-              ]
-            }
-            onChange={[MockFunction]}
-            onDelete={[MockFunction]}
-            onDone={[MockFunction]}
-          />
-        </div>
+                  "opacity": 1,
+                  "transition": "250ms",
+                }
+              }
+            >
+              <div
+                className="doneTasks-wrapper"
+              >
+                <h4
+                  className="doneTasks-content"
+                >
+                  Done
+                </h4>
+                <List
+                  isDoneTasks={true}
+                  items={
+                    Array [
+                      Object {
+                        "content": "GraphQL",
+                        "date": "2019-07-09T10:22:02.876Z",
+                        "isDone": false,
+                        "key": "nanoid1",
+                      },
+                      Object {
+                        "content": "React",
+                        "date": "2019-09-23T05:18:31.813Z",
+                        "isDone": false,
+                        "key": "nanoid2",
+                      },
+                    ]
+                  }
+                  onChange={[MockFunction]}
+                  onDelete={[MockFunction]}
+                  onDone={[MockFunction]}
+                />
+              </div>
+              <div>
+                droppabePlaceholder
+              </div>
+            </div>
+          </div>
+        </DragDropContext>
       `);
     });
   });

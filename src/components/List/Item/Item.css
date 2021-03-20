@@ -3,11 +3,15 @@
   align-items: center;
   padding: 4px 8px;
   margin-bottom: 12px;
-  transition: 250ms;
+  background-color: var(--color-white);
 }
 
 .item[data-is-hovered="true"] {
-  background-color: rgba(255, 168, 0, 0.2)
+  background-color: rgba(255, 168, 0, 0.2);
+}
+
+.item[data-is-dragging="true"] {
+  background-color: rgba(255, 168, 0, 0.5);
 }
 
 .circle-btn-input-wrapper { 
