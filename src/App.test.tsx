@@ -75,10 +75,12 @@ describe('App', () => {
       expect(mockJSONparse).toHaveBeenCalledWith('[]');
 
       expect(wrapper).toMatchInlineSnapshot(`
-        Array [
+        <div
+          className="app"
+        >
           <Header
             title="To Do"
-          />,
+          />
           <Container>
             <form
               onSubmit={[Function]}
@@ -90,8 +92,8 @@ describe('App', () => {
                 value=""
               />
             </form>
-          </Container>,
-        ]
+          </Container>
+        </div>
       `);
     });
 
@@ -123,10 +125,12 @@ describe('App', () => {
       expect(mockJSONparse).toHaveBeenCalledWith(JSON.stringify(mockTasks));
 
       expect(wrapper).toMatchInlineSnapshot(`
-        Array [
+        <div
+          className="app"
+        >
           <Header
             title="To Do"
-          />,
+          />
           <Container>
             <form
               onSubmit={[Function]}
@@ -168,8 +172,8 @@ describe('App', () => {
                 ]
               }
             />
-          </Container>,
-        ]
+          </Container>
+        </div>
       `);
     });
   });

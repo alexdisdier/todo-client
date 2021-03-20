@@ -1,6 +1,5 @@
 .container {
-  flex: 1;
-  height: 100vh;
+  overflow: scroll;
   padding: 14px 28px;
   background-color: var(--color-white);
 }
