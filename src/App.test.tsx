@@ -5,13 +5,13 @@ import App from './App';
 const mockTasks = [
   {
     key: 'UL98O',
-    title: 'test',
+    content: 'test',
     isDone: true,
     date: '2021-03-12T23:35:43.026Z'
   },
   {
     key: 'dI4GC',
-    title: 'something',
+    content: 'something',
     isDone: false,
     date: '2021-03-12T23:35:47.416Z'
   }
@@ -102,7 +102,7 @@ describe('App', () => {
         value: {
           getItem: jest.fn(
             () =>
-              '[{"key":"UL98O","title":"test","isDone":true,"date":"2021-03-12T23:35:43.026Z"},{"key":"dI4GC","title":"something","isDone":false,"date":"2021-03-12T23:35:47.416Z"}]'
+              '[{"key":"UL98O","content":"test","isDone":true,"date":"2021-03-12T23:35:43.026Z"},{"key":"dI4GC","content":"something","isDone":false,"date":"2021-03-12T23:35:47.416Z"}]'
           ),
           setItem: jest.fn(() => [{ key: 'key' }])
         },
@@ -149,10 +149,10 @@ describe('App', () => {
               tasks={
                 Array [
                   Object {
+                    "content": "something",
                     "date": "2021-03-12T23:35:47.416Z",
                     "isDone": false,
                     "key": "dI4GC",
-                    "title": "something",
                   },
                 ]
               }
@@ -164,10 +164,10 @@ describe('App', () => {
               tasks={
                 Array [
                   Object {
+                    "content": "test",
                     "date": "2021-03-12T23:35:43.026Z",
                     "isDone": true,
                     "key": "UL98O",
-                    "title": "test",
                   },
                 ]
               }

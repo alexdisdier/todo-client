@@ -14,7 +14,7 @@ describe('Item', () => {
     props = {
       value: {
         key: 'nanoid',
-        title: 'title',
+        content: 'content',
         isDone: false
       },
       onChange: jest.fn(),
@@ -122,7 +122,7 @@ describe('Item', () => {
               data-testid="item"
               onClick={[Function]}
             >
-              title
+              content
             </span>
           </div>
         </li>
@@ -159,7 +159,7 @@ describe('Item', () => {
               data-testid="item"
               onClick={[Function]}
             >
-              title
+              content
             </span>
           </div>
         </li>
@@ -198,7 +198,7 @@ describe('Item', () => {
               data-testid="item"
               onClick={[Function]}
             >
-              title
+              content
             </span>
           </div>
           <IconButton

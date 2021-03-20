@@ -15,7 +15,7 @@ interface Props {
 
 const DoneTasks: FC<Props> = ({ tasks, onChange, onDone, onDelete }) => (
   <div className="doneTasks-wrapper">
-    <h4 className="doneTasks-title">Done</h4>
+    <h4 className="doneTasks-content">Done</h4>
     <List
       isDoneTasks
       items={tasks}

@@ -6,7 +6,7 @@ export enum IconEnums {
 
 export interface TaskDefinition {
   key: string;
-  title: string;
+  content: string;
   date: Date;
   isDone: boolean;
 }

@@ -15,13 +15,13 @@ describe('List', () => {
       items: [
         {
           key: 'nanoid1',
-          title: 'GraphQL',
+          content: 'GraphQL',
           date: '2019-07-09T10:22:02.876Z',
           isDone: false
         },
         {
           key: 'nanoid2',
-          title: 'React',
+          content: 'React',
           date: '2019-09-23T05:18:31.813Z',
           isDone: false
         }
@@ -80,9 +80,9 @@ describe('List', () => {
             onDone={[MockFunction]}
             value={
               Object {
+                "content": "GraphQL",
                 "isDone": false,
                 "key": "nanoid1",
-                "title": "GraphQL",
               }
             }
           />
@@ -92,9 +92,9 @@ describe('List', () => {
             onDone={[MockFunction]}
             value={
               Object {
+                "content": "React",
                 "isDone": false,
                 "key": "nanoid2",
-                "title": "React",
               }
             }
           />
@@ -120,9 +120,9 @@ describe('List', () => {
             onDone={[MockFunction]}
             value={
               Object {
+                "content": "GraphQL",
                 "isDone": true,
                 "key": "nanoid1",
-                "title": "GraphQL",
               }
             }
           />
@@ -132,9 +132,9 @@ describe('List', () => {
             onDone={[MockFunction]}
             value={
               Object {
+                "content": "React",
                 "isDone": true,
                 "key": "nanoid2",
-                "title": "React",
               }
             }
           />

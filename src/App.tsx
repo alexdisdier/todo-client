@@ -7,6 +7,7 @@ import React, {
   FormEvent,
   ChangeEvent
 } from 'react';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { nanoid } from 'nanoid';
 
 import { TaskDefinition } from './types';
@@ -53,7 +54,7 @@ const App: FC = () => {
 
       if (!taskToUpdate) return;
 
-      taskToUpdate.title = value;
+      taskToUpdate.content = value;
 
       localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
 
@@ -68,7 +69,7 @@ const App: FC = () => {
     const lastIndex: number = tasks.length;
     const task = {
       key: nanoid(5),
-      title: input,
+      content: input,
       isDone: false,
       date: new Date(),
       pos: lastIndex + 1
@@ -135,6 +136,28 @@ const App: FC = () => {
     [tasks]
   );
 
+  const handleOnDragEnd = (result: any) => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) return;
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
+
+    const newTasks: TaskDefinition[] = [...tasks];
+    const taskToUpdate: any = newTasks.find(task => task.key === draggableId);
+
+    newTasks.splice(source.index, 1);
+    newTasks.splice(destination.index, 0, taskToUpdate);
+
+    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
+
+    setTasks(newTasks);
+  };
+
   return (
     <div className="app">
       <Header title={APP_TITLE} />
@@ -143,22 +166,47 @@ const App: FC = () => {
           <Button />
           <Input name="input" value={input} onChange={handleOnChange} />
         </form>
-        {pendingTasks.length > 0 && (
-          <PendingTasks
-            tasks={pendingTasks}
-            onChange={handleOnChange}
-            onDone={handleOnDoneTask}
-            onDelete={handleOnDelete}
-          />
-        )}
-        {doneTasks.length > 0 && (
-          <DoneTasks
-            tasks={doneTasks}
-            onChange={handleOnChange}
-            onDone={handleOnDoneTask}
-            onDelete={handleOnDelete}
-          />
-        )}
+        <DragDropContext
+          onDragStart={() => {}}
+          onDragUpdate={() => {}}
+          onDragEnd={handleOnDragEnd}
+        >
+          <Droppable droppableId={nanoid()}>
+            {(provided, snapshot) => (
+              <>
+                <div
+                  ref={provided.innerRef}
+                  // style={{
+                  //   transition: '250ms',
+                  //   background: snapshot.isDraggingOver ? 'grey' : 'unset',
+                  //   opacity: snapshot.isDraggingOver ? 0.8 : 1
+                  // }}
+                >
+                  {pendingTasks.length > 0 && (
+                    <PendingTasks
+                      tasks={pendingTasks}
+                      onChange={handleOnChange}
+                      onDone={handleOnDoneTask}
+                      onDelete={handleOnDelete}
+                      {...provided.droppableProps}
+                    />
+                  )}
+                  {provided.placeholder}
+                </div>
+                <div>
+                  {doneTasks.length > 0 && (
+                    <DoneTasks
+                      tasks={doneTasks}
+                      onChange={handleOnChange}
+                      onDone={handleOnDoneTask}
+                      onDelete={handleOnDelete}
+                    />
+                  )}
+                </div>
+              </>
+            )}
+          </Droppable>
+        </DragDropContext>
       </Container>
     </div>
   );

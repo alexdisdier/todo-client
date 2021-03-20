@@ -15,13 +15,13 @@ describe('DoneTasks', () => {
       tasks: [
         {
           key: 'nanoid1',
-          title: 'GraphQL',
+          content: 'GraphQL',
           date: '2019-07-09T10:22:02.876Z',
           isDone: false
         },
         {
           key: 'nanoid2',
-          title: 'React',
+          content: 'React',
           date: '2019-09-23T05:18:31.813Z',
           isDone: false
         }
@@ -72,7 +72,7 @@ describe('DoneTasks', () => {
           className="doneTasks-wrapper"
         >
           <h4
-            className="doneTasks-title"
+            className="doneTasks-content"
           >
             Done
           </h4>
@@ -81,16 +81,16 @@ describe('DoneTasks', () => {
             items={
               Array [
                 Object {
+                  "content": "GraphQL",
                   "date": "2019-07-09T10:22:02.876Z",
                   "isDone": false,
                   "key": "nanoid1",
-                  "title": "GraphQL",
                 },
                 Object {
+                  "content": "React",
                   "date": "2019-09-23T05:18:31.813Z",
                   "isDone": false,
                   "key": "nanoid2",
-                  "title": "React",
                 },
               ]
             }
