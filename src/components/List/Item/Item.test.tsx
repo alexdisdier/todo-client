@@ -136,7 +136,7 @@ describe('Item', () => {
                 />
               </div>
               <span
-                className=""
+                className="input-edit-task"
                 data-testid="item"
                 onClick={[Function]}
               >
@@ -180,7 +180,7 @@ describe('Item', () => {
                 />
               </div>
               <span
-                className=""
+                className="input-edit-task"
                 data-testid="item"
                 onClick={[Function]}
               >
@@ -230,7 +230,7 @@ describe('Item', () => {
                 />
               </div>
               <span
-                className=""
+                className="input-edit-task"
                 data-testid="item"
                 onClick={[Function]}
               >
