@@ -12,6 +12,8 @@ import { nanoid } from 'nanoid';
 
 import { TaskDefinition } from './types';
 
+import { addTask, editTask, checkTask, moveTask, deleteTask } from './utils';
+
 import './assets/css/reset.css';
 import './App.css';
 
@@ -29,18 +31,23 @@ const APP_TITLE = 'To Do';
 
 const App: FC = () => {
   const [input, setInput] = useState<string>('');
-  const [tasks, setTasks] = useState<TaskDefinition[]>([]);
+  const [tasks, setTasks] = useState<any>({
+    pending: [],
+    done: []
+  });
+
+  const buildTasks = useCallback((): void => {
+    const localStorageTasks =
+      localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || JSON.stringify(tasks);
+
+    setTasks(JSON.parse(localStorageTasks) || { pending: [], done: [] });
+  }, [tasks]);
 
   useEffect(() => {
     buildTasks();
+    // We only want to get localStorage data on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const buildTasks = (): void => {
-    const localStorageTasks =
-      localStorage.getItem(LOCALSTORAGE_KEY_TASKS) || '[]';
-
-    setTasks(JSON.parse(localStorageTasks) || []);
-  };
 
   const handleOnChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>, key?: string) => {
@@ -48,17 +55,12 @@ const App: FC = () => {
 
       if (!key) return setInput(value);
 
-      const newTasks: TaskDefinition[] = [...tasks];
+      localStorage.setItem(
+        LOCALSTORAGE_KEY_TASKS,
+        JSON.stringify(editTask(key, value, tasks))
+      );
 
-      const taskToUpdate = newTasks.find(task => task.key === key);
-
-      if (!taskToUpdate) return;
-
-      taskToUpdate.content = value;
-
-      localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
-
-      setTasks(newTasks);
+      setTasks(editTask(key, value, tasks));
     },
     [tasks]
   );
@@ -66,21 +68,13 @@ const App: FC = () => {
   const handleOnSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    const lastIndex: number = tasks.length;
-    const task = {
-      key: nanoid(5),
-      content: input,
-      isDone: false,
-      date: new Date(),
-      pos: lastIndex + 1
-    } as TaskDefinition;
-
-    const newTasks = [...tasks, task];
-
-    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
+    localStorage.setItem(
+      LOCALSTORAGE_KEY_TASKS,
+      JSON.stringify({ ...tasks, pending: addTask(input, tasks.pending) })
+    );
 
     setInput('');
-    setTasks(newTasks);
+    setTasks({ ...tasks, pending: addTask(input, tasks.pending) });
   };
 
   /**
@@ -89,55 +83,30 @@ const App: FC = () => {
    */
   const handleOnDoneTask = useCallback(
     (key: string): void => {
-      const newTasks: TaskDefinition[] = [...tasks];
+      localStorage.setItem(
+        LOCALSTORAGE_KEY_TASKS,
+        JSON.stringify(checkTask(key, tasks))
+      );
 
-      const taskToUpdate = newTasks.find(task => task.key === key);
-
-      if (!taskToUpdate) return;
-
-      taskToUpdate.isDone = !taskToUpdate.isDone;
-
-      newTasks.sort((a, b) => {
-        if (a.isDone === b.isDone) return 0;
-        if (a.isDone) return -1;
-        return 1;
-      });
-
-      localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
-
-      setTasks(newTasks);
+      setTasks(checkTask(key, tasks));
     },
     [tasks]
   );
 
   const handleOnDelete = useCallback(
     (key: string): void => {
-      const newTasks: TaskDefinition[] = [...tasks];
-
-      const filteredTasks = newTasks.filter(task => task.key !== key);
-
       localStorage.setItem(
         LOCALSTORAGE_KEY_TASKS,
-        JSON.stringify(filteredTasks)
+        JSON.stringify(deleteTask(key, tasks))
       );
 
-      setTasks(filteredTasks);
+      setTasks(deleteTask(key, tasks));
     },
     [tasks]
   );
 
-  const pendingTasks = useMemo(
-    () => tasks.filter(({ isDone }) => isDone === false),
-    [tasks]
-  );
-
-  const doneTasks = useMemo(
-    () => tasks.filter(({ isDone }) => isDone === true),
-    [tasks]
-  );
-
-  const handleOnDragEnd = (result: any) => {
-    const { destination, source, draggableId } = result;
+  const handleOnDragEnd = (result: any, isPending: boolean) => {
+    const { destination, source } = result;
 
     if (!destination) return;
 
@@ -147,15 +116,21 @@ const App: FC = () => {
     )
       return;
 
-    const newTasks: TaskDefinition[] = [...tasks];
-    const taskToUpdate: any = newTasks.find(task => task.key === draggableId);
+    if (isPending) {
+      localStorage.setItem(
+        LOCALSTORAGE_KEY_TASKS,
+        JSON.stringify({ ...tasks, pending: moveTask(result, tasks.pending) })
+      );
 
-    newTasks.splice(source.index, 1);
-    newTasks.splice(destination.index, 0, taskToUpdate);
+      setTasks({ ...tasks, pending: moveTask(result, tasks.pending) });
+    } else {
+      localStorage.setItem(
+        LOCALSTORAGE_KEY_TASKS,
+        JSON.stringify({ ...tasks, done: moveTask(result, tasks.done) })
+      );
 
-    localStorage.setItem(LOCALSTORAGE_KEY_TASKS, JSON.stringify(newTasks));
-
-    setTasks(newTasks);
+      setTasks({ ...tasks, done: moveTask(result, tasks.done) });
+    }
   };
 
   return (
@@ -169,41 +144,55 @@ const App: FC = () => {
         <DragDropContext
           onDragStart={() => {}}
           onDragUpdate={() => {}}
-          onDragEnd={handleOnDragEnd}
+          onDragEnd={result => handleOnDragEnd(result, true)}
         >
           <Droppable droppableId={nanoid()}>
             {(provided, snapshot) => (
-              <>
-                <div
-                  ref={provided.innerRef}
-                  // style={{
-                  //   transition: '250ms',
-                  //   background: snapshot.isDraggingOver ? 'grey' : 'unset',
-                  //   opacity: snapshot.isDraggingOver ? 0.8 : 1
-                  // }}
-                >
-                  {pendingTasks.length > 0 && (
-                    <PendingTasks
-                      tasks={pendingTasks}
-                      onChange={handleOnChange}
-                      onDone={handleOnDoneTask}
-                      onDelete={handleOnDelete}
-                      {...provided.droppableProps}
-                    />
-                  )}
-                  {provided.placeholder}
-                </div>
-                <div>
-                  {doneTasks.length > 0 && (
-                    <DoneTasks
-                      tasks={doneTasks}
-                      onChange={handleOnChange}
-                      onDone={handleOnDoneTask}
-                      onDelete={handleOnDelete}
-                    />
-                  )}
-                </div>
-              </>
+              <div
+                ref={provided.innerRef}
+                style={{
+                  transition: '250ms',
+                  opacity: snapshot.isDraggingOver ? 0.8 : 1
+                }}
+              >
+                {tasks.pending.length > 0 && (
+                  <PendingTasks
+                    tasks={tasks.pending}
+                    onChange={handleOnChange}
+                    onDone={handleOnDoneTask}
+                    onDelete={handleOnDelete}
+                    {...provided.droppableProps}
+                  />
+                )}
+                <div>{provided.placeholder}</div>
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+        <DragDropContext
+          onDragStart={() => {}}
+          onDragUpdate={() => {}}
+          onDragEnd={result => handleOnDragEnd(result, false)}
+        >
+          <Droppable droppableId={nanoid()}>
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+                style={{
+                  transition: '250ms',
+                  opacity: snapshot.isDraggingOver ? 0.8 : 1
+                }}
+              >
+                {tasks.done.length > 0 && (
+                  <DoneTasks
+                    tasks={tasks.done}
+                    onChange={handleOnChange}
+                    onDone={handleOnDoneTask}
+                    onDelete={handleOnDelete}
+                  />
+                )}
+                <div>{provided.placeholder}</div>
+              </div>
             )}
           </Droppable>
         </DragDropContext>

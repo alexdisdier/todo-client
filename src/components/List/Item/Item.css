@@ -3,7 +3,6 @@
   align-items: center;
   padding: 4px 8px;
   margin-bottom: 12px;
-  transition: 250ms;
   background-color: var(--color-white);
 }
 
