@@ -68,7 +68,9 @@ const Item: FC<Props> = ({
         ) : (
           <span
             data-testid="item"
-            className={isDone ? 'cross-task' : ''}
+            className={
+              isDone ? 'input-edit-task cross-task' : 'input-edit-task'
+            }
             onClick={toggleEditMode}
           >
             {title}

@@ -28,19 +28,6 @@
   text-decoration-thickness: 1px;
 }
 
-.item span {
-  padding: 0;
-  margin: 0;
-  font-size: 24px;
-  line-height: 28px;
-  width: 80%;
-  cursor: text;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-grow: 1;
-}
-
 .input-edit-task {
   padding: 0;
   margin: 0;
@@ -51,6 +38,9 @@
   border: none;
   color: var(--color-black);
   background-color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .input-edit-task::placeholder { 
