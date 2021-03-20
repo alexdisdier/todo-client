@@ -68,27 +68,51 @@ describe('PendingTasks', () => {
     it('renders 2 tasks correctly', () => {
       const wrapper = renderer.create(<PendingTasks {...props} />);
       expect(wrapper).toMatchInlineSnapshot(`
-        <List
-          items={
-            Array [
-              Object {
-                "content": "GraphQL",
-                "date": "2019-07-09T10:22:02.876Z",
-                "isDone": false,
-                "key": "nanoid1",
-              },
-              Object {
-                "content": "React",
-                "date": "2019-09-23T05:18:31.813Z",
-                "isDone": false,
-                "key": "nanoid2",
-              },
-            ]
-          }
-          onChange={[MockFunction]}
-          onDelete={[MockFunction]}
-          onDone={[MockFunction]}
-        />
+        <DragDropContext
+          onDragEnd={[Function]}
+          onDragStart={[Function]}
+          onDragUpdate={[Function]}
+        >
+          <div
+            droppableId="nanoid"
+            id="Droppable"
+          >
+            <div
+              style={
+                Object {
+                  "opacity": 1,
+                  "transition": "250ms",
+                }
+              }
+            >
+              <List
+                items={
+                  Array [
+                    Object {
+                      "content": "GraphQL",
+                      "date": "2019-07-09T10:22:02.876Z",
+                      "isDone": false,
+                      "key": "nanoid1",
+                    },
+                    Object {
+                      "content": "React",
+                      "date": "2019-09-23T05:18:31.813Z",
+                      "isDone": false,
+                      "key": "nanoid2",
+                    },
+                  ]
+                }
+                onChange={[MockFunction]}
+                onDelete={[MockFunction]}
+                onDone={[MockFunction]}
+                otherProps="droppableProps"
+              />
+              <div>
+                droppabePlaceholder
+              </div>
+            </div>
+          </div>
+        </DragDropContext>
       `);
     });
   });

@@ -7,8 +7,6 @@ import React, {
   FormEvent,
   ChangeEvent
 } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { nanoid } from 'nanoid';
 
 import { TaskDefinition } from './types';
 
@@ -141,61 +139,24 @@ const App: FC = () => {
           <Button />
           <Input name="input" value={input} onChange={handleOnChange} />
         </form>
-        <DragDropContext
-          onDragStart={() => {}}
-          onDragUpdate={() => {}}
-          onDragEnd={result => handleOnDragEnd(result, true)}
-        >
-          <Droppable droppableId={nanoid()}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                style={{
-                  transition: '250ms',
-                  opacity: snapshot.isDraggingOver ? 0.8 : 1
-                }}
-              >
-                {tasks.pending.length > 0 && (
-                  <PendingTasks
-                    tasks={tasks.pending}
-                    onChange={handleOnChange}
-                    onDone={handleOnDoneTask}
-                    onDelete={handleOnDelete}
-                    {...provided.droppableProps}
-                  />
-                )}
-                <div>{provided.placeholder}</div>
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-        <DragDropContext
-          onDragStart={() => {}}
-          onDragUpdate={() => {}}
-          onDragEnd={result => handleOnDragEnd(result, false)}
-        >
-          <Droppable droppableId={nanoid()}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                style={{
-                  transition: '250ms',
-                  opacity: snapshot.isDraggingOver ? 0.8 : 1
-                }}
-              >
-                {tasks.done.length > 0 && (
-                  <DoneTasks
-                    tasks={tasks.done}
-                    onChange={handleOnChange}
-                    onDone={handleOnDoneTask}
-                    onDelete={handleOnDelete}
-                  />
-                )}
-                <div>{provided.placeholder}</div>
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        {tasks.pending.length > 0 && (
+          <PendingTasks
+            tasks={tasks.pending}
+            onChange={handleOnChange}
+            onDone={handleOnDoneTask}
+            onDelete={handleOnDelete}
+            onDragEnd={handleOnDragEnd}
+          />
+        )}
+        {tasks.done.length > 0 && (
+          <DoneTasks
+            tasks={tasks.done}
+            onChange={handleOnChange}
+            onDone={handleOnDoneTask}
+            onDelete={handleOnDelete}
+            onDragEnd={handleOnDragEnd}
+          />
+        )}
       </Container>
     </div>
   );
