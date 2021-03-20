@@ -136,7 +136,7 @@ const App: FC = () => {
   );
 
   return (
-    <>
+    <div className="app">
       <Header title={APP_TITLE} />
       <Container>
         <form onSubmit={handleOnSubmit}>
@@ -160,7 +160,7 @@ const App: FC = () => {
           />
         )}
       </Container>
-    </>
+    </div>
   );
 };
 

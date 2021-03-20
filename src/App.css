@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
 
+html, body, .app, #root, .container {
+  height: 100%;
+}
+
 
 body {
   font-family: 'Work Sans', sans-serif;
@@ -20,6 +24,12 @@ form {
 label, input {
   width: 100%;
 }
+
+.app {
+  display: flex;
+  flex-direction: column;
+}
+
 
 
 

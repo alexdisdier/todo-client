@@ -99,23 +99,32 @@ describe('Item', () => {
       expect(wrapper).toMatchInlineSnapshot(`
         <li
           className="item"
+          data-is-hovered={false}
           data-testid="item-wrapper"
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <IconButton
-            iconName="circle"
-            onClick={[Function]}
-            testId="check-item"
-            tooltip="Check task"
-          />
-          <span
-            className=""
-            data-testid="item"
-            onClick={[Function]}
+          <div
+            className="circle-btn-input-wrapper"
           >
-            title
-          </span>
+            <div
+              className="circle-btn-wrapper"
+            >
+              <IconButton
+                iconName="circle"
+                onClick={[Function]}
+                testId="check-item"
+                tooltip="Check task"
+              />
+            </div>
+            <span
+              className=""
+              data-testid="item"
+              onClick={[Function]}
+            >
+              title
+            </span>
+          </div>
         </li>
       `);
     });
@@ -127,23 +136,32 @@ describe('Item', () => {
       expect(wrapper).toMatchInlineSnapshot(`
         <li
           className="item"
+          data-is-hovered={false}
           data-testid="item-wrapper"
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <IconButton
-            iconName="circle"
-            onClick={[Function]}
-            testId="check-item"
-            tooltip="Check task"
-          />
-          <span
-            className=""
-            data-testid="item"
-            onClick={[Function]}
+          <div
+            className="circle-btn-input-wrapper"
           >
-            title
-          </span>
+            <div
+              className="circle-btn-wrapper"
+            >
+              <IconButton
+                iconName="circle"
+                onClick={[Function]}
+                testId="check-item"
+                tooltip="Check task"
+              />
+            </div>
+            <span
+              className=""
+              data-testid="item"
+              onClick={[Function]}
+            >
+              title
+            </span>
+          </div>
         </li>
       `);
     });
@@ -157,23 +175,32 @@ describe('Item', () => {
       expect(wrapper).toMatchInlineSnapshot(`
         <li
           className="item"
+          data-is-hovered={true}
           data-testid="item-wrapper"
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <IconButton
-            iconName="circle"
-            onClick={[Function]}
-            testId="check-item"
-            tooltip="Check task"
-          />
-          <span
-            className=""
-            data-testid="item"
-            onClick={[Function]}
+          <div
+            className="circle-btn-input-wrapper"
           >
-            title
-          </span>
+            <div
+              className="circle-btn-wrapper"
+            >
+              <IconButton
+                iconName="circle"
+                onClick={[Function]}
+                testId="check-item"
+                tooltip="Check task"
+              />
+            </div>
+            <span
+              className=""
+              data-testid="item"
+              onClick={[Function]}
+            >
+              title
+            </span>
+          </div>
           <IconButton
             iconName="trash"
             onClick={[Function]}

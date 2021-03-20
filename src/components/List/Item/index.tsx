@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useState } from 'react';
+import React, { FC, ChangeEvent, useState, useCallback } from 'react';
 
 import { IconEnums, TaskDefinition } from '../../types';
 
@@ -22,52 +22,59 @@ const Item: FC<Props> = ({
   const [editMode, setEditMode] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
-  const toggleEditMode = () => setEditMode(!editMode);
+  const toggleEditMode = useCallback(() => setEditMode(!editMode), [editMode]);
 
-  const handleOnKeyDown = ({ key }: { key: string }): void =>
-    key === 'Enter' ? toggleEditMode() : undefined;
+  const handleOnKeyDown = useCallback(
+    ({ key }: { key: string }): any => key === 'Enter' && toggleEditMode(),
+    [toggleEditMode]
+  );
 
   return (
     <li
       data-testid="item-wrapper"
+      data-is-hovered={isHover}
       className="item"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      {isDone ? (
-        <IconButton
-          iconName={IconEnums.CircleCheck}
-          tooltip="Uncheck task"
-          testId="uncheck-task"
-          onClick={() => onDone(key)}
-        />
-      ) : (
-        <IconButton
-          iconName={IconEnums.Circle}
-          tooltip="Check task"
-          testId="check-item"
-          onClick={() => onDone(key)}
-        />
-      )}
-      {editMode ? (
-        <input
-          data-testid="edit-item"
-          className="input-edit-task"
-          onBlur={toggleEditMode}
-          onKeyDown={handleOnKeyDown}
-          value={title}
-          onChange={e => onChange(e, key)}
-          autoFocus
-        />
-      ) : (
-        <span
-          data-testid="item"
-          className={isDone ? 'cross-task' : ''}
-          onClick={toggleEditMode}
-        >
-          {title}
-        </span>
-      )}
+      <div className="circle-btn-input-wrapper">
+        <div className="circle-btn-wrapper">
+          {isDone ? (
+            <IconButton
+              iconName={IconEnums.CircleCheck}
+              tooltip="Uncheck task"
+              testId="uncheck-task"
+              onClick={() => onDone(key)}
+            />
+          ) : (
+            <IconButton
+              iconName={IconEnums.Circle}
+              tooltip="Check task"
+              testId="check-item"
+              onClick={() => onDone(key)}
+            />
+          )}
+        </div>
+        {editMode ? (
+          <input
+            data-testid="edit-item"
+            className="input-edit-task"
+            onBlur={toggleEditMode}
+            onKeyDown={handleOnKeyDown}
+            value={title}
+            onChange={e => onChange(e, key)}
+            autoFocus
+          />
+        ) : (
+          <span
+            data-testid="item"
+            className={isDone ? 'cross-task' : ''}
+            onClick={toggleEditMode}
+          >
+            {title}
+          </span>
+        )}
+      </div>
       {isHover && (
         <IconButton
           iconName={IconEnums.Trash}

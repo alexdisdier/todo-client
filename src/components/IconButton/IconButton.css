@@ -1,8 +1,9 @@
 .icon-button {
+  display: flex;
+  align-self: center;
   padding: 0;
   background: transparent;
   border: none;
-  margin-right: 16px;
 }
 
 .icon-button:hover {
