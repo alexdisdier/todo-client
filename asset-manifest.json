@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/todo-client/static/css/main.e87302ab.chunk.css",
+    "main.css": "/todo-client/static/css/main.afca26ea.chunk.css",
     "main.js": "/todo-client/static/js/main.18b0d359.chunk.js",
     "main.js.map": "/todo-client/static/js/main.18b0d359.chunk.js.map",
     "runtime-main.js": "/todo-client/static/js/runtime-main.32087f74.js",
@@ -8,7 +8,7 @@
     "static/js/2.8471995e.chunk.js": "/todo-client/static/js/2.8471995e.chunk.js",
     "static/js/2.8471995e.chunk.js.map": "/todo-client/static/js/2.8471995e.chunk.js.map",
     "index.html": "/todo-client/index.html",
-    "static/css/main.e87302ab.chunk.css.map": "/todo-client/static/css/main.e87302ab.chunk.css.map",
+    "static/css/main.afca26ea.chunk.css.map": "/todo-client/static/css/main.afca26ea.chunk.css.map",
     "static/js/2.8471995e.chunk.js.LICENSE.txt": "/todo-client/static/js/2.8471995e.chunk.js.LICENSE.txt",
     "static/media/circle.ad98eb8b.svg": "/todo-client/static/media/circle.ad98eb8b.svg",
     "static/media/circleCheck.88cbb7ef.svg": "/todo-client/static/media/circleCheck.88cbb7ef.svg",
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.32087f74.js",
     "static/js/2.8471995e.chunk.js",
-    "static/css/main.e87302ab.chunk.css",
+    "static/css/main.afca26ea.chunk.css",
     "static/js/main.18b0d359.chunk.js"
   ]
 }
