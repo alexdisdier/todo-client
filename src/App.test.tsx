@@ -2,20 +2,30 @@ import renderer from 'react-test-renderer';
 import React from 'react';
 import App from './App';
 
-const mockTasks = [
-  {
-    key: 'UL98O',
-    content: 'test',
-    isDone: true,
-    date: '2021-03-12T23:35:43.026Z'
-  },
-  {
-    key: 'dI4GC',
-    content: 'something',
-    isDone: false,
-    date: '2021-03-12T23:35:47.416Z'
-  }
-];
+const mockTasks = {
+  pending: [
+    {
+      key: 'UL98O',
+      content: 'test',
+      isDone: true,
+      date: '2021-03-12T23:35:43.026Z'
+    },
+    {
+      key: 'dI4GC',
+      content: 'something',
+      isDone: false,
+      date: '2021-03-12T23:35:47.416Z'
+    }
+  ],
+  done: [
+    {
+      key: '788844',
+      content: 'something done',
+      isDone: true,
+      date: '2021-03-12T23:35:47.416Z'
+    }
+  ]
+};
 
 export const createRenderer = (component: any, cb?: any) => {
   let tree;
@@ -27,10 +37,6 @@ export const createRenderer = (component: any, cb?: any) => {
   }
   return tree;
 };
-
-jest.mock('nanoid', () => ({
-  nanoid: jest.fn(() => 'nanoid')
-}));
 
 const mockGetItem = jest.fn();
 const mockSetItem = jest.fn();
@@ -54,12 +60,12 @@ describe('App', () => {
     it('renders an empty todo list', async () => {
       Object.defineProperty(window, 'localStorage', {
         value: {
-          getItem: jest.fn(() => '[]')
+          getItem: jest.fn(() => JSON.stringify({ pending: [], done: [] }))
         },
         writable: true
       });
 
-      const mockJSONparse = jest.fn((...args) => []);
+      const mockJSONparse = jest.fn((...args) => ({ pending: [], done: [] }));
       JSON.parse = jest
         .fn()
         .mockImplementationOnce((...args) => mockJSONparse(...args));
@@ -72,7 +78,7 @@ describe('App', () => {
       );
 
       expect(mockJSONparse).toHaveBeenCalledTimes(1);
-      expect(mockJSONparse).toHaveBeenCalledWith('[]');
+      expect(mockJSONparse).toHaveBeenCalledWith('{"pending":[],"done":[]}');
 
       expect(wrapper).toMatchInlineSnapshot(`
         <div
@@ -100,10 +106,7 @@ describe('App', () => {
     it('renders two tasks, one done, one pending', async () => {
       Object.defineProperty(window, 'localStorage', {
         value: {
-          getItem: jest.fn(
-            () =>
-              '[{"key":"UL98O","content":"test","isDone":true,"date":"2021-03-12T23:35:43.026Z"},{"key":"dI4GC","content":"something","isDone":false,"date":"2021-03-12T23:35:47.416Z"}]'
-          ),
+          getItem: jest.fn(() => JSON.stringify(mockTasks)),
           setItem: jest.fn(() => [{ key: 'key' }])
         },
         writable: true
@@ -146,8 +149,15 @@ describe('App', () => {
               onChange={[Function]}
               onDelete={[Function]}
               onDone={[Function]}
+              onDragEnd={[Function]}
               tasks={
                 Array [
+                  Object {
+                    "content": "test",
+                    "date": "2021-03-12T23:35:43.026Z",
+                    "isDone": true,
+                    "key": "UL98O",
+                  },
                   Object {
                     "content": "something",
                     "date": "2021-03-12T23:35:47.416Z",
@@ -161,13 +171,14 @@ describe('App', () => {
               onChange={[Function]}
               onDelete={[Function]}
               onDone={[Function]}
+              onDragEnd={[Function]}
               tasks={
                 Array [
                   Object {
-                    "content": "test",
-                    "date": "2021-03-12T23:35:43.026Z",
+                    "content": "something done",
+                    "date": "2021-03-12T23:35:47.416Z",
                     "isDone": true,
-                    "key": "UL98O",
+                    "key": "788844",
                   },
                 ]
               }

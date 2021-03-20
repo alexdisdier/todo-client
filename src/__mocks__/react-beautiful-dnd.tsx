@@ -1,5 +1,6 @@
 // global mock for react-beautiful-dnd
 // note: draggable and droppable takes as unique child a render function
+import React from 'react';
 
 export const DragDropContext = 'DragDropContext';
 

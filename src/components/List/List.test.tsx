@@ -75,6 +75,7 @@ describe('List', () => {
           data-is-done-tasks={false}
         >
           <Item
+            index={0}
             onChange={[MockFunction]}
             onDelete={[MockFunction]}
             onDone={[MockFunction]}
@@ -87,6 +88,7 @@ describe('List', () => {
             }
           />
           <Item
+            index={1}
             onChange={[MockFunction]}
             onDelete={[MockFunction]}
             onDone={[MockFunction]}
@@ -115,6 +117,7 @@ describe('List', () => {
           data-is-done-tasks={true}
         >
           <Item
+            index={0}
             onChange={[MockFunction]}
             onDelete={[MockFunction]}
             onDone={[MockFunction]}
@@ -127,6 +130,7 @@ describe('List', () => {
             }
           />
           <Item
+            index={1}
             onChange={[MockFunction]}
             onDelete={[MockFunction]}
             onDone={[MockFunction]}
