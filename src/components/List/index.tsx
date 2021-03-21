@@ -1,6 +1,10 @@
-import React, { FC, ChangeEvent } from 'react';
+import React, { FC, ChangeEvent, useContext } from 'react';
 
 import { Item } from '..';
+
+import SwipeableItem from './SwipeableItem';
+
+import { TodoContext } from '../../App';
 
 import { TasksDefinition } from '../../types';
 
@@ -21,18 +25,27 @@ const List: FC<Props> = ({
   onChange,
   isDoneTasks
 }) => {
+  const { isMobileAndTablet } = useContext(TodoContext);
+
   return (
     <ul className="list-wrapper" data-is-done-tasks={isDoneTasks}>
-      {items.map(({ key, content, isDone }, index) => (
-        <Item
-          key={key}
-          index={index}
-          value={{ key, content, isDone }}
-          onDelete={onDelete}
-          onDone={onDone}
-          onChange={onChange}
-        />
-      ))}
+      {items.map(({ key, content, isDone }, index) =>
+        isMobileAndTablet ? (
+          <SwipeableItem
+            key={key}
+            value={{ index, key, content, isDone, onChange, onDone, onDelete }}
+          />
+        ) : (
+          <Item
+            key={key}
+            index={index}
+            value={{ key, content, isDone }}
+            onDelete={onDelete}
+            onDone={onDone}
+            onChange={onChange}
+          />
+        )
+      )}
     </ul>
   );
 };

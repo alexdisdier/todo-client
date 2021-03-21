@@ -1,0 +1,8 @@
+.swipingTrashWrapper {
+  display: flex;
+  justify-self: center;
+  background-color: #EA3124;
+  padding-left: 24px;
+  color: #F6F6F6;
+  height: 100%;
+}

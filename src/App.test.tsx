@@ -74,7 +74,7 @@ describe('App', () => {
 
       expect(window.localStorage.getItem).toHaveBeenCalledTimes(1);
       expect(window.localStorage.getItem).toHaveBeenCalledWith(
-        'alexdisdier-tasks'
+        'alexdisdier-tasks-v1'
       );
 
       expect(mockJSONparse).toHaveBeenCalledTimes(1);
@@ -98,6 +98,9 @@ describe('App', () => {
                 value=""
               />
             </form>
+            <div
+              className="tasks-list-wrapper"
+            />
           </Container>
         </div>
       `);
@@ -121,7 +124,7 @@ describe('App', () => {
 
       expect(window.localStorage.getItem).toHaveBeenCalledTimes(1);
       expect(window.localStorage.getItem).toHaveBeenCalledWith(
-        'alexdisdier-tasks'
+        'alexdisdier-tasks-v1'
       );
 
       expect(mockJSONparse).toHaveBeenCalledTimes(1);
@@ -145,44 +148,48 @@ describe('App', () => {
                 value=""
               />
             </form>
-            <PendingTasks
-              onChange={[Function]}
-              onDelete={[Function]}
-              onDone={[Function]}
-              onDragEnd={[Function]}
-              tasks={
-                Array [
-                  Object {
-                    "content": "test",
-                    "date": "2021-03-12T23:35:43.026Z",
-                    "isDone": true,
-                    "key": "UL98O",
-                  },
-                  Object {
-                    "content": "something",
-                    "date": "2021-03-12T23:35:47.416Z",
-                    "isDone": false,
-                    "key": "dI4GC",
-                  },
-                ]
-              }
-            />
-            <DoneTasks
-              onChange={[Function]}
-              onDelete={[Function]}
-              onDone={[Function]}
-              onDragEnd={[Function]}
-              tasks={
-                Array [
-                  Object {
-                    "content": "something done",
-                    "date": "2021-03-12T23:35:47.416Z",
-                    "isDone": true,
-                    "key": "788844",
-                  },
-                ]
-              }
-            />
+            <div
+              className="tasks-list-wrapper"
+            >
+              <PendingTasks
+                onChange={[Function]}
+                onDelete={[Function]}
+                onDone={[Function]}
+                onDragEnd={[Function]}
+                tasks={
+                  Array [
+                    Object {
+                      "content": "test",
+                      "date": "2021-03-12T23:35:43.026Z",
+                      "isDone": true,
+                      "key": "UL98O",
+                    },
+                    Object {
+                      "content": "something",
+                      "date": "2021-03-12T23:35:47.416Z",
+                      "isDone": false,
+                      "key": "dI4GC",
+                    },
+                  ]
+                }
+              />
+              <DoneTasks
+                onChange={[Function]}
+                onDelete={[Function]}
+                onDone={[Function]}
+                onDragEnd={[Function]}
+                tasks={
+                  Array [
+                    Object {
+                      "content": "something done",
+                      "date": "2021-03-12T23:35:47.416Z",
+                      "isDone": true,
+                      "key": "788844",
+                    },
+                  ]
+                }
+              />
+            </div>
           </Container>
         </div>
       `);

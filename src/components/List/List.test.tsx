@@ -145,5 +145,7 @@ describe('List', () => {
         </ul>
       `);
     });
+
+    it.todo('renders a List with 2 swipeable pending tasks');
   });
 });

@@ -14,6 +14,9 @@ jest.mock('../../assets/img/circleCheck.svg', () => ({
 jest.mock('../../assets/img/trash.svg', () => ({
   ReactComponent: 'IconTrash'
 }));
+jest.mock('../../assets/img/swipingTrash.svg', () => ({
+  ReactComponent: 'IconSwipingTrash'
+}));
 
 describe('IconButton', () => {
   let props: any;
@@ -102,6 +105,23 @@ describe('IconButton', () => {
           type="button"
         >
           <IconTrash />
+        </button>
+      `);
+    });
+
+    it('an swiping icon trash button', () => {
+      props.iconName = IconEnums.SwipingTrash;
+      const wrapper = renderer.create(<IconButton {...props} />);
+
+      expect(wrapper).toMatchInlineSnapshot(`
+        <button
+          className="icon-button"
+          data-testid="some testid"
+          onClick={[MockFunction]}
+          title="some tooltip"
+          type="button"
+        >
+          <IconSwipingTrash />
         </button>
       `);
     });
