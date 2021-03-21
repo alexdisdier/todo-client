@@ -1,7 +1,8 @@
 export enum IconEnums {
   Circle = 'circle',
   CircleCheck = 'circleCheck',
-  Trash = 'trash'
+  Trash = 'trash',
+  SwipingTrash = 'swipingTrash'
 }
 
 export interface TaskDefinition {

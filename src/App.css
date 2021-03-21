@@ -11,7 +11,7 @@ body {
   --secondary-color: #ffffff;
   --color-white: #F6F6F6;
   --color-black: #000000;
-  background-color: #E5E5E5;
+  background-color: var(--color-white);
 }
 
 form {
@@ -28,6 +28,16 @@ label, input {
 .app {
   display: flex;
   flex-direction: column;
+}
+
+.tasks-list-wrapper {
+  flex: 1
+}
+
+@media only screen and (min-width: 600px) {
+  body {
+    background-color: #E5E5E5;
+  }
 }
 
 

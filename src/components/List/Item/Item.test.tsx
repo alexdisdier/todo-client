@@ -77,14 +77,6 @@ describe('Item', () => {
     it('deletes an Item when clicked on the trash icon', () => {
       const wrapper = renderer.create(<Item {...props} />);
 
-      act(() => {
-        // hover the item to reveil the trash icon button
-
-        wrapper.root
-          .findByProps({ 'data-testid': 'item-wrapper' })
-          .props.onMouseEnter();
-      });
-
       act(() =>
         // click on the trash icon
         // @ts-ignore
@@ -93,14 +85,6 @@ describe('Item', () => {
 
       expect(props.onDelete).toHaveBeenCalledTimes(1);
       expect(props.onDelete).toHaveBeenCalledWith('nanoid');
-
-      act(() => {
-        // cursor leaves the item
-
-        wrapper.root
-          .findByProps({ 'data-testid': 'item-wrapper' })
-          .props.onMouseLeave();
-      });
     });
   });
 
@@ -116,10 +100,7 @@ describe('Item', () => {
         >
           <li
             className="item"
-            data-is-hovered={false}
             data-testid="item-wrapper"
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
             otherProps="dragHandleProps"
           >
             <div
@@ -142,6 +123,16 @@ describe('Item', () => {
               >
                 content
               </span>
+            </div>
+            <div
+              className="trash"
+            >
+              <IconButton
+                iconName="trash"
+                onClick={[Function]}
+                testId="delete-task"
+                tooltip="Delete task"
+              />
             </div>
           </li>
         </div>
@@ -160,10 +151,7 @@ describe('Item', () => {
         >
           <li
             className="item"
-            data-is-hovered={false}
             data-testid="item-wrapper"
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
             otherProps="dragHandleProps"
           >
             <div
@@ -187,73 +175,19 @@ describe('Item', () => {
                 content
               </span>
             </div>
-          </li>
-        </div>
-      `);
-    });
-
-    it('an Item hovered', () => {
-      const wrapper = renderer.create(<Item {...props} />);
-
-      act(() => {
-        // hover the item to reveil the trash icon button
-        wrapper.root
-          .findByProps({ 'data-testid': 'item-wrapper' })
-          .props.onMouseEnter();
-      });
-
-      expect(wrapper).toMatchInlineSnapshot(`
-        <div
-          draggableId="nanoid"
-          id="Draggable"
-          index={0}
-        >
-          <li
-            className="item"
-            data-is-hovered={true}
-            data-testid="item-wrapper"
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            otherProps="dragHandleProps"
-          >
             <div
-              className="circle-btn-input-wrapper"
+              className="trash"
             >
-              <div
-                className="circle-btn-wrapper"
-              >
-                <IconButton
-                  iconName="circle"
-                  onClick={[Function]}
-                  testId="check-item"
-                  tooltip="Check task"
-                />
-              </div>
-              <span
-                className="input-edit-task"
-                data-testid="item"
+              <IconButton
+                iconName="trash"
                 onClick={[Function]}
-              >
-                content
-              </span>
+                testId="delete-task"
+                tooltip="Delete task"
+              />
             </div>
-            <IconButton
-              iconName="trash"
-              onClick={[Function]}
-              testId="delete-task"
-              tooltip="Delete task"
-            />
           </li>
         </div>
       `);
-
-      // cursor leaves the item
-      act(() => {
-        // hover the item to reveil the trash icon button
-        wrapper.root
-          .findByProps({ 'data-testid': 'item-wrapper' })
-          .props.onMouseLeave();
-      });
     });
   });
 });

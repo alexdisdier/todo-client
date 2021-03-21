@@ -1,17 +1,23 @@
 .item {
   display: flex;
   align-items: center;
-  padding: 4px 8px;
+  padding: 10px 8px;
   margin-bottom: 12px;
   background-color: var(--color-white);
 }
 
-.item[data-is-hovered="true"] {
+
+
+.item[data-is-mobile="false"]:hover .trash {
+  display: block;
+}
+
+.item[data-is-mobile="false"]:hover {
   background-color: rgba(255, 168, 0, 0.2);
 }
 
-.item[data-is-dragging="true"] {
-  background-color: rgba(255, 168, 0, 0.5);
+.trash {
+  display: none
 }
 
 .circle-btn-input-wrapper { 

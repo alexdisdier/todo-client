@@ -2,15 +2,14 @@ import React, {
   FC,
   useState,
   useEffect,
-  useMemo,
   useCallback,
   FormEvent,
-  ChangeEvent
+  ChangeEvent,
+  createContext
 } from 'react';
 
-import { TaskDefinition } from './types';
-
 import { addTask, editTask, checkTask, moveTask, deleteTask } from './utils';
+import mobileAndTabletCheck from './utils/mobileAndTabletCheck';
 
 import './assets/css/reset.css';
 import './App.css';
@@ -24,8 +23,10 @@ import {
   PendingTasks
 } from './components';
 
-const LOCALSTORAGE_KEY_TASKS = 'alexdisdier-tasks';
+const LOCALSTORAGE_KEY_TASKS = 'alexdisdier-tasks-v1';
 const APP_TITLE = 'To Do';
+
+export const TodoContext: any = createContext({});
 
 const App: FC = () => {
   const [input, setInput] = useState<string>('');
@@ -33,6 +34,9 @@ const App: FC = () => {
     pending: [],
     done: []
   });
+  const [isMobileAndTablet, setIsMobileAndTablet] = useState<boolean>(() =>
+    mobileAndTabletCheck()
+  );
 
   const buildTasks = useCallback((): void => {
     const localStorageTasks =
@@ -132,33 +136,60 @@ const App: FC = () => {
   };
 
   return (
-    <div className="app">
-      <Header title={APP_TITLE} />
-      <Container>
-        <form onSubmit={handleOnSubmit}>
-          <Button />
-          <Input name="input" value={input} onChange={handleOnChange} />
-        </form>
-        {tasks.pending.length > 0 && (
-          <PendingTasks
-            tasks={tasks.pending}
-            onChange={handleOnChange}
-            onDone={handleOnDoneTask}
-            onDelete={handleOnDelete}
-            onDragEnd={handleOnDragEnd}
-          />
-        )}
-        {tasks.done.length > 0 && (
-          <DoneTasks
-            tasks={tasks.done}
-            onChange={handleOnChange}
-            onDone={handleOnDoneTask}
-            onDelete={handleOnDelete}
-            onDragEnd={handleOnDragEnd}
-          />
-        )}
-      </Container>
-    </div>
+    <TodoContext.Provider
+      value={{
+        isMobileAndTablet
+      }}
+    >
+      <div className="app">
+        <Header title={APP_TITLE} />
+        <Container>
+          {!isMobileAndTablet && (
+            <form onSubmit={handleOnSubmit}>
+              <Button />
+              <Input name="input" value={input} onChange={handleOnChange} />
+            </form>
+          )}
+
+          <div className="tasks-list-wrapper">
+            {tasks.pending.length > 0 && (
+              <PendingTasks
+                tasks={tasks.pending}
+                onChange={handleOnChange}
+                onDone={handleOnDoneTask}
+                onDelete={handleOnDelete}
+                onDragEnd={handleOnDragEnd}
+              />
+            )}
+            {tasks.done.length > 0 && (
+              <DoneTasks
+                tasks={tasks.done}
+                onChange={handleOnChange}
+                onDone={handleOnDoneTask}
+                onDelete={handleOnDelete}
+                onDragEnd={handleOnDragEnd}
+              />
+            )}
+          </div>
+          {isMobileAndTablet && (
+            <form
+              onSubmit={handleOnSubmit}
+              style={{
+                borderBottom: 'unset',
+                borderTop: '1px solid #3D3D3D',
+                paddingTop: 10,
+                position: 'fixed',
+                bottom: 0,
+                backgroundColor: '#F6F6F6'
+              }}
+            >
+              <Button />
+              <Input name="input" value={input} onChange={handleOnChange} />
+            </form>
+          )}
+        </Container>
+      </div>
+    </TodoContext.Provider>
   );
 };
 

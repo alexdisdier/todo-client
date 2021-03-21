@@ -1,5 +1,13 @@
-import React, { FC, ChangeEvent, useState, useCallback } from 'react';
+import React, {
+  FC,
+  ChangeEvent,
+  useState,
+  useCallback,
+  useContext
+} from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+
+import { TodoContext } from '../../../App';
 
 import { IconEnums, TaskDefinition } from '../../types';
 
@@ -23,7 +31,8 @@ const Item: FC<Props> = ({
   onDelete
 }) => {
   const [editMode, setEditMode] = useState(false);
-  const [isHover, setIsHover] = useState(false);
+
+  const { isMobileAndTablet } = useContext(TodoContext);
 
   const toggleEditMode = useCallback(() => setEditMode(!editMode), [editMode]);
 
@@ -33,17 +42,19 @@ const Item: FC<Props> = ({
   );
 
   return (
-    <Draggable draggableId={key} index={index}>
+    <Draggable
+      draggableId={key}
+      index={index}
+      isDragDisabled={isMobileAndTablet}
+    >
       {(provided, snapshot) => (
         <li
           ref={provided.innerRef}
           data-testid="item-wrapper"
-          data-is-hovered={isHover}
           className="item"
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          data-is-mobile={isMobileAndTablet}
           data-is-dragging={snapshot.isDragging}
         >
           <div className="circle-btn-input-wrapper">
@@ -86,14 +97,15 @@ const Item: FC<Props> = ({
               </span>
             )}
           </div>
-          {isHover && (
+
+          <div className="trash">
             <IconButton
               iconName={IconEnums.Trash}
               tooltip="Delete task"
               testId="delete-task"
               onClick={() => onDelete(key)}
             />
-          )}
+          </div>
         </li>
       )}
     </Draggable>

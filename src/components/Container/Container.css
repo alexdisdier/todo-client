@@ -1,12 +1,15 @@
 .container {
+  display: flex;
+  flex-direction: column;
   overflow: scroll;
-  padding: 14px 28px;
+  padding: 0 28px 14px 28px;
   background-color: var(--color-white);
+  padding-bottom: 70px;
 }
 
 @media only screen and (min-width: 600px) {
   .container {
-    padding: 34px 48px;
+    padding: 24px 28px;
     width: 60%;
     margin: 0 auto;
     max-width: 1220px

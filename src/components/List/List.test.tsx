@@ -7,6 +7,8 @@ jest.mock('..', () => ({
   Item: 'Item'
 }));
 
+jest.mock('./SwipeableItem', () => 'SwipeableItem');
+
 describe('List', () => {
   let props: any;
 
@@ -145,5 +147,7 @@ describe('List', () => {
         </ul>
       `);
     });
+
+    it.todo('renders a List with 2 swipeable pending tasks');
   });
 });
