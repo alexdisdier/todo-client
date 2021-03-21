@@ -7,6 +7,8 @@ jest.mock('..', () => ({
   Item: 'Item'
 }));
 
+jest.mock('./SwipeableItem', () => 'SwipeableItem');
+
 describe('List', () => {
   let props: any;
 
