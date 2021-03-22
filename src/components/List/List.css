@@ -1,7 +1,7 @@
 .list-wrapper {
-  margin-top: 26px
+  margin-top: 14px;
 }
 
-.list-wrapper[data-is-done-tasks="true"] {
-  margin-top: 12px
- }
+.list-wrapper[data-is-done-tasks='true'] {
+  margin-top: 12px;
+}
