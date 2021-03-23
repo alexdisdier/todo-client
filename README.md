@@ -4,12 +4,14 @@
 
 [![codecov](https://codecov.io/gh/alexdisdier/todo-client/branch/master/graph/badge.svg)](https://codecov.io/gh/alexdisdier/todo-client)
 
-<p align="center" >
-   <a href="https://alexdisdier.github.io/todo-client/">
-    <img alt="todo list alex disdier" src="https://res.cloudinary.com/dvrkxmxkw/image/upload/v1552160814/github-screenshot-gif/todo-list.gif" width="342" height="527" />
- </a>
+![todo_browser](https://user-images.githubusercontent.com/28678511/112212685-91069500-8c1d-11eb-8523-43df9013560d.png)
 
-</p>
+<hr>
+
+![todo_responsive](https://user-images.githubusercontent.com/28678511/112212746-a5e32880-8c1d-11eb-9982-71a76ef3b54b.png)
+
+<hr>
+
 
 # Synopsis
 
@@ -17,8 +19,8 @@ This is a to do list Web Application built with React.
 
 You will find two branches:
 
-- **master** using Typescript (converted initial javascript project), propTypes and a "loading" Higher Order Component.
-- **initial-js** first version of this project
+- **master** using Typescript 
+- **initial-js** first basic version of this project
 
 ## Usage example
 
@@ -27,11 +29,11 @@ See demo - https://alexdisdier.github.io/todo-client/
 ## ✅ Functionalities
 
 - Add a task
-- Cross out a task which goes automatically at the end of the list
-- Drag and drop client side.
-- Delete a task
-- Saved to a database (mLab) via Heroku
-- Loading and error component
+- Edit
+- Check and cross out
+- Delete
+- Drag and drop
+- Mobile responsive with swiping gestures for deletion
 
 ## Running the project
 
@@ -82,8 +84,9 @@ Make sure in Semaphoreci, we're using the right node version to run a build.
 - [Create React App](https://facebook.github.io/create-react-app/docs/getting-started)
 
 ## Dependencies
-
-- [axios](https://www.npmjs.com/package/axios)
+...among others
+- [react-beautiful-dnd](https://www.npmjs.com/package/react-beautiful-dnd)
+- [react-swipeable-views](https://react-swipeable-views.com/)
 
 ## Acknowledgments
 
