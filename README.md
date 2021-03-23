@@ -63,17 +63,6 @@ Build the project
 npm run build
 ```
 
-Codecov set up:
-https://github.com/settings/installations/1865753
-
-Check validity of codecov.yml file
-
-```bash
-cat codecov.yml | curl --data-binary @- https://codecov.io/validate
-```
-
-Make sure in Semaphoreci, we're using the right node version to run a build.
-
 ## Built With
 
 - html
