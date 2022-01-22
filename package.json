@@ -37,7 +37,7 @@
     "jest-enzyme": "^7.1.2",
     "lodash": "^4.17.21",
     "lodash.template": "^4.5.0",
-    "nanoid": "^3.1.21",
+    "nanoid": "^3.1.31",
     "nyc": "^14.1.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-swipeable-views": "^0.13.9",
